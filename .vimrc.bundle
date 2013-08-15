@@ -1,0 +1,46 @@
+" NeoBundle の設定 
+if has('vim_starting')
+	set runtimepath+=~/.vim/neobundle.vim
+	call neobundle#rc(expand('~/.vim/.bundle/'))
+endif
+
+NeoBundle 'tpope/vim-rails'
+NeoBundle 'AutoClose'
+NeoBundle 'Shougo/neocomplcache'
+" NeoBundle 'EnhCommentify.vim'
+" NeoBundle 'The-NERD-tree'
+NeoBundle 'Shougo/vimfiler'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'h1mesuke/unite-outline'
+NeoBundle 'Shougo/vimshell'
+NeoBundle 'surround.vim'
+NeoBundle 'rails.vim'
+NeoBundle 'vim-coffee-script'
+NeoBundle 'fugitive.vim'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-endwise'
+NeoBundle 'tsaleh/vim-matchit'
+NeoBundle 'vim-ruby/vim-ruby'
+NeoBundle 'mattn/webapi-vim'
+NeoBundle 'mattn/mkdpreview-vim'
+NeoBundle 'kana/vim-textobj-user'
+NeoBundle 'kana/vim-textobj-line'
+NeoBundle 'tomtom/tcomment_vim'
+NeoBundle 'YankRing.vim'
+NeoBundle 'nathanaelkane/vim-indent-guides.git'
+NeoBundle 'sudo.vim'
+NeoBundle 'koron/minimap-vim'
+NeoBundle 'FuzzyFinder'
+NeoBundle 'L9'
+NeoBundle 'derekwyatt/vim-scala'
+NeoBundle 'kakkyz81/evervim'
+" NeoBundle 'git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex' 
+" NeoBundle 'scrooloose/syntastic'
+NeoBundle 'thinca/vim-quickrun'
+" NeoBundle 'Lokaltog/vim-powerline'
+" NeoBundle 'taichouchou2/alpaca_powertabline'
+NeoBundle 'Lokaltog/powerline', { 'rtp' : 'powerline/bindings/vim'}
+NeoBundle "dag/vim2hs"
+NeoBundle "ujihisa/neco-ghc"
+NeoBundle "terryma/vim-multiple-cursors"
+
