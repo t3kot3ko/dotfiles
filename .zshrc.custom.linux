@@ -1,0 +1,411 @@
+# use 256-colors mode
+alias tmux='tmux -2' 
+
+HISTFILE=$HOME/.zsh-history # 履歴の保存先
+HISTSIZE=100000             # メモリに展開する履歴の数 SAVEHIST=100000             # 保存する履歴の数
+
+# alias 
+alias ls='ls --color=auto'
+#alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+#alias vim='vi'
+#alias vimf='vim -c VimFiler -c tabnew'
+alias gg='git' ggs='git status' ggc='git commit' gga='git add' ggco='git checkout' ggb='git branch' ggp='git pull'
+alias r=rails 
+alias p=padrino
+alias ll='ls -al'
+alias rsh='rails-sh'
+alias rr="source ~/.zshrc"
+
+alias ipy="ipython"
+alias lx="ls -F -o --color | egrep \"^...x\""
+
+#autoload history-search-end
+#zle -N history-beginning-search-backward-end history-search-end
+#zle -N history-beginning-search-forward-end history-search-end
+#bindkey "^P" history-beginning-search-backward-end
+#bindkey "^N" history-beginning-search-forward-end
+
+bindkey '^p' history-beginning-search-backward
+bindkey '^n' history-beginning-search-forward
+bindkey '^R' history-incremental-pattern-search-backward
+bindkey '^S' history-incremental-pattern-search-forward
+
+# javac の文字化け対策
+alias javac="javac -J-Dfile.encoding=UTF8"
+
+# .pythonstartup
+export PYTHONSTARTUP=~/.pythonstartup
+
+# プログラマブル保管機能を有効
+autoload -U compinit && compinit
+
+# 大文字 小文字を区別せず補完する
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+## 補完候補一覧でファイルの種別をマーク表示
+setopt list_types
+
+## 色を使う
+setopt prompt_subst
+
+## 同じディレクトリを pushd しない
+setopt pushd_ignore_dups
+
+## TAB で順に補完候補を切り替える
+setopt auto_menu
+
+## zsh の開始, 終了時刻をヒストリファイルに書き込む
+setopt extended_history
+
+## コマンドのスペルチェック
+#setopt correct
+
+## 同一ホストで動いているzshで履歴を共有
+setopt share_history
+
+## ディレクトリスタックを保存 
+setopt auto_pushd
+
+## 補完候補を一覧表示
+setopt auto_list
+
+## ディレクトリ名の補完で末尾の / を自動的に付加し、次の補完に備える
+setopt auto_param_slash
+
+## ディレクトリ名だけで cd
+setopt auto_cd
+
+# 保管候補をカーソルで選択可能に
+zstyle ':completion:*:default' menu select=1
+
+## 補完候補の色づけ
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+
+# ファイル名の展開で辞書順ではなく数値的にソート
+setopt numeric_glob_sort
+
+# RVM (Rubyのバージョン管理)
+[[ -s "/Users/tomoyuki/.rvm/scripts/rvm" ]] && source "/Users/tomoyuki/.rvm/scripts/rvm"
+# septeni 用
+[[ -s "/Users/t_kamiya/.rvm/scripts/rvm" ]] && source "/Users/t_kamiya/.rvm/scripts/rvm"
+
+# Pythonbrew
+[[ -s "$HOME/.pythonbrew/etc/bashrc" ]] && source "$HOME/.pythonbrew/etc/bashrc"
+
+#Git ブランチ名を表示
+function chpwd () {
+    #_reg_pwd_screennum
+    #_color_ls
+		[ -n $TMUX ] && tmux setenv TMUXPWD_$(tmux display -p "#I") $PWD
+    _prompt_compute_vars
+}
+
+function preexec () {
+    _git_preexec_update_vars
+}
+
+
+function _git_compute_vars() {
+    export __ZSH_GIT_STATE=
+    export __ZSH_GIT_DIR=
+
+    local git_dir state branch
+
+    git_dir=$(git rev-parse --git-dir 2> /dev/null) || return
+
+    if test -d "$git_dir/../.dotest"; then
+        if test -f "$git_dir/../.dotest/rebasing"; then
+            state="rebase"
+        elif test -f "$git_dir/../.dotest/applying"; then
+            state="am"
+        else
+            state="am/rebase"
+        fi
+        branch="$(git symbolic-ref HEAD 2>/dev/null)"
+    elif test -f "$git_dir/.dotest-merge/interactive"; then
+        state="rebase-i"
+        branch="$(cat "$git_dir/.dotest-merge/head-name")"
+    elif test -d "$git_dir/.dotest-merge"; then
+        state="rebase-m"
+        branch="$(cat "$git_dir/.dotest-merge/head-name")"
+    elif test -f "$git_dir/MERGE_HEAD"; then
+        state="merge"
+        branch="$(git symbolic-ref HEAD 2>/dev/null)"
+    else
+        test -f "$git_dir/BISECT_LOG" && state="bisect"
+        branch="$(git symbolic-ref HEAD 2>/dev/null)" || \
+            branch="$(git describe --exact-match HEAD 2>/dev/null)" || \
+            branch="$(cut -c1-7 "$git_dir/HEAD")..."
+    fi
+
+    branch="${branch#refs/heads/}"
+
+    if test "$state" ; then
+        state=":$state"
+    fi
+
+   case $git_dir in 
+	   (.git)
+	   git_dir="$(pwd)/.git";;
+   esac 
+
+    export __ZSH_GIT_STATE="%{$fg[cyan]%}(${branch}${state})"
+    export __ZSH_GIT_DIR="${${git_dir:h}/$HOME/~}"
+}
+
+function _prompt_compute_vars() {
+    _git_compute_vars
+
+    local git_dir
+    git_dir=${${__ZSH_GIT_DIR}%% }
+
+    local short
+    short="${PWD/$HOME/~}"
+
+    if test -z "$git_dir" ; then
+            export __ZSH_RPROMPT_DIR="$short"
+            return
+    fi
+
+    local lead rest
+    lead=$git_dir
+    rest=${${short#$lead}#/}
+
+    export __ZSH_RPROMPT_DIR="$lead%{$fg[gray]%}/$rest"
+}
+
+function _git_preexec_update_vars() {
+    case "$(history $HISTCMD)" in 
+        (*git*) 
+		_git_compute_vars
+		;;
+    esac
+}
+
+setopt prompt_subst
+
+autoload -U colors
+
+# # 重複するディレクトリは記録しないようにする
+setopt correct
+
+# 'cd -' [Tab] で以前移動したディレクトリに移動する
+setopt pushd_ignore_dups
+
+# '^' を押すと上のディレクトリに移動する
+function cdup() {
+	echo
+	cd ..
+	zle reset-prompt
+}
+zle -N cdup
+bindkey '\^\^' cdup
+
+alias javac="javac -J-Dfile.encoding=UTF8"
+# alias ls='gls'
+alias dircolors='dircolors'
+alias ll='ls -al'
+alias rm='rm -i'
+alias tm='tmux'
+alias tma='tmux a'
+alias tml="tmux list-sessions"
+
+alias reload='clear; exec zsh -l'
+
+# cd と同時に ls
+function _xxx_ls() { ls }
+function _set_rprompt() { 
+	# PROMPT='${WINDOW:+"[$WINDOW]"}%{$fg[#gray]%}${USER}@`hostname -s`${__ZSH_GIT_STATE}%{$fg[green]%}%#%{$reset_color%} '
+	RPROMPT="[%~]" 
+}
+
+# chpwd_functions+=_xxx_ls
+# chpwd_functions+=_set_rprompt
+chpwd_functions=(_set_rprompt _xxx_ls)
+
+colors
+_prompt_compute_vars
+
+PROMPT='${WINDOW:+"[$WINDOW]"}%{$fg[#gray]%}${USER}@`hostname -s`${__ZSH_GIT_STATE}%{$fg[green]%}%#%{$reset_color%} '
+# RPROMPT='%{$fg[gray]%}[${__ZSH_RPROMPT_DIR}%{$fg[gray]%}]'
+
+fpath=(/Users/tomoyuki/.zsh-completions/src $fpath)
+autoload -U compinit && compinit
+
+# ターミナル立ち上げと同時に tmux を起動する
+is_screen_running() {
+# tscreen also uses this varariable.
+    [ ! -z "$WINDOW" ]
+}
+is_tmux_runnning() {
+    [ ! -z "$TMUX" ]
+}
+is_screen_or_tmux_running() {
+    is_screen_running || is_tmux_runnning
+}
+shell_has_started_interactively() {
+    [ ! -z "$PS1" ]
+}
+resolve_alias() {
+    cmd="$1"
+    while \
+        whence "$cmd" >/dev/null 2>/dev/null \
+        && [ "$(whence "$cmd")" != "$cmd" ]
+    do
+        cmd=$(whence "$cmd")
+    done
+    echo "$cmd"
+}
+
+
+if ! is_screen_or_tmux_running && shell_has_started_interactively; then
+		if whence peco > /dev/null 2>/dev/null; then
+			if `tmux list-sessions 2>/dev/null 1>/dev/null`; then
+				tmux attach -t $(tmux list-sessions | peco | sed -e "s/:.*//") -d
+			fi
+		else
+			for cmd in tmux tscreen screen; do
+					if whence $cmd >/dev/null 2>/dev/null; then
+							$(resolve_alias "$cmd")
+							break
+					fi
+			done
+		fi
+fi
+
+
+function _vimsudo {
+  local LAST="${words[$#words[*]]}"
+  case "${LAST}" in
+    sudo:*)
+      local BASEDIR="${LAST##sudo:}"
+      BASEDIR="${~BASEDIR}"
+      [ -d "${BASEDIR}" ] && BASEDIR="${BASEDIR%%/}/"
+      compadd -P 'sudo:' -f $(print ${BASEDIR}*) \
+      && return 0
+      ;;
+    *)
+      _vim && return 0
+      ;;
+    esac
+
+  return 1
+}
+
+sudo() {
+  local args
+  case $1 in
+    vi|vim)
+      args=()
+      for arg in $@[2,-1]
+      do
+        if [ $arg[1] = '-' ]; then
+          args[$(( 1+$#args ))]=$arg
+        else
+          args[$(( 1+$#args ))]="sudo:$arg"
+        fi
+      done
+      command vim $args
+      ;;
+    *)
+      command sudo $@
+      ;;
+  esac
+}
+
+export PYENV_ROOT="${HOME}/.pyenv"
+if [ -d "${PYENV_ROOT}" ]; then
+	export PATH=${PYENV_ROOT}/bin:$PATH
+	eval "$(pyenv init -)"
+fi
+
+# autojump
+if [ -s /home/tomoyuki/.autojump/etc/profile.d/autojump.sh ]; then
+	source /home/tomoyuki/.autojump/etc/profile.d/autojump.sh
+elif [ -s /etc/profile.d/autojump.sh ]; then
+	source /etc/profile.d/autojump.sh
+fi
+
+
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+
+show_buffer_stack() {
+	POSTDISPLAY="
+	stack: $LBUFFER"
+	zle push-line-or-edit
+}
+zle -N show_buffer_stack
+setopt noflowcontrol
+bindkey '^Q' show_buffer_stack
+
+
+# Android
+ANDROID_STUDIO_HOME=~/android-studio
+export PATH=$PATH:$ANDROID_STUDIO_HOME/bin
+export PATH=$PATH:$ANDROID_STUDIO_HOME/sdk/platform-tools
+alias studio="studio.sh &"
+
+# Golang
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+
+
+# TODO: extract OS dependent settings
+if [ `uname` = "Linux" ]; then
+	# set key-repeat for Ubuntu (GUI setting is ignored)
+	if [ $DISPLAY ]; then
+		xset r rate 230 60
+	fi
+	if [ -e $HOME/.Xmodmap ]; then
+		xmodmap $HOME/.Xmodmap
+	fi
+fi
+
+# z.sh
+if [ -e $HOME/.zz/z.sh ]; then
+	source $HOME/.zz/z.sh
+	alias j=z
+fi
+
+function peco_git_changed_files(){
+	git status --short | peco | awk '{print $2}'
+}
+
+alias -g F='$(peco_git_changed_files)'
+
+# jq
+if whence jq > /dev/null 2>/dev/null; then
+	alias jqd="jq ."
+fi
+
+# cp/mv with confirmation when overwriting
+alias cp="cp -i"
+alias mv="mv -i"
+
+alias xg="xargs grep"
+alias findf="find . -type f"
+alias findd="find . -type d"
+function finde(){
+  pattern="*.$1"
+  find . -type f -name $pattern
+}
+
+# pyenv
+if [ -d $HOME/.pyenv ]; then
+	export PYENV_ROOT=$HOME/.pyenv
+	export PATH=$PATH:$PYENV_ROOT/bin
+fi
+eval "$(pyenv init -)"
+
+# nodebrew
+if [ -d $HOME/.nodebrew/current/bin ]; then
+	export PATH=$HOME/.nodebrew/current/bin:$PATH
+fi
+
+export PATH=$PATH:~/bin
+export ANDROID_HOME=~/android-sdk-linux
+
+export JAVA_HOME=/usr/lib/jvm/java-8-oracle/
+
+alias vim="nvim"

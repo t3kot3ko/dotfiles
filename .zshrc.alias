@@ -1,0 +1,31 @@
+alias rgh='runghc'
+# alias 
+alias ls='ls --color=always'
+alias vim='vi'
+#alias vimf='vim -c VimFiler -c tabnew'
+alias gg='git' ggs='git status' ggc='git commit' gga='git add' ggco='git checkout' ggb='git branch' ggp='git pull'
+alias r=rails 
+alias p=padrino
+alias ll='ls -al'
+alias rsh='rails-sh'
+alias ex="extract"
+
+# zmv
+autoload zmv
+alias zmv="noglob zmv"
+
+alias javac="javac -J-Dfile.encoding=UTF8"
+# alias ls='gls'
+alias dircolors='dircolors'
+alias ll='ls -al'
+alias rm='rm -i'
+alias tmux='tmux -2'
+alias tm='tmux'
+alias tma='tmux a'
+
+# alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
+alias reload='clear; exec zsh -l'
+
+# javac の文字化け対策
+alias javac="javac -J-Dfile.encoding=UTF8"
+
