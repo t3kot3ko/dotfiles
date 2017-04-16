@@ -73,6 +73,8 @@ repo = "dag/vim-fish"
 repo = 'Shougo/denite.nvim'
 [[plugins]]
 repo = 'majutsushi/tagbar'
+[[plugins]]
+repo = "kassio/neoterm"
 
 # Ruby / Rails
 [[plugins]]

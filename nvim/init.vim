@@ -115,6 +115,8 @@ set wildmode=list:longest
 nnoremap j gj
 nnoremap k gk
 
+tnoremap <silent> <ESC> <C-\><C-n>
+
 nnoremap <unique> <silent> <C-S> :FufBuffer!<CR>
 nnoremap <unique> <silent> ef :FufFile!<CR>
 nnoremap <silent> eff :FufFile!<CR>
