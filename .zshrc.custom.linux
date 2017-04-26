@@ -25,10 +25,6 @@ alias lx="ls -F -o --color | egrep \"^...x\""
 #bindkey "^P" history-beginning-search-backward-end
 #bindkey "^N" history-beginning-search-forward-end
 
-bindkey '^p' history-beginning-search-backward
-bindkey '^n' history-beginning-search-forward
-bindkey '^R' history-incremental-pattern-search-backward
-bindkey '^S' history-incremental-pattern-search-forward
 
 # javac の文字化け対策
 alias javac="javac -J-Dfile.encoding=UTF8"
@@ -408,4 +404,12 @@ export ANDROID_HOME=~/android-sdk-linux
 
 export JAVA_HOME=/usr/lib/jvm/java-8-oracle/
 
+set -o vi
 alias vim="nvim"
+
+bindkey '^p' history-beginning-search-backward
+bindkey '^n' history-beginning-search-forward
+bindkey '^R' history-incremental-pattern-search-backward
+bindkey '^S' history-incremental-pattern-search-forward
+bindkey '^r' history-incremental-pattern-search-backward
+bindkey '^s' history-incremental-pattern-search-forward
