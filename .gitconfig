@@ -1,0 +1,22 @@
+[user]
+  name = Tomoyuki KAMIYA
+  email = kamiya7140@gmail.com
+[alias]
+  st = status
+  br = branch
+  co = checkout
+  cm = commit
+  l = log
+[color]
+  # automatically colored for following commands
+  status = auto
+  diff = auto
+  branch = auto
+  interactive = auto
+  grep = auto
+[core]
+  editor = vim
+[filter "lfs"]
+  clean = git-lfs clean %f
+  smudge = git-lfs smudge %f
+  required = true
