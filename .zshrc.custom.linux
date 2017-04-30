@@ -1,36 +1,35 @@
 # use 256-colors mode
 alias tmux='tmux -2' 
 
-HISTFILE=$HOME/.zsh-history # 履歴の保存先
-HISTSIZE=100000             # メモリに展開する履歴の数 SAVEHIST=100000             # 保存する履歴の数
+HISTFILE=$HOME/.zsh-history # file to save history
+HISTSIZE=100000 # the number of histories extracted into RAM
+SAVEHIST=100000 # the number of saved histories
+
+set -o vi
 
 # alias 
 alias ls='ls --color=auto'
-#alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
-#alias vim='vi'
-#alias vimf='vim -c VimFiler -c tabnew'
-alias gg='git' ggs='git status' ggc='git commit' gga='git add' ggco='git checkout' ggb='git branch' ggp='git pull'
-alias r=rails 
-alias p=padrino
 alias ll='ls -al'
-alias rsh='rails-sh'
 alias rr="source ~/.zshrc"
 
-alias ipy="ipython"
 alias lx="ls -F -o --color | egrep \"^...x\""
 
-#autoload history-search-end
-#zle -N history-beginning-search-backward-end history-search-end
-#zle -N history-beginning-search-forward-end history-search-end
-#bindkey "^P" history-beginning-search-backward-end
-#bindkey "^N" history-beginning-search-forward-end
+alias cp="cp -i"
+alias mv="mv -i"
+alias rm="rm -i"
 
-
-# javac の文字化け対策
+alias xg="xargs grep"
+alias findf="find . -type f"
+alias findd="find . -type d"
 alias javac="javac -J-Dfile.encoding=UTF8"
 
-# .pythonstartup
-export PYTHONSTARTUP=~/.pythonstartup
+alias tm='tmux'
+alias tma='tmux a'
+alias tml="tmux list-sessions"
+
+alias reload='clear; exec zsh -l'
+
+alias vim="nvim"
 
 # プログラマブル保管機能を有効
 autoload -U compinit && compinit
@@ -69,6 +68,14 @@ setopt auto_param_slash
 
 ## ディレクトリ名だけで cd
 setopt auto_cd
+setopt prompt_subst
+autoload -U colors
+
+# # 重複するディレクトリは記録しないようにする
+setopt correct
+
+# 'cd -' [Tab] で以前移動したディレクトリに移動する
+setopt pushd_ignore_dups
 
 # 保管候補をカーソルで選択可能に
 zstyle ':completion:*:default' menu select=1
@@ -78,14 +85,6 @@ zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 # ファイル名の展開で辞書順ではなく数値的にソート
 setopt numeric_glob_sort
-
-# RVM (Rubyのバージョン管理)
-[[ -s "/Users/tomoyuki/.rvm/scripts/rvm" ]] && source "/Users/tomoyuki/.rvm/scripts/rvm"
-# septeni 用
-[[ -s "/Users/t_kamiya/.rvm/scripts/rvm" ]] && source "/Users/t_kamiya/.rvm/scripts/rvm"
-
-# Pythonbrew
-[[ -s "$HOME/.pythonbrew/etc/bashrc" ]] && source "$HOME/.pythonbrew/etc/bashrc"
 
 #Git ブランチ名を表示
 function chpwd () {
@@ -177,97 +176,19 @@ function _git_preexec_update_vars() {
     esac
 }
 
-setopt prompt_subst
-
-autoload -U colors
-
-# # 重複するディレクトリは記録しないようにする
-setopt correct
-
-# 'cd -' [Tab] で以前移動したディレクトリに移動する
-setopt pushd_ignore_dups
-
-# '^' を押すと上のディレクトリに移動する
-function cdup() {
-	echo
-	cd ..
-	zle reset-prompt
-}
-zle -N cdup
-bindkey '\^\^' cdup
-
-alias javac="javac -J-Dfile.encoding=UTF8"
-# alias ls='gls'
-alias dircolors='dircolors'
-alias ll='ls -al'
-alias rm='rm -i'
-alias tm='tmux'
-alias tma='tmux a'
-alias tml="tmux list-sessions"
-
-alias reload='clear; exec zsh -l'
 
 # cd と同時に ls
 function _xxx_ls() { ls }
 function _set_rprompt() { 
-	# PROMPT='${WINDOW:+"[$WINDOW]"}%{$fg[#gray]%}${USER}@`hostname -s`${__ZSH_GIT_STATE}%{$fg[green]%}%#%{$reset_color%} '
 	RPROMPT="[%~]" 
 }
 
-# chpwd_functions+=_xxx_ls
-# chpwd_functions+=_set_rprompt
 chpwd_functions=(_set_rprompt _xxx_ls)
 
 colors
 _prompt_compute_vars
 
 PROMPT='${WINDOW:+"[$WINDOW]"}%{$fg[#gray]%}${USER}@`hostname -s`${__ZSH_GIT_STATE}%{$fg[green]%}%#%{$reset_color%} '
-# RPROMPT='%{$fg[gray]%}[${__ZSH_RPROMPT_DIR}%{$fg[gray]%}]'
-
-fpath=(/Users/tomoyuki/.zsh-completions/src $fpath)
-autoload -U compinit && compinit
-
-# ターミナル立ち上げと同時に tmux を起動する
-is_screen_running() {
-# tscreen also uses this varariable.
-    [ ! -z "$WINDOW" ]
-}
-is_tmux_runnning() {
-    [ ! -z "$TMUX" ]
-}
-is_screen_or_tmux_running() {
-    is_screen_running || is_tmux_runnning
-}
-shell_has_started_interactively() {
-    [ ! -z "$PS1" ]
-}
-resolve_alias() {
-    cmd="$1"
-    while \
-        whence "$cmd" >/dev/null 2>/dev/null \
-        && [ "$(whence "$cmd")" != "$cmd" ]
-    do
-        cmd=$(whence "$cmd")
-    done
-    echo "$cmd"
-}
-
-
-if ! is_screen_or_tmux_running && shell_has_started_interactively; then
-		if whence peco > /dev/null 2>/dev/null; then
-			if `tmux list-sessions 2>/dev/null 1>/dev/null`; then
-				tmux attach -t $(tmux list-sessions | peco | sed -e "s/:.*//") -d
-			fi
-		else
-			for cmd in tmux tscreen screen; do
-					if whence $cmd >/dev/null 2>/dev/null; then
-							$(resolve_alias "$cmd")
-							break
-					fi
-			done
-		fi
-fi
-
 
 function _vimsudo {
   local LAST="${words[$#words[*]]}"
@@ -308,22 +229,6 @@ sudo() {
   esac
 }
 
-export PYENV_ROOT="${HOME}/.pyenv"
-if [ -d "${PYENV_ROOT}" ]; then
-	export PATH=${PYENV_ROOT}/bin:$PATH
-	eval "$(pyenv init -)"
-fi
-
-# autojump
-if [ -s /home/tomoyuki/.autojump/etc/profile.d/autojump.sh ]; then
-	source /home/tomoyuki/.autojump/etc/profile.d/autojump.sh
-elif [ -s /etc/profile.d/autojump.sh ]; then
-	source /etc/profile.d/autojump.sh
-fi
-
-
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
 
 
 show_buffer_stack() {
@@ -336,16 +241,7 @@ setopt noflowcontrol
 bindkey '^Q' show_buffer_stack
 
 
-# Android
-ANDROID_STUDIO_HOME=~/android-studio
-export PATH=$PATH:$ANDROID_STUDIO_HOME/bin
-export PATH=$PATH:$ANDROID_STUDIO_HOME/sdk/platform-tools
-alias studio="studio.sh &"
-
-# Golang
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin
-
+export PATH=$PATH:~/bin
 
 # TODO: extract OS dependent settings
 if [ `uname` = "Linux" ]; then
@@ -375,41 +271,14 @@ if whence jq > /dev/null 2>/dev/null; then
 	alias jqd="jq ."
 fi
 
-# cp/mv with confirmation when overwriting
-alias cp="cp -i"
-alias mv="mv -i"
-
-alias xg="xargs grep"
-alias findf="find . -type f"
-alias findd="find . -type d"
-function finde(){
-  pattern="*.$1"
-  find . -type f -name $pattern
-}
-
-# pyenv
-if [ -d $HOME/.pyenv ]; then
-	export PYENV_ROOT=$HOME/.pyenv
-	export PATH=$PATH:$PYENV_ROOT/bin
-fi
-eval "$(pyenv init -)"
-
-# nodebrew
-if [ -d $HOME/.nodebrew/current/bin ]; then
-	export PATH=$HOME/.nodebrew/current/bin:$PATH
-fi
-
-export PATH=$PATH:~/bin
-export ANDROID_HOME=~/android-sdk-linux
-
-export JAVA_HOME=/usr/lib/jvm/java-8-oracle/
-
-set -o vi
-alias vim="nvim"
-
 bindkey '^p' history-beginning-search-backward
 bindkey '^n' history-beginning-search-forward
 bindkey '^R' history-incremental-pattern-search-backward
 bindkey '^S' history-incremental-pattern-search-forward
 bindkey '^r' history-incremental-pattern-search-backward
 bindkey '^s' history-incremental-pattern-search-forward
+
+# extract
+if $(whence extract > /dev/null); then
+	alias x=extract
+fi

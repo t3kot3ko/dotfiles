@@ -1,0 +1,75 @@
+#if __has_include(".extend.Xresources")
+#include ".extend.Xresources"
+#endif
+
+! ^ The above lines are no comments!
+! Leave them as they are if a file ~/.extend.Xresources is being used on your system.
+! config can be added there or also here below.
+! For comments use "!"
+
+Xft.dpi: 96
+Xft.antialias: true
+Xft.hinting: true
+Xft.rgba: rgb
+Xft.autohint: false
+Xft.hintstyle: hintslight
+Xft.lcdfilter: lcddefault
+
+XTerm*background: #2b2b2b
+XTerm*foreground: #e7e7e7
+XTerm*pointerColor: #16A085
+XTerm*faceName: Fixed
+XTerm*faceSize: 11
+
+! Perl extensions
+URxvt*perl-ext-common: default,matcher,resize-font,tabbed,xim-onthespot
+
+! Open URL with browser
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.matcher.button: 1
+URxvt.keysym.M-Delete: perl:matcher:list
+
+! fontsize
+URxvt.resize-font.smaller: C-minus
+URxvt.resize-font.bigger: C-equal
+URxvt.resize-font.reset: C-plus
+
+! font
+URxvt.allow_bold: false
+URxvt*font: xft:Ricty:size=13:antialias=ture
+! URxvt*font: \
+!   xft:Consolas:size=13:antialias=ture, \
+!   xft:Meiryo:size=13:antialias=ture
+
+! tranparent
+URxvt.depth: 32
+URxvt.background: [80]#000000
+
+! japanese
+URxvt*inputMethod: fcitx
+URxvt*preeditType: OhTheSpot
+
+
+! scrollbar
+URxvt*scrollBar: false
+
+! foreground
+URxvt*foreground: #d0d0d0
+
+! color
+URxvt*color0: #2E3436
+URxvt*color1: #CC0000
+URxvt*color2: #4E9A06
+URxvt*color3: #C4A000
+URxvt*color4: #3465A4
+URxvt*color5: #75507B
+URxvt*color6: #06989A
+URxvt*color7: #D3D7CF
+URxvt*color8: #555753
+URxvt*color9: #EF2929
+URxvt*color10: #8AE234
+URxvt*color11: #FCE94F
+URxvt*color12: #729FCF
+URxvt*color13: #AD7FA8
+URxvt*color14: #34E2E2
+URxvt*color15: #EEEEEC
