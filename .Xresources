@@ -1,28 +1,25 @@
-#if __has_include(".extend.Xresources")
-#include ".extend.Xresources"
-#endif
-
-! ^ The above lines are no comments!
-! Leave them as they are if a file ~/.extend.Xresources is being used on your system.
-! config can be added there or also here below.
-! For comments use "!"
-
-Xft.dpi: 96
-Xft.antialias: true
-Xft.hinting: true
-Xft.rgba: rgb
-Xft.autohint: false
-Xft.hintstyle: hintslight
-Xft.lcdfilter: lcddefault
-
-XTerm*background: #2b2b2b
-XTerm*foreground: #e7e7e7
-XTerm*pointerColor: #16A085
-XTerm*faceName: Fixed
-XTerm*faceSize: 11
-
-! Perl extensions
 URxvt*perl-ext-common: default,matcher,resize-font,tabbed,xim-onthespot
+URxvt.inputMethod: fcitx
+URxvt.preeditType: OnTheSpot
+
+! font
+! If true, it may conflict with fcitx
+!   URxvt.allow_bold: true
+URxvt.allow_bold: false 
+URxvt*font: xft:Ricty:size=13:antialias=ture
+
+! cursor
+URxvt.cursorColor: #00ff00
+! If cursorBlink: true, it may conflict with fcitx
+!   URxvt.cursorBlink: true
+
+! tranparent
+URxvt.depth: 32
+URxvt.background: [80]#000000
+
+! japanese
+URxvt*inputMethod: fcitx
+URxvt*preeditType: OhTheSpot
 
 ! Open URL with browser
 URxvt.url-launcher: /usr/bin/xdg-open
@@ -33,22 +30,6 @@ URxvt.keysym.M-Delete: perl:matcher:list
 URxvt.resize-font.smaller: C-minus
 URxvt.resize-font.bigger: C-equal
 URxvt.resize-font.reset: C-plus
-
-! font
-URxvt.allow_bold: false
-URxvt*font: xft:Ricty:size=13:antialias=ture
-! URxvt*font: \
-!   xft:Consolas:size=13:antialias=ture, \
-!   xft:Meiryo:size=13:antialias=ture
-
-! tranparent
-URxvt.depth: 32
-URxvt.background: [80]#000000
-
-! japanese
-URxvt*inputMethod: fcitx
-URxvt*preeditType: OhTheSpot
-
 
 ! scrollbar
 URxvt*scrollBar: false
@@ -73,3 +54,4 @@ URxvt*color12: #729FCF
 URxvt*color13: #AD7FA8
 URxvt*color14: #34E2E2
 URxvt*color15: #EEEEEC
+

@@ -1,0 +1,38 @@
+# Partial zshrc to build development enviroment
+
+## Android
+export ANDROID_HOME=~/android-sdk-linux
+export ANDROID_STUDIO_HOME=~/android-studio
+export PATH=$PATH:$ANDROID_STUDIO_HOME/bin
+export PATH=$PATH:$ANDROID_STUDIO_HOME/sdk/platform-tools
+alias studio="studio.sh &"
+
+## Golang
+export GOROOT=/usr/local/go
+export PATH=$PATH:$GOROOT/bin
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+
+## pyenv
+export PYENV_ROOT="${HOME}/.pyenv"
+if [ -d "${PYENV_ROOT}" ]; then
+	export PATH=${PYENV_ROOT}/bin:$PATH
+	eval "$(pyenv init -)"
+fi
+
+## rbenv
+export RBENV_ROOT="${HOME}/.rbenv"
+if [ -d "${PYENV_ROOT}" ]; then
+	export PATH=${RBENV_ROOT}/bin:$PATH
+	eval "$(rbenv init -)"
+fi
+
+## nodebrew
+if [ -d $HOME/.nodebrew/current/bin ]; then
+	export PATH=$HOME/.nodebrew/current/bin:$PATH
+fi
+
+## sdkman
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
