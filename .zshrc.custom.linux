@@ -282,3 +282,9 @@ bindkey '^s' history-incremental-pattern-search-forward
 if $(whence extract > /dev/null); then
 	alias x=extract
 fi
+
+# z
+if $(whence z > /dev/null); then
+	alias j=z
+fi
+
