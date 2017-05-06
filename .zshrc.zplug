@@ -10,6 +10,7 @@ zplug "zsh-users/zsh-completions"
 zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
 zplug "junegunn/fzf", as:command, use:bin/fzf-tmux
 zplug 'xvoland/Extract', use:'*.sh'
+zplug "rupa/z", use:"*.sh"
 
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 

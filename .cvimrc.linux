@@ -11,6 +11,10 @@ let hintcharacters = "jklasdfuiopqwerghtnmcv"
 map [[ closeTabsToLeft
 map ]] closeTabsToRight
 
+" Mac like tab transition
+map <M-[> previousTab
+map <M-]> nextTab
+
 map s :open google <Space>
 map S :tabnew google <Space>
 map h :call goBack <CR>
