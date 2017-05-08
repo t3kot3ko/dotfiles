@@ -60,7 +60,6 @@ bindsym $mod+Right focus right
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
@@ -121,29 +120,44 @@ bindsym $mod+Shift+0 move container to workspace 10
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-
 # exit i3 (logs you out of your X session)
-# NOTE: With GNOME, i3-msg exit seems not to logout, gnome-session-quit --force tries to kill session forcedly
 # bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Are you sure to logout?' -b 'Yes' 'gnome-session-quit --force'"
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Are you sure to logout?' -b 'Yes' 'gnome-session-quit --logout &'"
+bindsym $mod+Shift+l exec "lock"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        bindsym h resize shrink left 10 px or 10 ppt 
-        bindsym Shift+H resize grow left 10 px or 10 ppt 
-        bindsym j resize shrink down 10 px or 10 ppt 
-        bindsym Shift+J resize grow down 10 px or 10 ppt 
-        bindsym k resize shrink up 10 px or 10 ppt 
-        bindsym Shift+K resize grow up 10 px or 10 ppt 
-        bindsym l resize shrink right 10 px or 10 ppt 
-        bindsym Shift+L resize grow right 10 px or 10 ppt 
-
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+    bindsym h resize shrink left 10 px or 10 ppt 
+    bindsym Shift+H resize grow left 10 px or 10 ppt 
+    bindsym j resize shrink down 10 px or 10 ppt 
+    bindsym Shift+J resize grow down 10 px or 10 ppt 
+    bindsym k resize shrink up 10 px or 10 ppt 
+    bindsym Shift+K resize grow up 10 px or 10 ppt 
+    bindsym l resize shrink right 10 px or 10 ppt 
+    bindsym Shift+L resize grow right 10 px or 10 ppt 
+    
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
 
 bindsym $mod+r mode "resize"
+
+mode "movewindow" {
+    bindsym k move up 20px
+    bindsym h move left 20px
+    bindsym j move down 20px
+    bindsym l move right 20px
+    bindsym $mod+m mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+m focus floating; mode "movewindow"
+
+
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
