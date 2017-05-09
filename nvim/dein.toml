@@ -14,7 +14,7 @@ build = 'make'
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
 [[plugins]]
-repo = 'AutoClose'
+repo = 'vim-scripts/AutoClose'
 [[plugins]]
 repo = 'Shougo/neomru.vim'
 on_path = '.*'
@@ -41,7 +41,7 @@ repo = 'tpope/vim-surround'
 [[plugins]]
 repo = 'tpope/vim-endwise'
 [[plugins]]
-repo = 'surround.vim'
+repo = 'vim-scripts/surround.vim'
 [[plugins]]
 repo = "tpope/vim-repeat"
 [[plugins]]
@@ -75,16 +75,20 @@ repo = 'Shougo/denite.nvim'
 repo = 'majutsushi/tagbar'
 [[plugins]]
 repo = "kassio/neoterm"
+[[plugins]]
+repo = "junegunn/fzf"
+[[plugins]]
+repo = "junegunn/fzf.vim"
 
 # Ruby / Rails
 [[plugins]]
 repo = 'tpope/vim-rails'
 [[plugins]]
-repo = 'ruby-matchit'
+repo = 'vim-scripts/ruby-matchit'
 [[plugins]]
 repo = 'vim-ruby/vim-ruby'
 [[plugins]]
-repo = 'rails.vim'
+repo = 'vim-scripts/rails.vim'
 [[plugins]]
 repo = 'tpope/vim-rails'
 
