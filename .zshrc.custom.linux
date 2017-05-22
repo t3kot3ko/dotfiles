@@ -288,68 +288,8 @@ if $(whence z > /dev/null); then
 	alias j=z
 fi
 
-# peco
-## ghq
-function peco-src () {
-  local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
-  if [ -n "$selected_dir" ]; then
-    BUFFER="cd ${selected_dir}"
-    zle accept-line
-  fi
-  zle clear-screen
-}
-zle -N peco-src
-bindkey '^]' peco-src
+# fzf
+if $(whence fzf > /dev/null) && [ -e $HOME/.zshrc.fzf  ]; then
+	source $HOME/.zshrc.fzf
+fi
 
-## Select git branch (global alias)
-### local branches
-alias -g B='`git branch | peco | sed -e "s/^\*[ ]*//g"`'
-### all branches (including remote branches)
-alias -g BB='`git branch -a | peco | sed -e "s/^\*[ ]*//g"`'
-
-## Select history
-function peco-select-history() {
-    BUFFER=$(fc -l -r -n 1 | peco --query "$LBUFFER")
-    CURSOR=$#BUFFER
-    zle redisplay
-}
-zle -N peco-select-history
-bindkey '^r' peco-select-history
-
-## Find file
-function peco-find-file() {
-    if git rev-parse 2> /dev/null; then
-        source_files=$(git ls-files)
-    else
-        source_files=$(find . -type f)
-    fi
-    selected_files=$(echo $source_files | peco --prompt "[find files]")
-
-    # BUFFER="${BUFFER}${echo $selected_files | tr '\n' ' '}"
-    BUFFER="${BUFFER}${echo $selected_files}"
-    CURSOR=$#BUFFER
-    zle redisplay
-}
-zle -N peco-find-file
-bindkey '^q' peco-find-file
-
-## SSH
-#
-function peco-ssh () {
-	local selected_host=$(awk '
-	tolower($1)=="host" {
-		for (i=2; i<=NF; i++) {
-			if ($i !~ "[*?]") {
-				print $i
-			}
-		}
-	}
-  ' ~/.ssh/config | sort | peco --query "$LBUFFER")
-	if [ -n "$selected_host" ]; then
-		BUFFER="ssh ${selected_host}"
-		zle accept-line
-	fi
-	zle clear-screen
-}
-zle -N peco-ssh
-bindkey '^\' peco-ssh
