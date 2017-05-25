@@ -28,14 +28,15 @@ bindkey '^r' fzf-select-history
 ## Find file
 function fzf-find-file() {
     if git rev-parse 2> /dev/null; then
-        source_files=$(git ls-files)
+        command="git ls-files"
     else
-        source_files=$(find . -type f)
+        command="find . -type f"
     fi
-    selected_files=$(echo $source_files | fzf --prompt "Files > ")
+    # selected_files=$(echo $source_files | fzf --prompt "Files > ")
+    selected_files=$(eval $command | fzf --prompt "Files > ")
 
     # BUFFER="${BUFFER}${echo $selected_files | tr '\n' ' '}"
-    BUFFER="${BUFFER}${echo $selected_files}"
+    BUFFER="${BUFFER}$selected_files"
     CURSOR=$#BUFFER
     zle redisplay
 }
