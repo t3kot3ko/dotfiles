@@ -93,13 +93,13 @@ unbind y
 bind y copy-mode
 
 # begin-selection
-bind -t vi-copy v begin-selection
+bind-key -Tcopy-mode-vi "v" send -X begin-selection
 
 # copy-selection (end of selection)
-bind -t vi-copy y copy-selection
+bind-key -Tcopy-mode-vi "y" send -X copy-selection-and-cancel
 
 # copy-line
-bind -t vi-copy Y copy-line
+bind-key -Tcopy-mode-vi "Y" send -X copy-line
 
 # paste-buffer
 unbind p
