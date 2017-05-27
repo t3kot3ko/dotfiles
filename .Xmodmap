@@ -1,2 +1,7 @@
+clear lock
+clear control
+keycode 66 = Control_L
+add control = Control_L Control_R
+
 keycode 47 = colon semicolon colon semicolon
 keycode 48 = quotedbl apostrophe quotedbl apostrophe
