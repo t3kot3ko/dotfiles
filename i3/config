@@ -30,7 +30,7 @@ font pango:Ricty 11
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Shift+Return exec i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -129,6 +129,7 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 # bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Are you sure to logout?' -b 'Yes' 'gnome-session-quit --force &'"
 bindsym $mod+Shift+z exec "lock"
+bindsym $mod+Tab exec "rofi -show window"
 
 # Make the currently focused window a scratchpad
 bindsym $mod+Shift+minus move scratchpad
@@ -175,8 +176,8 @@ bindsym $mod+m focus floating; mode "movewindow"
 bar {
 				position top
         status_command i3status
-				font pango:Ricty 15px
-				strip_workspace_numbers no
+				font pango:Ricty 20px
+				strip_workspace_numbers yes
 				tray_output primary
 }
 
