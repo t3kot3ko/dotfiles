@@ -12,8 +12,8 @@ map [[ closeTabsToLeft
 map ]] closeTabsToRight
 
 " Mac like tab transition
-map <M-[> previousTab
-map <M-]> nextTab
+map <A-[> previousTab
+map <A-]> nextTab
 
 map s :open google <Space>
 map S :tabnew google <Space>

@@ -211,7 +211,7 @@ function _vimsudo {
 sudo() {
   local args
   case $1 in
-    vi|vim)
+    vi|vim|nvim)
       args=()
       for arg in $@[2,-1]
       do
@@ -221,7 +221,7 @@ sudo() {
           args[$(( 1+$#args ))]="sudo:$arg"
         fi
       done
-      command vim $args
+      command nvim $args
       ;;
     *)
       command sudo $@
