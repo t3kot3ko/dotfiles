@@ -293,3 +293,10 @@ if $(whence fzf > /dev/null) && [ -e $HOME/.zshrc.fzf  ]; then
 	source $HOME/.zshrc.fzf
 fi
 
+# ssh
+function ssh() {
+	local window_name=$(tmux display -p '#{window_name}')
+	command ssh $@
+	tmux rename-window $window_name
+}
+
