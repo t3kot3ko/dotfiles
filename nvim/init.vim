@@ -100,7 +100,7 @@ set list
 set hlsearch
 set laststatus=2
 set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
-set clipboard=unnamed
+set clipboard=
 set showtabline=2			" Always shows tabs (even when only one file is opening)
 
 " Backup / swap
@@ -133,6 +133,9 @@ let g:jedi#rename_command = ""
 
 " Python でコメントを入力するとき，行頭に戻らないように
 autocmd FileType python inoremap # X#
+
+" ctags (to avoid conflict between tmux escape-sequence)
+nnoremap <C-[> <C-t>
 
 " Rename
 command! -nargs=+ -bang -complete=file Rename let pbnr=fnamemodify(bufname('%'), ':p')|exec 'f '.escape(<q-args>, ' ')|w<bang>|call delete(pbnr)

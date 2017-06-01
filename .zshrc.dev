@@ -3,9 +3,15 @@
 ## Android
 export ANDROID_HOME=~/android-sdk-linux
 export ANDROID_STUDIO_HOME=~/android-studio
-export PATH=$PATH:$ANDROID_STUDIO_HOME/bin
-export PATH=$PATH:$ANDROID_STUDIO_HOME/sdk/platform-tools
-alias studio="studio.sh &"
+
+if [ -d $ANDROID_HOME ]; then
+	export PATH=$PATH:$ANDROID_HOME/tools
+	export PATH=$PATH:$ANDROID_HOME/platform-tools
+elif [ -d $ANDROID_STUDIO_HOME ]; then
+	export PATH=$PATH:$ANDROID_STUDIO_HOME/bin
+	export PATH=$PATH:$ANDROID_STUDIO_HOME/sdk/platform-tools
+	alias studio="studio.sh &"
+fi
 
 ## Golang
 export GOROOT=/usr/local/go

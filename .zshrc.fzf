@@ -62,5 +62,18 @@ function fzf-ssh () {
 	zle clear-screen
 }
 zle -N fzf-ssh
-bindkey '^\' fzf-ssh
+bindkey '^s' fzf-ssh
+
+
+## Select history
+function fzf-kill() {
+    BUFFER=$(ps aux | fzf -m | awk '{print $2}' | xargs kill -9)
+    CURSOR=$#BUFFER
+    zle redisplay
+}
+zle -N fzf-kill
+bindkey '^k' fzf-kill
+
+alias -g ADB='`adb devices | grep -v "List of devices" | egrep -v "^\s*$" | fzf --prompt="Device ID>"  | sed "s/device//g"`'
+
 
