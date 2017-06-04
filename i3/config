@@ -29,6 +29,8 @@ font pango:Ricty 11
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+focus_follows_mouse no
+
 # start a terminal
 bindsym $mod+Shift+Return exec i3-sensible-terminal
 
@@ -189,3 +191,4 @@ exec --no-startup-id parcellite
 exec --no-startup-id volumeicon
 exec --no-startup-id "feh --bg-scale $HOME/.config/i3/wallpaper.jpg"
 exec --no-startup-id compton -cbm 0.75
+exec --no-startup-id xcape
