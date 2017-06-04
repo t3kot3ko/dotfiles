@@ -1,0 +1,44 @@
+general {
+	output_format = "i3bar"
+	colors = true
+	interval = 1
+	# color_good = "#ffffff"
+	# color_bad = "#4499ff"
+	color_separator = "#ff0000"
+}
+
+order += "cpu_usage"
+order += "disk /"
+order += "wireless wlp4s0"
+# order += "ipv6"
+order += "battery 0"
+order += "tztime local"
+
+wireless wlp4s0 {
+	format_up = "AP:%essid|IP:%ip"
+}
+
+cpu_usage {
+	format = "CPU:%usage"
+}
+
+disk "/" {
+	format = "Disk:%avail"
+}
+
+battery 0 {
+        # format = "%status %percentage (%remaining)"
+        format = "%status %percentage"
+        format_down = "No battery"
+        status_chr = "⚡ CHR"
+        status_bat = "🔋 BAT"
+        status_unk = "? UNK"
+        status_full = "☻ FULL"
+        path = "/sys/class/power_supply/BAT%d/uevent"
+        low_threshold = 10
+}
+
+tztime local {
+        #format = "%d %b %Y %H:%M"
+        format = "%Y/%m/%d %H:%M:%S"
+}
