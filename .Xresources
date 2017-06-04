@@ -27,7 +27,9 @@ URxvt.preeditType: OnTheSpot
 ! If true, it may conflict with fcitx
 !   URxvt.allow_bold: true
 URxvt.allow_bold: false 
-URxvt*font: xft:Consolas:size=13:antialias=ture
+URxvt*font: \
+  xft:Consolas:size=13:antialias=ture, \
+  xft:Ricty:size=13:antialias=ture
 
 ! cursor
 URxvt.cursorColor: #00ff00
