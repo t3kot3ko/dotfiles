@@ -75,10 +75,10 @@ repo = 'Shougo/denite.nvim'
 repo = 'majutsushi/tagbar'
 [[plugins]]
 repo = "kassio/neoterm"
-[[plugins]]
-repo = "junegunn/fzf"
-[[plugins]]
-repo = "junegunn/fzf.vim"
+# [[plugins]]
+# repo = "junegunn/fzf"
+# [[plugins]]
+# repo = "junegunn/fzf.vim"
 
 # Ruby / Rails
 [[plugins]]
@@ -102,6 +102,10 @@ on_ft = "go"
 [[plugins]]
 repo = "fatih/vim-go"
 on_ft = "go"
+
+# C/C++
+[[plugins]]
+repo = "justmao945/vim-clang"
 
 # Git
 [[plugins]]
