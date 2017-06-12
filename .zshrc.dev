@@ -13,6 +13,11 @@ elif [ -d $ANDROID_STUDIO_HOME ]; then
 	alias studio="studio.sh &"
 fi
 
+### NDK
+if [ -d $HOME/android-ndk-linux ]; then
+	export PATH=$PATH:$HOME/android-ndk-linux
+fi
+
 ## Golang
 export GOROOT=/usr/local/go
 export PATH=$PATH:$GOROOT/bin

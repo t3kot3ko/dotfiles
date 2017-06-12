@@ -164,6 +164,9 @@ if has('vim_starting') && dein#check_install()
 	call dein#install()
 endif
 
+call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 }) 
+call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
+
 let g:go_higlight_functions = 1
 let g:go_higlight_methods = 1
 let g:go_higlight_structs = 1
