@@ -7,3 +7,5 @@ source ~/.zshrc.custom
 
 source ~/.zshrc.zplug
 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
