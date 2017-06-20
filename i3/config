@@ -171,6 +171,17 @@ mode "movewindow" {
 
 bindsym $mod+m focus floating; mode "movewindow"
 
+mode "xrandr" {
+	  bindsym x exec --no-startup-id "xrandr --output HDMI1 --off", mode "default"
+		bindsym o exec --no-startup-id "xrandr --output HDMI1 --mode 1920x1080 --right-of eDP1", mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym F12 focus floating; mode "xrandr"
+
 # Hybrid colors
 set $black	#002B36
 set $white	#839496
@@ -217,6 +228,7 @@ exec --no-startup-id volumeicon
 # exec --no-startup-id "feh --bg-scale $HOME/.config/i3/wallpaper.jpg"
 exec --no-startup-id compton -cbm 0.75
 exec --no-startup-id xcape
+exec --no-startup-id unclutter
 
 exec --no-startup-id xset -b
 exec --no-startup-id xcape
