@@ -1,3 +1,6 @@
+## Use fzf-tmux instead of fzf
+alias fzf=fzf-tmux
+
 ## ghq
 function fzf-src () {
   local selected_dir=$(ghq list -p | fzf --query "$LBUFFER")
