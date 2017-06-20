@@ -66,7 +66,6 @@ command TN tabnew
 nnoremap <C-g><C-g> :Unite tab<CR>
 
 
-colorscheme desert
 
 
 " let $NVIM_TUI_ENABLE_TRUE_COLOR=1
