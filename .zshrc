@@ -6,4 +6,6 @@ source ~/.zshrc.custom
 [ -e ~/.zshrc.dev ] && source ~/.zshrc.dev
 [ -e ~/.zshrc.fzf ] && source ~/.zshrc.fzf
 
+[ -e ~/.zshrc.local ] && source ~/.zshrc.local
+
 source ~/.zshrc.zplug
