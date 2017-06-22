@@ -2,7 +2,6 @@ source ~/.zplug/init.zsh
 
 zplug "mollifier/anyframe"
 zplug "mollifier/cd-gitroot"
-# zplug "b4b4r07/enhancd", use:enhancd.sh
 zplug "hchbaw/opp.zsh", hook-build:"__zsh_version 5.0.8"
 zplug "zsh-users/zsh-history-substring-search", hook-build:"__zsh_version 4.3"
 zplug "zsh-users/zsh-completions"
@@ -10,7 +9,8 @@ zplug "zsh-users/zsh-completions"
 zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
 zplug "junegunn/fzf", as:command, use:bin/fzf-tmux
 zplug 'xvoland/Extract', use:'*.sh'
-zplug "rupa/z", use:"*.sh"
+
+zplug "b4b4r07/enhancd", use:enhancd.sh
 
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
@@ -22,3 +22,4 @@ if zplug check "zsh-users/zsh-history-substring-search"; then
     bindkey '^N' history-substring-search-down
 fi
 
+export ENHANCD_DISABLE_HOME=1
