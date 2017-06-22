@@ -1,3 +1,4 @@
+source ~/.zshrc.zplug
 source ~/.zshrc.custom
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -8,4 +9,3 @@ source ~/.zshrc.custom
 
 [ -e ~/.zshrc.local ] && source ~/.zshrc.local
 
-source ~/.zshrc.zplug
