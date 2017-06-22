@@ -67,15 +67,15 @@ setopt auto_list
 setopt auto_param_slash
 
 ## ディレクトリ名だけで cd
-setopt auto_cd
-setopt prompt_subst
-autoload -U colors
+# setopt auto_cd
+# setopt prompt_subst
+# autoload -U colors
 
 # # 重複するディレクトリは記録しないようにする
 setopt correct
 
 # 'cd -' [Tab] で以前移動したディレクトリに移動する
-setopt pushd_ignore_dups
+# setopt pushd_ignore_dups
 
 # 保管候補をカーソルで選択可能に
 zstyle ':completion:*:default' menu select=1

@@ -1,5 +1,5 @@
-source ~/.zshrc.zplug
 source ~/.zshrc.custom
+source ~/.zshrc.zplug
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -e ~/.zshrc.alias ] && source ~/.zshrc.alias
