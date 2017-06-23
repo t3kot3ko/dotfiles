@@ -184,8 +184,6 @@ function _set_rprompt() {
 }
 
 chpwd_functions=(_set_rprompt _xxx_ls)
-
-colors
 _prompt_compute_vars
 
 PROMPT='${WINDOW:+"[$WINDOW]"}%{$fg[#gray]%}${USER}@`hostname -s`${__ZSH_GIT_STATE}%{$fg[green]%}%#%{$reset_color%} '
