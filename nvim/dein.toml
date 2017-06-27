@@ -84,6 +84,8 @@ repo = "kassio/neoterm"
 # repo = "junegunn/fzf"
 # [[plugins]]
 # repo = "junegunn/fzf.vim"
+[[plugins]]
+repo = "vim-scripts/gtags.vim"
 
 # Ruby / Rails
 [[plugins]]

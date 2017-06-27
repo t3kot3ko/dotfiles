@@ -136,6 +136,12 @@ autocmd FileType python inoremap # X#
 " ctags (to avoid conflict between tmux escape-sequence)
 nnoremap <C-[> <C-t>
 
+" gtags
+map <C-h> :Gtags -f %<CR>
+map <C-j> :GtagsCursor<CR>
+map <C-n> :cn<CR>
+map <C-p> :cp<CR>
+
 " Rename
 command! -nargs=+ -bang -complete=file Rename let pbnr=fnamemodify(bufname('%'), ':p')|exec 'f '.escape(<q-args>, ' ')|w<bang>|call delete(pbnr)
 
