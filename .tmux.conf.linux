@@ -172,5 +172,3 @@ bind X kill-pane
 # Kill window
 unbind K
 bind K confirm-before "kill-window"
-unbind k
-bind k confirm-before "kill-window"
