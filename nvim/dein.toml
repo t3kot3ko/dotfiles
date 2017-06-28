@@ -9,7 +9,7 @@ repo = 'Shougo/context_filetype.vim'
 repo = 'cespare/vim-toml'
 on_ft = 'toml'
 [[plugins]] # Color scheme (c.f. http://qiita.com/kawaz/items/ee725f6214f91337b42b)
-repo = 'dracula/vim'
+repo = 't3kot3ko/dracula-vim'
 hook_add = '''
 au MyAutoCmd VimEnter * nested colorscheme dracula
 '''
@@ -86,6 +86,13 @@ repo = "kassio/neoterm"
 # repo = "junegunn/fzf.vim"
 [[plugins]]
 repo = "vim-scripts/gtags.vim"
+
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+hook_add = '''
+map <A-n> :NERDTreeToggle<CR>
+'''
+
 
 # Ruby / Rails
 [[plugins]]
