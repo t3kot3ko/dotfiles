@@ -18,6 +18,8 @@ bindkey '^]' fzf-src
 alias -g B='`git branch | fzf | sed -e "s/^\*[ ]*//g"`'
 ### all branches (including remote branches)
 alias -g BB='`git branch -a | fzf | sed -e "s/^\*[ ]*//g"`'
+### list modified files
+alias -g F='`git status --short | fzf -m | cut -d" " -f3`'
 
 ## Select history
 function fzf-select-history() {

@@ -252,29 +252,17 @@ if [ `uname` = "Linux" ]; then
 	fi
 fi
 
-# z.sh
-if [ -e $HOME/.zz/z.sh ]; then
-	source $HOME/.zz/z.sh
-	alias j=z
-fi
-
-function peco_git_changed_files(){
-	git status --short | peco | awk '{print $2}'
-}
-
-alias -g F='$(peco_git_changed_files)'
-
-# jq
-if whence jq > /dev/null 2>/dev/null; then
-	alias jqd="jq ."
-fi
-
 bindkey '^p' history-beginning-search-backward
 bindkey '^n' history-beginning-search-forward
 bindkey '^R' history-incremental-pattern-search-backward
 bindkey '^S' history-incremental-pattern-search-forward
 bindkey '^r' history-incremental-pattern-search-backward
 bindkey '^s' history-incremental-pattern-search-forward
+
+# jq
+if whence jq > /dev/null 2>/dev/null; then
+	alias jqd="jq ."
+fi
 
 # extract
 if $(whence extract > /dev/null); then
@@ -284,11 +272,6 @@ fi
 # z
 if $(whence z > /dev/null); then
 	alias j=z
-fi
-
-# fzf
-if $(whence fzf > /dev/null) && [ -e $HOME/.zshrc.fzf  ]; then
-	source $HOME/.zshrc.fzf
 fi
 
 # ssh
