@@ -48,6 +48,18 @@ function fzf-find-file() {
 zle -N fzf-find-file
 bindkey '^q' fzf-find-file
 
+function fzf-ls-file() {
+    # selected_files=$(echo $source_files | fzf --prompt "Files > ")
+    selected_files=$(ls  | fzf --prompt "Files > ")
+
+    # BUFFER="${BUFFER}${echo $selected_files | tr '\n' ' '}"
+    BUFFER="${BUFFER}$selected_files"
+    CURSOR=$#BUFFER
+    zle redisplay
+}
+zle -N fzf-ls-file
+bindkey '^l^s' fzf-ls-file
+
 ## Find directory
 function fzf-find-dir() {
     selected_dirs=$(find . -type d | fzf --prompt "Dirs > ")
@@ -90,7 +102,7 @@ function fzf-kill() {
     zle redisplay
 }
 zle -N fzf-kill
-bindkey '^k' fzf-kill
+bindkey '^k^k' fzf-kill
 
 alias -g ADB='`adb devices | grep -v "List of devices" | egrep -v "^\s*$" | fzf --prompt="Device ID>"  | sed "s/device//g"`'
 
