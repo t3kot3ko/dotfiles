@@ -31,6 +31,8 @@ alias reload='clear; exec zsh -l'
 
 alias vim="nvim"
 
+alias d="cd"
+
 # プログラマブル保管機能を有効
 autoload -U compinit && compinit
 
