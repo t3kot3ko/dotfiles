@@ -7,3 +7,7 @@ export XMODIFIERS=@im=fcitx
 export DefaultIMModule=fcitx
 
 xcape -e "Control_L=Escape"
+
+# Disable touchpad
+xinput disable "SynPS/2 Synaptics TouchPad"
+
