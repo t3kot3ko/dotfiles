@@ -4,12 +4,6 @@ clear control
 keycode 66 = Control_L
 add control = Control_L Control_R
 
-! Disable arrow keys
-keycode 111 = 
-keycode 113 = 
-keycode 116 = 
-keycode 114 = 
-
 ! Disable PgUp/PgDn
 keycode 112 = 
 keycode 117 = 
