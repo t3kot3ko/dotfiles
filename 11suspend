@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# /etc/pm/sleep.d/11suspend
+
+case $1 in
+	hibernate)
+		echo "Hey guy, we are going to suspend to disk!"
+		;;
+	suspend)
+		echo "Oh, this time we're doing a suspend to RAM. Cool!"
+		;;
+	thaw|resume)
+		echo "oh, suspend is over, we are in $1 phase..."
+		# Set Display #
+		DISPLAY=:1 ; export DISPLAY
+		# /bin/su tomoyuki -c "sleep 3; /usr/bin/xmodmap /home/tomoyuki/.Xmodmap" &
+		# /bin/su tomoyuki -c "sleep 3; /usr/bin/xset r rate 200 30" &
+		# /bin/su tomoyuki -c "sleep 3; /usr/bin/xset -b" &
+		"sleep 3; /usr/bin/xmodmap /home/tomoyuki/.Xmodmap" &
+		"sleep 3; /usr/bin/xset r rate 200 30" &
+		"sleep 3; /usr/bin/xset -b" &
+		;;
+	*)  echo "somebody is calling me totally wrong."
+		;;
+esac
