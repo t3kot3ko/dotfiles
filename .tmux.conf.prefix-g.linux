@@ -92,14 +92,26 @@ bind A command-prompt "rename-window %%"
 unbind y
 bind y copy-mode
 
+# For newer version
+# # begin-selection
+# bind-key -T copy-mode-vi "v" send -X begin-selection
+# 
+# # copy-selection (end of selection)
+# bind-key -T copy-mode-vi "y" send -X copy-selection-and-cancel
+# 
+# # copy-line
+# bind-key -T copy-mode-vi "Y" send -X copy-line
+
+# For older version
 # begin-selection
-bind-key -Tcopy-mode-vi "v" send -X begin-selection
+bind-key -t vi-copy v begin-selection
 
 # copy-selection (end of selection)
-bind-key -Tcopy-mode-vi "y" send -X copy-selection-and-cancel
+bind-key -t vi-copy y copy-selection
 
 # copy-line
-bind-key -Tcopy-mode-vi "Y" send -X copy-line
+bind-key -t vi-copy Y copy-line
+
 
 # paste-buffer
 unbind p
