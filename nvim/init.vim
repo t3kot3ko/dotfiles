@@ -63,7 +63,7 @@ nnoremap <silent> t8 :<C-u>tabnext 8<CR>
 nnoremap <silent> t9 :<C-u>tabnext 9<CR>
 nnoremap <silent> t0 :<C-u>tabnext 10<CR>
 command TN tabnew
-nnoremap <C-g><C-g> :Unite tab<CR>
+nnoremap <C-l><C-l> :Unite tab<CR>
 
 
 
