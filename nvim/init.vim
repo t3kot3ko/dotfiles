@@ -99,7 +99,7 @@ set list
 set hlsearch
 set laststatus=2
 set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
-set clipboard=
+set clipboard=unnamed,unnamedplus
 set showtabline=2			" Always shows tabs (even when only one file is opening)
 
 " Backup / swap
