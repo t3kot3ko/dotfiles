@@ -261,6 +261,13 @@ bindkey '^S' history-incremental-pattern-search-forward
 bindkey '^r' history-incremental-pattern-search-backward
 bindkey '^s' history-incremental-pattern-search-forward
 
+if [[ $(uname) == "Linux" ]]; then
+	if $(whence xdg-open >/dev/null); then
+		alias open=xdg-open
+	fi
+fi
+
+
 # jq
 if whence jq > /dev/null 2>/dev/null; then
 	alias jqd="jq ."

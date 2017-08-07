@@ -138,6 +138,9 @@ bindsym $mod+Tab exec "rofi -show window"
 # Make the currently focused window a scratchpad
 bindsym $mod+Shift+minus move scratchpad
 
+# Disable embedded keyboard
+bindsym $mod+Control+k exec "xinput disable 'AT Translated Set 2 keyboard'"
+
 # Show the first scratchpad window
 bindsym $mod+minus scratchpad show
 
@@ -232,7 +235,7 @@ exec --no-startup-id dunst
 exec --no-startup-id parcellite
 exec --no-startup-id volumeicon
 # exec --no-startup-id "feh --bg-scale $HOME/.config/i3/wallpaper.jpg"
-exec --no-startup-id compton -cbm 0.75
+exec --no-startup-id compton -cbm 0.9
 exec --no-startup-id xcape
 exec --no-startup-id unclutter
 
