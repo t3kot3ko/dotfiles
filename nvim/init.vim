@@ -34,6 +34,8 @@ let g:deoplete#omni#input_patterns.ruby = ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::']
 let g:deoplete#omni#input_patterns.go = ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::']
 let g:deoplete#omni#input_patterns.java = '[^. *\t]\.\w*'
 let g:deoplete#omni#input_patterns.php = '\w+|[^. \t]->\w*|\w+::\w*'
+
+let g:monster#completion#rcodetools#backend = "async_rct_complete"
 "}}}
 
 " Python
