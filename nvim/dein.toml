@@ -126,6 +126,8 @@ repo = 'tpope/vim-rails'
 [[plugins]]
 repo = "Shougo/deoplete-rct"
 on_ft = "rb"
+[[plugins]]
+repo = "osyo-manga/vim-monster"
 
 # Golang
 [[plugins]]
