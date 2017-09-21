@@ -166,6 +166,28 @@ on_ft = "python"
 repo = "davidhalter/jedi-vim"
 on_ft = "python"
 
+# JavaScript/Nodejs
+[[plugins]]
+repo = "myhere/vim-nodejs-complete"
+on_ft = "js"
+hook_add = '''
+let g:nodejs_complete_config = {
+			\  'js_compl_fn': 'jscomplete#CompleteJS',
+			\  'max_node_compl_len': 15
+			\}
+'''
+
+[[plugins]]
+repo = "pangloss/vim-javascript"
+on_ft = "js"
+[[plugins]]
+repo = "marijnh/tern_for_vim"
+on_ft = "js"
+
+
+# NeoBundle "jelera/vim-javascript-syntax"
+# NeoBundle "moll/vim-node"
+
 # # General
 # 
 # 
@@ -226,9 +248,6 @@ on_ft = "python"
 # 
 # NeoBundle "stephpy/vim-yaml"
 # 
-# " node / JS
-# NeoBundle "jelera/vim-javascript-syntax"
-# NeoBundle "moll/vim-node"
 # 
 # NeoBundle "glidenote/memolist.vim"
 # 
