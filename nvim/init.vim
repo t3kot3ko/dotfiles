@@ -143,7 +143,11 @@ autocmd FileType python inoremap # X#
 nnoremap <C-[> <C-t>
 
 " gtags
+"" list functions defined in a file
 map <C-h> :Gtags -f %<CR>
+"" jump location where the cursor is referred to
+map <C-k> :Gtags -r <C-r><C-w><CR>
+"" jump to the definition
 map <C-j> :GtagsCursor<CR>
 map <C-n> :cn<CR>
 map <C-p> :cp<CR>
