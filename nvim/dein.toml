@@ -154,6 +154,9 @@ repo = "plasticboy/vim-markdown"
 repo = "kannokanno/previm"
 [[plugins]]
 repo = "tyru/open-browser.vim"
+[[plugins]]
+repo = "dhruvasagar/vim-table-mode"
+on_ft = "markdown"
 
 # Python
 [[plugins]]
