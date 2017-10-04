@@ -14,8 +14,9 @@ elif [ -d $ANDROID_STUDIO_HOME ]; then
 fi
 
 ### NDK
-if [ -d $HOME/android-ndk-linux ]; then
-	export PATH=$PATH:$HOME/android-ndk-linux
+export ANDROID_NDK_HOME=/opt/android-ndk-linux
+if [ -d $ANDROID_NDK_HOME ]; then
+	export PATH=$PATH:$ANDROID_NDK_HOME
 fi
 
 ## Golang
