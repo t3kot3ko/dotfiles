@@ -1,6 +1,6 @@
 " lightline.vim
 let g:lightline = {
-        \ 'colorscheme': 'wombat',
+        \ 'colorscheme': 'Dracula',
         \ 'mode_map': {'c': 'NORMAL'},
         \ 'active': {
         \   'left': [
