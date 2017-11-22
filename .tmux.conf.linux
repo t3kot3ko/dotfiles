@@ -77,12 +77,14 @@ bind C-t last-window
 # Previous window (^p)
 unbind ^P
 bind ^P previous-window
+bind [ previous-window
 
 # Next window (N, n)
 unbind ^N
 bind ^N next-window
 unbind n
 bind n next-window
+bind ] next-window
 
 # Rename window (A)
 unbind A
