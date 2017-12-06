@@ -1,0 +1,84 @@
+# Set the prefix to ^T.
+unbind C-b
+set -g prefix ^T
+bind t send-prefix
+
+set-window-option -g mode-keys vi
+set-window-option -g automatic-rename off
+
+set -s escape-time 0
+setw -g window-status-current-attr underscore
+
+# Create new window
+unbind ^C
+bind ^C new-window -n zsh
+bind c new-window -n zsh
+
+# Detach
+unbind ^D
+bind ^D detach
+
+# displays *
+unbind *
+bind * list-clients
+
+# Jump to last window t
+unbind C-t
+bind C-t last-window
+
+# Previous window (^p)
+unbind ^P
+bind ^P previous-window
+bind [ previous-window
+
+# Next window (N, n)
+unbind ^N
+bind ^N next-window
+unbind n
+bind n next-window
+bind ] next-window
+
+# Split horizontally
+unbind ^S
+bind ^S  split-window -v -c "#{pane_current_path}"
+
+# Split vertically
+unbind ^V
+bind ^V  split-window -h -c "#{pane_current_path}"
+
+# Resize pane
+bind < resize-pane -L 200
+bind > resize-pane -R 200
+bind - resize-pane -D 100
+bind + resize-pane -U 100
+bind -r h resize-pane -L 8
+bind -r l resize-pane -R 8
+bind -r j resize-pane -D 2
+bind -r k resize-pane -U 2
+bind -r s swap-pane -U
+
+# Rename window (A)
+unbind A
+bind A command-prompt "rename-window %%"
+
+# copy-mode y
+unbind y
+bind y copy-mode
+
+# begin-selection
+bind-key -Tcopy-mode-vi "v" send -X begin-selection
+
+# copy-selection (end of selection)
+bind-key -Tcopy-mode-vi "y" send -X copy-selection-and-cancel
+
+# copy-line
+bind-key -Tcopy-mode-vi "Y" send -X copy-line
+
+# tpm plugins
+set -g @plugin "tmux-plugins/tpm"
+set -g @plugin "tmux-plugins/tmux-sensible"
+set -g @plugin "tmux-plugins/tmux-sidebar"
+set -g @plugin "t3kot3ko/tmux-airline-dracula"
+
+
+run "~/.tmux/plugins/tpm/tpm"
