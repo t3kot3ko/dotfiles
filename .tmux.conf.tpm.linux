@@ -22,6 +22,16 @@ bind ^D detach
 unbind *
 bind * list-clients
 
+# Select pane
+unbind ^J
+bind ^J select-pane -D
+unbind ^K
+bind ^K select-pane -U
+unbind ^H
+bind ^H select-pane -L
+unbind ^L
+bind ^L select-pane -R
+
 # Jump to last window t
 unbind C-t
 bind C-t last-window
@@ -74,11 +84,18 @@ bind-key -Tcopy-mode-vi "y" send -X copy-selection-and-cancel
 # copy-line
 bind-key -Tcopy-mode-vi "Y" send -X copy-line
 
+# paste-buffer
+unbind p
+bind p paste-buffer
+
+# Shared clipboard
+bind-key > save-buffer ~/.tmux-buffer \; run-shell 'xsel -b -i < ~/.tmux-buffer' \; display-message "Copied to clipboard." 
+bind-key < if-shell 'xsel -b -o > ~/.tmux-buffer' 'load-buffer ~/.tmux-buffer ; paste-buffer'
+
 # tpm plugins
 set -g @plugin "tmux-plugins/tpm"
 set -g @plugin "tmux-plugins/tmux-sensible"
 set -g @plugin "tmux-plugins/tmux-sidebar"
 set -g @plugin "t3kot3ko/tmux-airline-dracula"
-
 
 run "~/.tmux/plugins/tpm/tpm"
