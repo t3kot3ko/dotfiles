@@ -15,7 +15,7 @@ XTerm*faceName: Fixed
 XTerm*faceSize: 11
 
 
-URxvt*perl-ext-common: default,matcher,resize-font,tabbed,xim-onthespot
+URxvt*perl-ext-common: default,matcher,resize-font,xim-onthespot
 ! NOTE: urxvt-resize-font-git should be installed for resize-font
 URxvt.inputMethod: fcitx
 URxvt.preeditType: OnTheSpot
