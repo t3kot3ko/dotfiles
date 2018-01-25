@@ -182,10 +182,10 @@ let g:nodejs_complete_config = {
 
 [[plugins]]
 repo = "pangloss/vim-javascript"
-on_ft = "js"
+on_ft = "javascript"
 [[plugins]]
 repo = "marijnh/tern_for_vim"
-on_ft = "js"
+on_ft = "javascript"
 
 
 # NeoBundle "jelera/vim-javascript-syntax"
