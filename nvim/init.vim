@@ -34,7 +34,8 @@ let g:deoplete#omni#input_patterns.ruby = ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::']
 let g:deoplete#omni#input_patterns.go = ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::']
 let g:deoplete#omni#input_patterns.java = '[^. *\t]\.\w*'
 let g:deoplete#omni#input_patterns.php = '\w+|[^. \t]->\w*|\w+::\w*'
-let g:deoplete#omni#input_patterns.js = ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::']
+" let g:deoplete#omni#input_patterns.javascript = ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::']
+let g:deoplete#omni#input_patterns.javascript = ''
 
 let g:deoplete#omni#functions = {}
 let g:deoplete#omni#functions.javascript = ['tern#Complete', 'jspc#omni']
@@ -69,7 +70,7 @@ nnoremap <silent> t8 :<C-u>tabnext 8<CR>
 nnoremap <silent> t9 :<C-u>tabnext 9<CR>
 nnoremap <silent> t0 :<C-u>tabnext 10<CR>
 command TN tabnew
-nnoremap <C-l><C-l> :Unite tab<CR>
+nnoremap <C-g><C-g> :Unite tab<CR>
 
 
 
