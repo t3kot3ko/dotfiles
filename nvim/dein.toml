@@ -113,6 +113,8 @@ map <A-n> :NERDTreeToggle<CR>
 repo = 'rking/ag.vim'
 [[plugins]]
 repo = "justinmk/vim-dirvish"
+[[plugins]]
+repo = 'Shougo/vimfiler'
 
 # Ruby / Rails
 [[plugins]]
@@ -203,7 +205,6 @@ on_ft = "javascript"
 # NeoBundle 'Shougo/neosnippet'
 # NeoBundle 'Shougo/neosnippet-snippets'
 # NeoBundle 'EnhCommentify.vim'
-# NeoBundle 'Shougo/vimfiler'
 # NeoBundle 'Shougo/vimshell'
 # NeoBundle 'Shougo/vimproc', {
 #       \ 'build' : {
