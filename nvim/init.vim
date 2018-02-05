@@ -134,6 +134,8 @@ let g:fuf_mrufile_exclude = '\v\~$|\.bak$|\.swp|\.howm$'
 let g:fuf_mrufile_maxItem = 2000
 let g:fuf_enumeratingLimit = 20
 
+nnoremap <silent> ff :Unite file_mru<CR>
+
 " pythonのrename用のマッピングがquickrunとかぶるため回避させる
 let g:jedi#rename_command = ""
 

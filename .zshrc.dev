@@ -2,11 +2,16 @@
 
 ## Android
 export ANDROID_HOME=/opt/android-sdk-linux
+export ANDROID_NDK_HOME=/opt/android-ndk-linux
 export ANDROID_STUDIO_HOME=/opt/android-studio
 
 if [ -d $ANDROID_HOME ]; then
 	export PATH=$PATH:$ANDROID_HOME/tools
 	export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+	# Latest build-tools
+	latest=$(ls ${ANDROID_HOME}/build-tools | tail -n1)
+	export PATH=$PATH:${ANDROID_HOME}/build-tools/${latest}
 elif [ -d $ANDROID_STUDIO_HOME ]; then
 	export PATH=$PATH:$ANDROID_STUDIO_HOME/bin
 	export PATH=$PATH:$ANDROID_STUDIO_HOME/sdk/platform-tools
