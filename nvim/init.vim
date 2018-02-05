@@ -31,11 +31,12 @@ let g:deoplete#sources._ = []
 
 let g:deoplete#omni#input_patterns = {}
 let g:deoplete#omni#input_patterns.ruby = ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::']
+" let g:deoplete#omni#input_patterns.ruby = "."
 let g:deoplete#omni#input_patterns.go = ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::']
 let g:deoplete#omni#input_patterns.java = '[^. *\t]\.\w*'
 let g:deoplete#omni#input_patterns.php = '\w+|[^. \t]->\w*|\w+::\w*'
 " let g:deoplete#omni#input_patterns.javascript = ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::']
-let g:deoplete#omni#input_patterns.javascript = ''
+let g:deoplete#omni#input_patterns.javascript = '\.'
 
 let g:deoplete#omni#functions = {}
 let g:deoplete#omni#functions.javascript = ['tern#Complete', 'jspc#omni']
