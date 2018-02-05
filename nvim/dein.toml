@@ -111,6 +111,8 @@ map <A-n> :NERDTreeToggle<CR>
 '''
 [[plugins]]
 repo = 'rking/ag.vim'
+[[plugins]]
+repo = "justinmk/vim-dirvish"
 
 # Ruby / Rails
 [[plugins]]
@@ -146,6 +148,8 @@ repo = "justmao945/vim-clang"
 repo = "tpope/vim-fugitive"
 [[plugins]]
 repo = "tpope/vim-git"
+[[plugins]]
+repo = "lambdalisue/gina.vim"
 
 # Markdown
 [[plugins]]
