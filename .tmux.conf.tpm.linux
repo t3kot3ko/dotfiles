@@ -14,6 +14,16 @@ unbind ^C
 bind ^C new-window -n zsh
 bind c new-window -n zsh
 
+# inactive/active window styles
+set -g window-style 'fg=colour247,bg=colour236'
+set -g window-active-style 'fg=colour250,bg=black'
+ 
+# pane border
+ set -g pane-border-bg colour235
+ set -g pane-border-fg colour238
+ set -g pane-active-border-bg colour236
+ set -g pane-active-border-fg colour51
+
 # Detach
 unbind ^D
 bind ^D detach
@@ -67,7 +77,7 @@ bind -r j resize-pane -D 2
 bind -r k resize-pane -U 2
 bind -r s swap-pane -U
 
-# Rename window (A)
+# Rename window
 unbind A
 bind A command-prompt "rename-window %%"
 
