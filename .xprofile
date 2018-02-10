@@ -11,3 +11,5 @@ xcape -e "Control_L=Escape"
 # Disable touchpad
 xinput disable "SynPS/2 Synaptics TouchPad"
 
+# Albert scaling
+export QT_SCALE_FACTOR=1
