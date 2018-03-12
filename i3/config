@@ -226,8 +226,6 @@ bar {
 		}
 }
 
-for_window [window_role="pop-up"] floating enable
-
 # Startup apps
 # exec --no-startup-id nm-applet
 exec --no-startup-id dunst
@@ -242,3 +240,10 @@ exec --no-startup-id unclutter
 exec --no-startup-id xset -b
 exec --no-startup-id xcape
 exec --no-startup-id xset r rate 200 30
+
+
+exec --no-startup-id "urxvt"
+for_window [class="urxvt"] move scratchpad, move position 0 0, resize set 1366 768;
+bindsym F1 [class="urxvt"] scratchpad show;
+for_window [window_role="pop-up"] floating enable
+for_window [class="Blueman-manager"] floating enable

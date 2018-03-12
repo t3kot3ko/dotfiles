@@ -18,6 +18,11 @@ repo = 'Shougo/vimproc.vim'
 build = 'make'
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
+hook_add = '''
+imap <C-e>     <Plug>(neosnippet_expand_or_jump)
+smap <C-e>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-e>     <Plug>(neosnippet_expand_target)
+'''
 [[plugins]]
 repo = 'vim-scripts/AutoClose'
 [[plugins]]
@@ -37,7 +42,6 @@ on_i = 1
 on_ft = ['snippet']
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
-on_i = 1
 [[plugins]]
 repo = 'Shougo/unite.vim'
 depends = 'neomru.vim'
@@ -147,6 +151,8 @@ repo = 'rking/ag.vim'
 repo = "justinmk/vim-dirvish"
 [[plugins]]
 repo = 'Shougo/vimfiler'
+[[plugins]]
+repo = 'neomake/neomake'
 
 # Ruby / Rails
 [[plugins]]
@@ -162,8 +168,8 @@ repo = 'tpope/vim-rails'
 [[plugins]]
 repo = "Shougo/deoplete-rct"
 on_ft = "rb"
-[[plugins]]
-repo = "osyo-manga/vim-monster"
+# [[plugins]]
+# repo = "osyo-manga/vim-monster"
 
 # Golang
 [[plugins]]
@@ -225,6 +231,11 @@ on_ft = "javascript"
 repo = "marijnh/tern_for_vim"
 on_ft = "javascript"
 
+# TypeScript
+[[plugins]]
+repo = "mhartington/nvim-typescript"
+[[plugins]]
+repo = "HerringtonDarkholme/yats.vim"
 
 # NeoBundle "jelera/vim-javascript-syntax"
 # NeoBundle "moll/vim-node"
