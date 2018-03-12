@@ -30,25 +30,25 @@ let g:deoplete#sources = {}
 let g:deoplete#sources._ = []
 
 let g:deoplete#omni#input_patterns = {}
-let g:deoplete#omni#input_patterns.ruby = ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::']
-" let g:deoplete#omni#input_patterns.ruby = "."
+let g:deoplete#omni#input_patterns.ruby = "."
 let g:deoplete#omni#input_patterns.go = ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::']
 let g:deoplete#omni#input_patterns.java = '[^. *\t]\.\w*'
 let g:deoplete#omni#input_patterns.php = '\w+|[^. \t]->\w*|\w+::\w*'
 " let g:deoplete#omni#input_patterns.javascript = ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::']
 let g:deoplete#omni#input_patterns.javascript = '\.'
+let g:deoplete#omni#input_patterns.typescript = '\.'
 
 let g:deoplete#omni#functions = {}
 let g:deoplete#omni#functions.javascript = ['tern#Complete', 'jspc#omni']
 
 let g:monster#completion#rcodetools#backend = "async_rct_complete"
+" let g:monster#completion#solargraph#backend = "async_solargraph_suggest"
+" let g:monster#completion#backend = 'solargraph'
 "}}}
 
 " Python
-" let g:python3_host_prog = expand("$HOME") . "/.pyenv/shims/python"
-
-" Use globally installed python (i.e. not pyenv)
-let g:python_host_prog = "/usr/local/bin/python"
+let python3_host_prog = $PYENV_ROOT . "/shims/python3"
+let python_host_prog = $PYENV_ROOT . "/shims/python2"
 
 " Tab
 nnoremap <Space>t t
@@ -148,7 +148,7 @@ nnoremap <C-[> <C-t>
 
 " gtags
 "" list functions defined in a file
-map <C-h> :Gtags -f %<CR>
+" map <C-h> :Gtags -f %<CR>
 "" jump location where the cursor is referred to
 map <C-k> :Gtags -r <C-r><C-w><CR>
 "" jump to the definition
