@@ -24,8 +24,13 @@ map A :call createBookmark <CR>
 map @ :togglepin<CR>
 map u lastClosedTab
 
+" Scroll
 map <C-f> scrollPageDown
 map <C-b> scrollPageUp
+map <C-S-h> scrollLeft
+map <C-S-l> scrollRight
+
+
 map <C-n> nextTab
 map <C-p> previousTab
 
@@ -34,7 +39,6 @@ map tt :tabnew<Space>
 map tn :tabnew <Space>
 map td :tabdetach <CR>
 map ta :tabattach <Space>
-map d closeTab
 
 map <C-S-ESC> insertMode
 
