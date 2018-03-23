@@ -33,6 +33,9 @@ alias vim="nvim"
 
 alias d="cd"
 
+alias _="sudo"
+alias __="command"
+
 # プログラマブル保管機能を有効
 autoload -U compinit && compinit
 
