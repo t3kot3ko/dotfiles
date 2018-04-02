@@ -60,6 +60,16 @@ httpRequest({url: 'http://api.ipify.org/?format=json', json: true},
 " Displays your public IP address in the status bar
 map ci :call getIP<CR>
 
+" Copy page title to clipboard
+copyPageTitle() -> {{
+  RUNTIME('getRootUrl', function(url) {
+    let ret = document.title;
+    Clipboard.copy(ret);
+    Status.setMessage(ret, 2);
+  });
+}}
+map yt :call copyPageTitle<CR>
+
 showTime() -> {{
 	Status.setMessage("test")
 }}
