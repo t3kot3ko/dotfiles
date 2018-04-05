@@ -159,6 +159,24 @@ map <C-p> :cp<CR>
 " Rename
 command! -nargs=+ -bang -complete=file Rename let pbnr=fnamemodify(bufname('%'), ':p')|exec 'f '.escape(<q-args>, ' ')|w<bang>|call delete(pbnr)
 
+" dirvish
+augroup dirvish_config
+	autocmd!
+
+	" Map `t` to open in new tab.
+	autocmd FileType dirvish
+				\  nnoremap <silent><buffer> t :call dirvish#open('tabedit', 0)<CR>
+				\ |xnoremap <silent><buffer> t :call dirvish#open('tabedit', 0)<CR>
+
+	" Map `gr` to reload.
+	autocmd FileType dirvish nnoremap <silent><buffer>
+				\ gr :<C-U>Dirvish %<CR>
+
+	" Map `gh` to hide dot-prefixed files.  Press `R` to "toggle" (reload).
+	autocmd FileType dirvish nnoremap <silent><buffer>
+				\ gh :silent keeppatterns g@\v/\.[^\/]+/?$@d _<cr>
+augroup END
+
 " dein settings {{{
 " ===== Install dein itself =====
 let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
