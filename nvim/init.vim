@@ -47,8 +47,8 @@ let g:monster#completion#rcodetools#backend = "async_rct_complete"
 "}}}
 
 " Python
-let python3_host_prog = $PYENV_ROOT . "/shims/python3"
-let python_host_prog = $PYENV_ROOT . "/shims/python2"
+let python3_host_prog = $PYENV_ROOT . "/versions/neovim3/bin/python"
+let python_host_prog  = $PYENV_ROOT . "/versions/neovim2/bin/python"
 
 " Tab
 nnoremap <Space>t t
