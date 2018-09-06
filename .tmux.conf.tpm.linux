@@ -102,6 +102,31 @@ bind p paste-buffer
 bind-key > save-buffer ~/.tmux-buffer \; run-shell 'xsel -b -i < ~/.tmux-buffer' \; display-message "Copied to clipboard." 
 bind-key < if-shell 'xsel -b -o > ~/.tmux-buffer' 'load-buffer ~/.tmux-buffer ; paste-buffer'
 
+# Faster command sequence
+set -s escape-time 0
+
+# {n}vim compability
+set -g default-terminal "xterm-256color"
+
+# Set title
+set -g set-titles on
+set -g set-titles-string "#T"
+
+# Equally resize all panes
+bind-key = select-layout even-horizontal
+bind-key | select-layout even-vertical
+
+# Start windows and pane numbering with index 1 instead of 0
+set -g base-index 1
+setw -g pane-base-index 1
+
+# re-number windows when one is closed
+set -g renumber-windows on
+
+# highlight window when it has new activity
+setw -g monitor-activity on
+set -g visual-activity on
+
 # tpm plugins
 set -g @plugin "tmux-plugins/tpm"
 set -g @plugin "tmux-plugins/tmux-sensible"

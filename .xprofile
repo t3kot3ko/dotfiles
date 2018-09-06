@@ -11,6 +11,13 @@ xcape -e "Control_L=Escape" -t 100
 # Disable touchpad
 xinput disable "SynPS/2 Synaptics TouchPad"
 
+# Adjust trackpoint speed
+# (larger value makes speed slow)
+if $(xinput | grep TrackPoint > /dev/null); then
+	id=$(xinput | grep TrackPoint | sed -r "s/^.*id=([0-9]+).*$/\1/")
+	xinput set-prop $id 142 1 0 0 0 1 0 0 0 2.5
+fi
+
 # Albert scaling
 export QT_SCALE_FACTOR=1
 

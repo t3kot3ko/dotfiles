@@ -1,38 +1,19 @@
 # Start tmux at the same time when new shell session starts
 
-is_screen_running() {
-# tscreen also uses this varariable.
-    [ ! -z "$WINDOW" ]
-}
-
-is_tmux_runnning() {
-    [ ! -z "$TMUX" ]
-}
-
-is_screen_or_tmux_running() {
-    is_screen_running || is_tmux_runnning
-}
-
-shell_has_started_interactively() {
-    [ ! -z "$PS1" ]
-}
-
-resolve_alias() {
-    cmd="$1"
-    while \
-        whence "$cmd" >/dev/null 2>/dev/null \
-        && [ "$(whence "$cmd")" != "$cmd" ]
-    do
-        cmd=$(whence "$cmd")
-    done
-    echo "$cmd"
-}
-
-if ! is_screen_or_tmux_running && shell_has_started_interactively; then
-    for cmd in tmux tscreen screen; do
-        if whence $cmd >/dev/null 2>/dev/null; then
-            $(resolve_alias "$cmd")
-            break
-        fi
-    done
+if [[ ! -n $TMUX && $- == *l* ]]; then
+  # get the IDs
+  ID="`tmux list-sessions`"
+  if [[ -z "$ID" ]]; then
+    tmux new-session
+  fi
+  create_new_session="Create New Session"
+  ID="$ID\n${create_new_session}:"
+  ID="`echo $ID | fzf | cut -d: -f1`"
+  if [[ "$ID" = "${create_new_session}" ]]; then
+    tmux new-session
+  elif [[ -n "$ID" ]]; then
+    tmux attach-session -t "$ID"
+  else
+    :  # Start terminal normally
+  fi
 fi
