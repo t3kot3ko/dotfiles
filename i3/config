@@ -232,7 +232,7 @@ exec --no-startup-id dunst
 # exec --no-startup-id fcitx
 exec --no-startup-id parcellite
 exec --no-startup-id volumeicon
-# exec --no-startup-id "feh --bg-scale $HOME/.config/i3/wallpaper.jpg"
+exec --no-startup-id "feh --bg-scale $HOME/.config/i3/wallpaper.jpg"
 exec --no-startup-id compton -cbm 0.9
 exec --no-startup-id xcape
 exec --no-startup-id unclutter
@@ -240,6 +240,30 @@ exec --no-startup-id unclutter
 exec --no-startup-id xset -b
 exec --no-startup-id xcape
 exec --no-startup-id xset r rate 200 30
+
+### THEME ###
+
+set $FOCUS #989898
+set $UNFOCUS #3c3b37
+
+## Layout colors 	    bord 	bg 		text    indicator (split)
+client.focused 			$FOCUS $FOCUS $FOCUS $FOCUS
+client.focused_inactive $UNFOCUS $UNFOCUS $UNFOCUS $UNFOCUS
+client.unfocused 		$UNFOCUS $UNFOCUS $UNFOCUS $UNFOCUS
+client.urgent 			$FOCUS $FOCUS $FOCUS $FOCUS
+client.background 		$UNFOCUS
+
+### Borders ###
+new_window pixel 4
+new_float pixel 4
+
+focus_follows_mouse no
+### Gaps ###
+set $default_gaps_inner 12
+set $default_gaps_outer 0
+gaps inner $default_gaps_inner
+gaps outer $default_gaps_outer
+
 
 
 exec --no-startup-id "urxvt"

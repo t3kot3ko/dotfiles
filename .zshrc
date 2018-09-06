@@ -5,6 +5,7 @@ source ~/.zshrc.custom
 [ -e ~/.zshrc.alias ] && source ~/.zshrc.alias
 [ -e ~/.zshrc.tmp ] && source ~/.zshrc.tmp
 [ -e ~/.zshrc.dev ] && source ~/.zshrc.dev
+[ -e ~/.zshrc.tmux ] && source ~/.zshrc.tmux
 
 # fzf
 if $(whence fzf > /dev/null) && [ -e $HOME/.zshrc.fzf  ]; then
