@@ -17,3 +17,7 @@ keycode 47 = colon semicolon Left Left
 keycode 48 = quotedbl apostrophe Right Right
 keycode 34 = bracketleft braceleft Up Up
 keycode 61 = slash question Down Down
+
+! Disable Left-Ctrl key (which was originally mapped to send XF86WakeUp 
+! keyevent causing to start Filer)
+keycode 151 = NoSymbol
