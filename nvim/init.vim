@@ -39,7 +39,19 @@ let g:deoplete#omni#input_patterns.javascript = '\.'
 let g:deoplete#omni#input_patterns.typescript = '\.'
 
 let g:deoplete#omni#functions = {}
-let g:deoplete#omni#functions.javascript = ['tern#Complete', 'jspc#omni']
+let g:deoplete#omni#functions.javascript = ["LanguageClient#complete"]
+
+" Automatically start language servers.
+let g:LanguageClient_autoStart = 1
+
+" Minimal LSP configuration for JavaScript
+let g:LanguageClient_serverCommands = {}
+let g:LanguageClient_serverCommands.javascript = ['javascript-typescript-stdio']
+" Use LanguageServer for omnifunc completion
+autocmd FileType javascript setlocal omnifunc=LanguageClient#complete
+
+nnoremap gh :call LanguageClient#textDocument_hover() <CR>
+
 
 let g:monster#completion#rcodetools#backend = "async_rct_complete"
 " let g:monster#completion#solargraph#backend = "async_solargraph_suggest"
