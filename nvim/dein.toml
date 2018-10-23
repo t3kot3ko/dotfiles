@@ -225,6 +225,11 @@ let g:nodejs_complete_config = {
 '''
 
 [[plugins]]
+repo = 'autozimu/LanguageClient-neovim'
+rev = 'next'
+build = 'bash install.sh'
+
+[[plugins]]
 repo = "pangloss/vim-javascript"
 on_ft = "javascript"
 [[plugins]]
