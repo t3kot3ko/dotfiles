@@ -13,6 +13,17 @@ function fzf-src () {
 zle -N fzf-src
 bindkey '^]' fzf-src
 
+function fzf-src-show () {
+  local selected_dir=$(ghq list -p | fzf --query "$LBUFFER")
+  if [ -n "$selected_dir" ]; then
+    BUFFER="${selected_dir}"
+    # zle accept-line
+  fi
+  zle clear-screen
+}
+zle -N fzf-src-show
+bindkey '^G^R' fzf-src-show
+
 ## Select git branch (global alias)
 ### local branches
 alias -g B='`git branch | fzf | sed -e "s/^\*[ ]*//g"`'
