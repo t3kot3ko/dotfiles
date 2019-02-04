@@ -26,9 +26,8 @@ if [ -d $ANDROID_NDK_HOME ]; then
 fi
 
 ## Golang
-export GOROOT=/usr/local/go
+export GOPATH=$HOME/Projects
 export PATH=$PATH:$GOROOT/bin
-export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 
 ## anyenv
