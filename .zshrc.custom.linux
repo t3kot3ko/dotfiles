@@ -31,7 +31,13 @@ alias reload='clear; exec zsh -l'
 
 alias vim="nvim"
 
+if $(whence bat >/dev/null); then
+	alias b="bat"
+else
+	alias b="cat"
+fi
 alias d="cd"
+alias l="less"
 
 alias _="sudo"
 alias __="command"
@@ -193,46 +199,6 @@ _prompt_compute_vars
 
 PROMPT='${WINDOW:+"[$WINDOW]"}%{$fg[#gray]%}${USER}@`hostname -s`${__ZSH_GIT_STATE}%{$fg[green]%}%#%{$reset_color%} '
 
-function _vimsudo {
-  local LAST="${words[$#words[*]]}"
-  case "${LAST}" in
-    sudo:*)
-      local BASEDIR="${LAST##sudo:}"
-      BASEDIR="${~BASEDIR}"
-      [ -d "${BASEDIR}" ] && BASEDIR="${BASEDIR%%/}/"
-      compadd -P 'sudo:' -f $(print ${BASEDIR}*) \
-      && return 0
-      ;;
-    *)
-      _vim && return 0
-      ;;
-    esac
-
-  return 1
-}
-
-sudo() {
-  local args
-  case $1 in
-    vi|vim|nvim)
-      args=()
-      for arg in $@[2,-1]
-      do
-        if [ $arg[1] = '-' ]; then
-          args[$(( 1+$#args ))]=$arg
-        else
-          args[$(( 1+$#args ))]="sudo:$arg"
-        fi
-      done
-      command nvim $args
-      ;;
-    *)
-      command sudo $@
-      ;;
-  esac
-}
-
-
 
 show_buffer_stack() {
 	POSTDISPLAY="
@@ -292,4 +258,3 @@ function ssh() {
 	command ssh $@
 	tmux rename-window $window_name
 }
-

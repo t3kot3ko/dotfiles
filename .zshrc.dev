@@ -37,6 +37,10 @@ if [ -d "${ANYENV_ROOT}" ]; then
 	eval "$(anyenv init -)"
 fi
 
+## direnv
+if $(whence direnv > /dev/null); then
+	eval "$(direnv hook zsh)"
+fi
 
 ## Java
 export JAVA_HOME=/usr/lib/jvm/java-10-jdk
