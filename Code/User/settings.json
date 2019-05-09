@@ -1,0 +1,95 @@
+{
+    // Editor
+    "editor.fontSize": 16,
+    // "editor.tabCompletion": true,
+    "editor.autoIndent": true,
+    "editor.minimap.enabled": false,
+    "editor.insertSpaces": true,
+
+    // Suggestion
+    // 入力中にクイック候補を表示するかどうかを制御します
+    "editor.quickSuggestions": true,
+    // 'Tab' キーに加えて 'Enter' キーで候補を受け入れるかどうかを制御します。改行の挿入や候補の反映の間であいまいさを解消するのに役立ちます。
+    "editor.acceptSuggestionOnEnter": true,
+    // クイック候補が表示されるまでの待ち時間 (ミリ秒) を制御します
+    "editor.quickSuggestionsDelay": 10,
+    // 単語ベースの修正候補を有効にします。
+    "editor.wordBasedSuggestions": true,
+    // パラメーター ヒントを有効にする
+    "editor.parameterHints": true,
+
+    "editor.fontFamily": "'Consolas', 'Meiryo', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "editor.renderWhitespace": "boundary",
+    "editor.cursorStyle": "block",
+
+    // Terminal
+    "terminal.integrated.fontSize": 14,
+    "terminal.integrated.fontFamily": "Consolas",
+
+    "solargraph.commandPath": "/home/tomoyuki/.rbenv/shims/solargraph",
+
+    "explorer.confirmDelete": false,
+    "files.trimTrailingWhitespace": true,
+
+    // VSCode Vim
+    "vim.leader": "\\", "vim.enableNeovim": true,
+    "vim.neovimPath": "/usr/bin/nvim",
+    "vim.ignorecase": true,
+    "vim.autoindent": true,
+    "vim.hlsearch": true,
+    "vim.incsearch": true,
+    "vim.useCtrlKeys": true,
+    "vim.useSystemClipboard": true,
+    "vim.cmdLineInitialColon": true,
+    "vim.easymotion": true,
+    "vim.visualstar": true,
+
+    // VSCode Vim (keymaps)
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": ["v", "v"],
+            "after": ["v", "$"]
+        },
+        {
+            "before": [ "<Esc>" ],
+            "after": [ "<Esc>" ],
+            "commands": [{
+                "command": ":nohlsearch"
+            }],
+
+        },
+        {
+            "before": ["t", "h"],
+            "commands": [
+                {
+                    "command": ":tabprevious",
+                }
+            ]
+        },
+        {
+            "before": ["t", "l"],
+            "commands": [
+                {
+                    "command": ":tabnext",
+                }
+            ]
+        },
+    ],
+    "vim.statusBarColorControl": true,
+
+    "workbench.colorTheme": "Dracula",
+    "window.zoomLevel": 1,
+    "explorer.confirmDragAndDrop": false,
+    "workbench.startupEditor": "newUntitledFile",
+
+    "terminal.integrated.shell.windows": "C:\\Windows\\System32\\bash.exe",
+    "workbench.colorCustomizations": {
+        "statusBar.background": "#005f5f",
+        "statusBar.noFolderBackground": "#005f5f",
+        "statusBar.debuggingBackground": "#005f5f"
+    },
+    "window.menuBarVisibility": "default",
+    "workbench.editor.closeEmptyGroups": false,
+    "breadcrumbs.enabled": true,
+    "vim.cursorStylePerMode.insert": "line"
+}
