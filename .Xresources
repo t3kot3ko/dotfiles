@@ -25,8 +25,8 @@ URxvt.preeditType: OnTheSpot
 !   URxvt.allow_bold: true
 URxvt.allow_bold: false 
 URxvt*font: \
-  xft:Consolas:size=14:antialias=ture, \
-  xft:Ricty:size=14:antialias=ture
+  xft:Consolas:size=12:antialias=ture, \
+  xft:Ricty:size=12:antialias=ture
 
 ! cursor
 URxvt.cursorColor: #00ff00

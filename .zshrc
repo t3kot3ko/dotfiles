@@ -14,3 +14,12 @@ fi
 
 [ -e ~/.zshrc.local ] && source ~/.zshrc.local
 
+# TODO: extract OS dependent settings
+if [ `uname` = "Linux" ]; then
+	# set key-repeat for Ubuntu (GUI setting is ignored)
+	if [ $DISPLAY ]; then
+		xset r rate 230 60
+	fi
+	[ -e $HOME/.Xmodmap ] && xmodmap $HOME/.Xmodmap
+fi
+
