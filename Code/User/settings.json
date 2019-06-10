@@ -15,12 +15,11 @@
     "editor.quickSuggestionsDelay": 10,
     // 単語ベースの修正候補を有効にします。
     "editor.wordBasedSuggestions": true,
-    // パラメーター ヒントを有効にする
-    "editor.parameterHints": true,
 
     "editor.fontFamily": "'Consolas', 'Meiryo', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
     "editor.renderWhitespace": "boundary",
     "editor.cursorStyle": "block",
+    "editor.wordWrap": "on",
 
     // Terminal
     "terminal.integrated.fontSize": 14,
@@ -32,7 +31,8 @@
     "files.trimTrailingWhitespace": true,
 
     // VSCode Vim
-    "vim.leader": "\\", "vim.enableNeovim": true,
+    "vim.leader": "<space>",
+    "vim.enableNeovim": true,
     "vim.neovimPath": "/usr/bin/nvim",
     "vim.ignorecase": true,
     "vim.autoindent": true,
@@ -40,16 +40,13 @@
     "vim.incsearch": true,
     "vim.useCtrlKeys": true,
     "vim.useSystemClipboard": true,
-    "vim.cmdLineInitialColon": true,
     "vim.easymotion": true,
     "vim.visualstar": true,
+    "vim.cursorStylePerMode.insert": "line",
+    "vim.surround": true,
 
     // VSCode Vim (keymaps)
     "vim.normalModeKeyBindingsNonRecursive": [
-        {
-            "before": ["v", "v"],
-            "after": ["v", "$"]
-        },
         {
             "before": [ "<Esc>" ],
             "after": [ "<Esc>" ],
@@ -74,8 +71,23 @@
                 }
             ]
         },
+        {
+            "before": ["j"],
+            "after": ["g", "j"]
+        },
+        {
+            "before": ["k"],
+            "after": ["g", "k"]
+        }
     ],
+    // vim-airline emulate
     "vim.statusBarColorControl": true,
+    "vim.statusBarColors.normal": ["#8FBCBB", "#434C5E"],
+    "vim.statusBarColors.insert": "#BF616A",
+    "vim.statusBarColors.visual": "#B48EAD",
+    "vim.statusBarColors.visualline": "#B48EAD",
+    "vim.statusBarColors.visualblock": "#A3BE8C",
+    "vim.statusBarColors.replace": "#D08770",
 
     "workbench.colorTheme": "Dracula",
     "window.zoomLevel": 1,
@@ -84,12 +96,12 @@
 
     "terminal.integrated.shell.windows": "C:\\Windows\\System32\\bash.exe",
     "workbench.colorCustomizations": {
-        "statusBar.background": "#005f5f",
-        "statusBar.noFolderBackground": "#005f5f",
-        "statusBar.debuggingBackground": "#005f5f"
+        "statusBar.background": "#8FBCBB",
+        "statusBar.noFolderBackground": "#8FBCBB",
+        "statusBar.debuggingBackground": "#8FBCBB",
+        "statusBar.foreground": "#434C5E"
     },
     "window.menuBarVisibility": "default",
     "workbench.editor.closeEmptyGroups": false,
     "breadcrumbs.enabled": true,
-    "vim.cursorStylePerMode.insert": "line"
 }
