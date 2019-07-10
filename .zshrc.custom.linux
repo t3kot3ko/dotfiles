@@ -8,25 +8,37 @@ SAVEHIST=100000 # the number of saved histories
 set -o vi
 
 # alias 
-alias ls='ls --color=auto'
-alias ll='ls -al'
-alias rr="source ~/.zshrc"
+if [[ "$(uname)" == "Darwin" ]]; then
+	# Use GNU binaries for Darwin
+	alias ls='gls --color=auto'
+	alias ll='gls -al'
+	alias grep="grep --color=auto"
 
-alias grep="grep --color=auto"
+	alias cp="gcp -i"
+	alias mv="gmv -i"
+	alias rm="grm -i"
 
-alias lx="ls -F -o --color | egrep \"^...x\""
+	alias g="ggrep"
+	alias d="gcd"
+	alias l="gless"
+elif [[ "$(uname)" = "Linux" ]]; then
+	alias ls='ls --color=auto'
+	alias ll='ls -al'
+	alias grep="grep --color=auto"
 
-alias cp="cp -i"
-alias mv="mv -i"
-alias rm="rm -i"
+	alias cp="cp -i"
+	alias mv="mv -i"
+	alias rm="rm -i"
 
-alias g="grep"
+	alias g="grep"
+	alias d="cd"
+	alias l="less"
+fi
 
-alias xg="xargs grep"
-alias findf="find . -type f"
-alias findd="find . -type d"
+# OS independent
 alias javac="javac -J-Dfile.encoding=UTF8"
 
+alias rr="source ~/.zshrc"
 alias tm='tmux'
 alias tma='tmux a'
 alias tml="tmux list-sessions"
@@ -40,8 +52,6 @@ if $(whence bat >/dev/null); then
 else
 	alias b="cat"
 fi
-alias d="cd"
-alias l="less"
 
 alias _="sudo"
 alias __="command"
