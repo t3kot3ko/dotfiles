@@ -1,6 +1,6 @@
 {
     // Editor
-    "editor.fontSize": 16,
+    "editor.fontSize": 14,
     // "editor.tabCompletion": true,
     "editor.autoIndent": true,
     "editor.minimap.enabled": false,
@@ -33,7 +33,7 @@
     // VSCode Vim
     "vim.leader": "<space>",
     "vim.enableNeovim": true,
-    "vim.neovimPath": "/usr/bin/nvim",
+    "vim.neovimPath": "/usr/local/bin/nvim",
     "vim.ignorecase": true,
     "vim.autoindent": true,
     "vim.hlsearch": true,
