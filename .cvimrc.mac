@@ -1,0 +1,84 @@
+let configpath = "/Users/tomoyuki/.cvimrc"
+set localconfig
+
+set cncpcompletion
+set noautofocus
+set nosmoothscroll
+
+let searchlimit = 10
+let hintcharacters = "jklasdfuiopqwerghtnmcv"
+
+map [[ closeTabsToLeft
+map ]] closeTabsToRight
+
+" Mac like tab transition
+map <A-[> previousTab
+map <A-]> nextTab
+map <M-[> previousTab
+map <M-]> nextTab
+
+map s :open google <Space>
+map S :tabnew google <Space>
+map h :call goBack <CR>
+map l :call goForward <CR>
+map A :call createBookmark <CR>
+
+map @ :togglepin<CR>
+map u lastClosedTab
+
+" Scroll
+map <C-f> scrollPageDown
+map <C-b> scrollPageUp
+map <C-S-h> scrollLeft
+map <C-S-l> scrollRight
+
+
+map <C-n> nextTab
+map <C-p> previousTab
+
+map i goToInput
+map tt :tabnew<Space>
+map tn :tabnew <Space>
+map td :tabdetach <CR>
+map ta :tabattach <Space>
+
+map <C-S-ESC> insertMode
+
+map R reloadTabUncached
+map b :buffer <Space>
+
+let barposition = "bottom"
+let locale = "jp"
+let defaultengine = "google.co.jp"
+let searchengine amazonjp = "https://www.amazon.co.jp/s/ref=nb_sb_noss_2?__mk_ja_JP=%s&url=search-alias%3Daps&field-keywords=%s"
+let completionengines = ["google", "amazonjp"]
+
+let blacklists = []
+
+getIP() -> {{
+httpRequest({url: 'http://api.ipify.org/?format=json', json: true},
+            function(res) { Status.setMessage('IP: ' + res.ip); });
+}}
+" Displays your public IP address in the status bar
+map ci :call getIP<CR>
+
+" Copy page title to clipboard
+copyPageTitle() -> {{
+  RUNTIME('getRootUrl', function(url) {
+    let ret = document.title;
+    Clipboard.copy(ret);
+    Status.setMessage(ret, 2);
+  });
+}}
+map yt :call copyPageTitle<CR>
+
+showTime() -> {{
+	Status.setMessage("test")
+}}
+map ct :call showTime<CR>
+
+" qmark
+let qmark f = ["https://www.facebook.com"]
+let qmark i = ["https://www.instagram.com"]
+
+iunmapAll
