@@ -2,7 +2,7 @@
     // Editor
     "editor.fontSize": 14,
     // "editor.tabCompletion": true,
-    "editor.autoIndent": true,
+    "editor.autoIndent": "full",
     "editor.minimap.enabled": false,
     "editor.insertSpaces": true,
 
@@ -21,11 +21,13 @@
     "editor.cursorStyle": "block",
     "editor.wordWrap": "on",
 
+    "workbench.editor.enablePreview": false,
+
     // Terminal
     "terminal.integrated.fontSize": 14,
     "terminal.integrated.fontFamily": "Consolas",
 
-    "solargraph.commandPath": "/home/tomoyuki/.rbenv/shims/solargraph",
+    "solargraph.commandPath": "/Users/tomoyuki/.anyenv/envs/rbenv/shims/solargraph",
 
     "explorer.confirmDelete": false,
     "files.trimTrailingWhitespace": true,
@@ -44,6 +46,7 @@
     "vim.visualstar": true,
     "vim.cursorStylePerMode.insert": "line",
     "vim.surround": true,
+    "vim.showmodename": true,
 
     // VSCode Vim (keymaps)
     "vim.normalModeKeyBindingsNonRecursive": [
@@ -89,19 +92,19 @@
     "vim.statusBarColors.visualblock": "#A3BE8C",
     "vim.statusBarColors.replace": "#D08770",
 
-    "workbench.colorTheme": "Dracula",
-    "window.zoomLevel": 1,
+    "workbench.colorTheme": "Visual Studio Light",
+    "window.zoomLevel": 0,
     "explorer.confirmDragAndDrop": false,
     "workbench.startupEditor": "newUntitledFile",
 
     "terminal.integrated.shell.windows": "C:\\Windows\\System32\\bash.exe",
     "workbench.colorCustomizations": {
-        "statusBar.background": "#8FBCBB",
-        "statusBar.noFolderBackground": "#8FBCBB",
-        "statusBar.debuggingBackground": "#8FBCBB",
-        "statusBar.foreground": "#434C5E"
+        "statusBar.background": "#BF616A",
+        "statusBar.noFolderBackground": "#BF616A",
+        "statusBar.debuggingBackground": "#BF616A"
     },
     "window.menuBarVisibility": "default",
     "workbench.editor.closeEmptyGroups": false,
     "breadcrumbs.enabled": true,
+    "python.jediEnabled": false,
 }
