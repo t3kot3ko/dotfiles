@@ -1,3 +1,6 @@
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+
 set-window-option -g mode-keys vi
 set-window-option -g automatic-rename off
 
@@ -163,3 +166,6 @@ bind X kill-pane
 # Kill window
 unbind K
 bind K confirm-before "kill-window"
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run -b '~/.tmux/plugins/tpm/tpm'
