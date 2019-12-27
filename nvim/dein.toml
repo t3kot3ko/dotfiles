@@ -9,10 +9,14 @@ repo = 'Shougo/context_filetype.vim'
 repo = 'cespare/vim-toml'
 on_ft = 'toml'
 [[plugins]] # Color scheme (c.f. http://qiita.com/kawaz/items/ee725f6214f91337b42b)
-repo = 't3kot3ko/dracula-vim'
+repo = 'dracula/vim'
+[[plugins]]
+repo = "NLKNguyen/papercolor-theme"
 hook_add = '''
-au MyAutoCmd VimEnter * nested colorscheme dracula
+set background=dark
+au MyAutoCmd VimEnter * nested colorscheme PaperColor
 '''
+
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
 build = 'make'
