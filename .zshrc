@@ -1,8 +1,10 @@
+[ -e ~/.zshrc.alias ] && source ~/.zshrc.alias
+
 source ~/.zshrc.zplug
 source ~/.zshrc.custom
 
+[ -e ~/.zshrc.alias ] && source ~/.zshrc.alias.lazy
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -e ~/.zshrc.alias ] && source ~/.zshrc.alias
 [ -e ~/.zshrc.tmp ] && source ~/.zshrc.tmp
 [ -e ~/.zshrc.dev ] && source ~/.zshrc.dev
 [ -e ~/.zshrc.tmux ] && source ~/.zshrc.tmux
