@@ -1,9 +1,8 @@
-# use 256-colors mode
-alias tmux='tmux -2' 
-
 HISTFILE=$HOME/.zsh-history # file to save history
 HISTSIZE=100000 # the number of histories extracted into RAM
 SAVEHIST=100000 # the number of saved histories
+
+alias ls="ls --color=auto"
 
 set -o vi
 
@@ -12,39 +11,6 @@ if [[ "$(uname)" == "Darwin" ]]; then
 	export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 fi
 
-# alias 
-alias ls='ls --color=auto'
-alias ll='ls -al'
-alias grep="grep --color=auto"
-
-alias cp="cp -i"
-alias mv="mv -i"
-alias rm="rm -i"
-
-alias g="grep"
-alias d="cd"
-alias l="less"
-
-# OS independent
-alias javac="javac -J-Dfile.encoding=UTF8"
-
-alias rr="source ~/.zshrc"
-alias tm='tmux'
-alias tma='tmux a'
-alias tml="tmux list-sessions"
-
-alias reload='clear; exec zsh -l'
-
-alias vim="nvim"
-
-if $(whence bat >/dev/null); then
-	alias b="bat"
-else
-	alias b="cat"
-fi
-
-alias _="sudo"
-alias __="command"
 
 # プログラマブル保管機能を有効
 autoload -U compinit && compinit
@@ -201,7 +167,7 @@ function _set_rprompt() {
 chpwd_functions=(_set_rprompt _xxx_ls)
 _prompt_compute_vars
 
-PROMPT='${WINDOW:+"[$WINDOW]"}%{$fg[#gray]%}${USER}@`hostname -s`${__ZSH_GIT_STATE}%{$fg[green]%}%#%{$reset_color%} '
+# PROMPT='${WINDOW:+"[$WINDOW]"}%{$fg[#gray]%}${USER}@`hostname -s`${__ZSH_GIT_STATE}%{$fg[green]%}%#%{$reset_color%} '
 
 show_buffer_stack() {
 	POSTDISPLAY="
@@ -222,28 +188,6 @@ bindkey '^R' history-incremental-pattern-search-backward
 bindkey '^S' history-incremental-pattern-search-forward
 bindkey '^r' history-incremental-pattern-search-backward
 bindkey '^s' history-incremental-pattern-search-forward
-
-if [[ $(uname) == "Linux" ]]; then
-	if $(whence xdg-open >/dev/null); then
-		alias open=xdg-open
-	fi
-fi
-
-
-# jq
-if whence jq > /dev/null 2>/dev/null; then
-	alias jqd="jq ."
-fi
-
-# extract
-if $(whence extract > /dev/null); then
-	alias x=extract
-fi
-
-# z
-if $(whence z > /dev/null); then
-	alias j=z
-fi
 
 # ssh
 function ssh() {

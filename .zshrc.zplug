@@ -17,6 +17,8 @@ export ENHANCD_DISABLE_DOT=1
 
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
+zplug "dracula/zsh", as:theme
+
 # zplug load --verbose
 zplug load
 

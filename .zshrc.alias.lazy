@@ -1,0 +1,28 @@
+# Use xdg-open as "open" for Linux
+if [[ $(uname) == "Linux" ]]; then
+	if $(whence xdg-open >/dev/null); then
+		alias open=xdg-open
+	fi
+fi
+
+if $(whence bat >/dev/null); then
+	alias b="bat"
+else
+	alias b="cat"
+fi
+
+# jq
+if whence jq > /dev/null 2>/dev/null; then
+	alias jqd="jq ."
+fi
+
+# extract
+if $(whence extract > /dev/null); then
+	alias x=extract
+fi
+
+# z
+if $(whence z > /dev/null); then
+	alias j=z
+fi
+
