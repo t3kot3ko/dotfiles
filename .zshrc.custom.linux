@@ -8,7 +8,8 @@ set -o vi
 
 if [[ "$(uname)" == "Darwin" ]]; then
 	# Use GNU binaries for Darwin
-	export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+	export PATH="/usr/local/opt/coreutils/libexec/gnubin/:$PATH"
+	export PATH="/usr/local/opt/findutils/libexec/gnubin/:$PATH"
 fi
 
 
