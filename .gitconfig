@@ -21,4 +21,4 @@
   smudge = git-lfs smudge %f
   required = true
 [ghq]
-  root = ~/Projects
+  root = ~/Projects/src
