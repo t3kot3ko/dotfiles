@@ -1,6 +1,3 @@
-alias reload='clear; exec zsh -l'
-alias be="bundle exec"
-
 alias ls='ls --color=auto'
 alias ll='ls -al'
 alias grep="grep --color=auto"
@@ -13,22 +10,16 @@ alias g="grep"
 alias d="cd"
 alias l="less"
 
-# OS independent
-alias javac="javac -J-Dfile.encoding=UTF8"
-#
 # use 256-colors mode
 alias tmux='tmux -2' 
 
 alias rr="source ~/.zshrc"
-alias tm='tmux'
-alias tma='tmux a'
-alias tml="tmux list-sessions"
-
 alias reload='clear; exec zsh -l'
 
 alias vim="nvim"
-
+alias v="vim"
 
 alias _="sudo"
 alias __="command"
 
+alias be="bundle exec"
