@@ -8,6 +8,7 @@ alias rm="rm -i"
 
 alias g="grep"
 alias d="cd"
+alias dr="cd-gitroot"
 alias l="less"
 
 # use 256-colors mode
