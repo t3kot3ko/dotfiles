@@ -12,7 +12,7 @@ if [[ ! -n $TMUX ]]; then
   if [[ "$ID" = "${create_new_session}" ]]; then
     tmux new-session
   elif [[ -n "$ID" ]]; then
-    tmux attach-session -t "$ID"
+    tmux attach-session -t "$ID" -d
   else
     :  # Start terminal normally
   fi
