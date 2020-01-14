@@ -50,8 +50,13 @@ repo = 'Shougo/neosnippet'
 depends = ['neosnippet-snippets']
 on_i = 1
 on_ft = ['snippet']
+# [[plugins]]
+# repo = 'Shougo/deoplete.nvim'
 [[plugins]]
-repo = 'Shougo/deoplete.nvim'
+repo = "neoclide/coc.nvim"
+rev = "release"
+build = "./install.sh nightly"
+# hook_add = "source path/to/your/coc-setting.vim"
 [[plugins]]
 repo = 'Shougo/unite.vim'
 depends = 'neomru.vim'
@@ -157,10 +162,12 @@ map <A-n> :NERDTreeToggle<CR>
 '''
 [[plugins]]
 repo = 'rking/ag.vim'
+# [[plugins]]
+# repo = "justinmk/vim-dirvish"
 [[plugins]]
-repo = "justinmk/vim-dirvish"
-[[plugins]]
-repo = 'Shougo/vimfiler'
+repo = "Shougo/defx.nvim"
+# [[plugins]]
+# repo = 'Shougo/vimfiler'
 [[plugins]]
 repo = 'neomake/neomake'
 
@@ -175,20 +182,24 @@ repo = 'vim-ruby/vim-ruby'
 repo = 'vim-scripts/rails.vim'
 [[plugins]]
 repo = 'tpope/vim-rails'
-[[plugins]]
-repo = "Shougo/deoplete-rct"
-on_ft = "rb"
+# [[plugins]]
+# repo = "Shougo/deoplete-rct"
+# on_ft = "rb"
 # [[plugins]]
 # repo = "osyo-manga/vim-monster"
 
 # Golang
-[[plugins]]
-repo = "vim-jp/vim-go-extra"
-on_ft = "go"
+# [[plugins]]
+# repo = "vim-jp/vim-go-extra"
+# on_ft = "go"
 [[plugins]]
 repo = "fatih/vim-go"
 on_ft = "go"
-
+hook_add = '''
+  let g:go_fmt_command = "goimports"
+  let g:go_def_mapping_enabled = 0
+  let g:go_doc_keywordprg_enabled = 0
+'''
 # C/C++
 [[plugins]]
 repo = "justmao945/vim-clang"
@@ -214,14 +225,14 @@ on_ft = "markdown"
 
 # Python
 [[plugins]]
-repo = "kevinw/pyflakes-vim"
-on_ft = "python"
-[[plugins]]
 repo = "ivanov/vim-ipython"
 on_ft = "python"
-[[plugins]]
-repo = "davidhalter/jedi-vim"
-on_ft = "python"
+# [[plugins]]
+# repo = "kevinw/pyflakes-vim"
+# on_ft = "python"
+# [[plugins]]
+# repo = "davidhalter/jedi-vim"
+# on_ft = "python"
 
 # JavaScript/Nodejs
 [[plugins]]
@@ -234,10 +245,10 @@ let g:nodejs_complete_config = {
 			\}
 '''
 
-[[plugins]]
-repo = 'autozimu/LanguageClient-neovim'
-rev = 'next'
-build = 'bash install.sh'
+# [[plugins]]
+# repo = 'autozimu/LanguageClient-neovim'
+# rev = 'next'
+# build = 'bash install.sh'
 
 [[plugins]]
 repo = "pangloss/vim-javascript"
@@ -253,3 +264,8 @@ repo = "mhartington/nvim-typescript"
 repo = "HerringtonDarkholme/yats.vim"
 [[plugins]]
 repo = 'maxmellon/vim-jsx-pretty'
+
+[[plugins]]
+repo = "ElmCast/elm-vim"
+on_ft = "elm"
+

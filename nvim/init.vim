@@ -21,42 +21,42 @@ vnoremap v $h
 nmap <Esc><Esc> :nohlsearch<CR>
 
 " Use deoplete
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#file#enable_buffer_path = 1
-let g:deoplete#enable_smart_case = 1
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-let g:deoplete#auto_completion_start_length = 1
-let g:deoplete#sources = {}
-let g:deoplete#sources._ = []
-
-let g:deoplete#omni#input_patterns = {}
-let g:deoplete#omni#input_patterns.ruby = "."
-let g:deoplete#omni#input_patterns.go = ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::']
-let g:deoplete#omni#input_patterns.java = '[^. *\t]\.\w*'
-let g:deoplete#omni#input_patterns.php = '\w+|[^. \t]->\w*|\w+::\w*'
-" let g:deoplete#omni#input_patterns.javascript = ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::']
-let g:deoplete#omni#input_patterns.javascript = '\.'
-let g:deoplete#omni#input_patterns.typescript = '\.'
-
-let g:deoplete#omni#functions = {}
-let g:deoplete#omni#functions.javascript = ["LanguageClient#complete"]
-
-" Automatically start language servers.
-let g:LanguageClient_autoStart = 1
-
-" Minimal LSP configuration for JavaScript
-let g:LanguageClient_serverCommands = {}
-let g:LanguageClient_serverCommands.javascript = ['javascript-typescript-stdio']
-" Use LanguageServer for omnifunc completion
-autocmd FileType javascript setlocal omnifunc=LanguageClient#complete
-
-nnoremap gh :call LanguageClient#textDocument_hover() <CR>
-
-
-let g:monster#completion#rcodetools#backend = "async_rct_complete"
-" let g:monster#completion#solargraph#backend = "async_solargraph_suggest"
-" let g:monster#completion#backend = 'solargraph'
-"}}}
+" "let g:deoplete#enable_at_startup = 1
+" "let g:deoplete#file#enable_buffer_path = 1
+" "let g:deoplete#enable_smart_case = 1
+" "inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" "let g:deoplete#auto_completion_start_length = 1
+" "let g:deoplete#sources = {}
+" "let g:deoplete#sources._ = []
+" "
+" "let g:deoplete#omni#input_patterns = {}
+" "let g:deoplete#omni#input_patterns.ruby = "."
+" "let g:deoplete#omni#input_patterns.go = ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::']
+" "let g:deoplete#omni#input_patterns.java = '[^. *\t]\.\w*'
+" "let g:deoplete#omni#input_patterns.php = '\w+|[^. \t]->\w*|\w+::\w*'
+" "" let g:deoplete#omni#input_patterns.javascript = ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::']
+" "let g:deoplete#omni#input_patterns.javascript = '\.'
+" "let g:deoplete#omni#input_patterns.typescript = '\.'
+" "
+" "let g:deoplete#omni#functions = {}
+" "let g:deoplete#omni#functions.javascript = ["LanguageClient#complete"]
+" "
+" "" Automatically start language servers.
+" "let g:LanguageClient_autoStart = 1
+" "
+" "" Minimal LSP configuration for JavaScript
+" "let g:LanguageClient_serverCommands = {}
+" "let g:LanguageClient_serverCommands.javascript = ['javascript-typescript-stdio']
+" "" Use LanguageServer for omnifunc completion
+" "autocmd FileType javascript setlocal omnifunc=LanguageClient#complete
+" "
+" "nnoremap gh :call LanguageClient#textDocument_hover() <CR>
+" "
+" "
+" "let g:monster#completion#rcodetools#backend = "async_rct_complete"
+" "" let g:monster#completion#solargraph#backend = "async_solargraph_suggest"
+" "" let g:monster#completion#backend = 'solargraph'
+" ""}}}
 
 " Python
 let python3_host_prog = $PYENV_ROOT . "/versions/neovim3/bin/python"
