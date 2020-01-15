@@ -33,6 +33,7 @@ if [ -d "${ANYENV_ROOT}" ]; then
 fi
 
 ## Golang
+export GOENV_DISABLE_GOPATH=1
 export GOPATH=$HOME/Projects
 export PATH=$PATH:$GOROOT/bin
 export PATH=$PATH:$GOPATH/bin
