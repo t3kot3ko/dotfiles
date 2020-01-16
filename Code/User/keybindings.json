@@ -9,12 +9,12 @@
     // Focus
     // -- integrated terminal
     {
-        "key": "\\ t",
+        "key": "ctrl+shift+t",
         "command": "workbench.action.terminal.focus",
         "when": "editorTextFocus && vim.mode != 'SearchInProgressMode' && vim.mode != 'Insert'"
     },
     {
-        "key": "\\ t",
+        "key": "ctrl+shift+t",
         "command": "workbench.action.focusActiveEditorGroup",
         "when": "terminalFocus"
     },
@@ -45,10 +45,14 @@
 
     },
     {
+        "key": "\\ d",
+        "command": "workbench.action.debug.start",
+        "when": "editorTextFocus && vim.mode != 'Insert' && vim.mode != 'SearchInProgressMode'"
+    },
+    {
         "key": "\\ b",
         "command": "workbench.action.tasks.build",
         "when": "editorTextFocus && vim.mode != 'Insert' && vim.mode != 'SearchInProgressMode'"
-
     },
 
     // Open command pallet / symbol list
@@ -64,7 +68,7 @@
     },
     // Remap quickOpen
     {
-        "key": "ctrl+o ctrl+o",
+        "key": "ctrl+shift+-",
         "command": "workbench.action.quickOpen",
         "when": "editorFocus"
     },
