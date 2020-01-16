@@ -18,14 +18,13 @@
 
     "editor.fontFamily": "'Consolas', 'Meiryo', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
     "editor.renderWhitespace": "boundary",
-    "editor.cursorStyle": "block",
     "editor.wordWrap": "on",
 
     "workbench.editor.enablePreview": false,
 
     // Terminal
     "terminal.integrated.fontSize": 14,
-    "terminal.integrated.fontFamily": "Consolas",
+    "terminal.integrated.fontFamily": "Consolas NF",
 
     "solargraph.commandPath": "/Users/tomoyuki/.anyenv/envs/rbenv/shims/solargraph",
 
@@ -33,7 +32,7 @@
     "files.trimTrailingWhitespace": true,
 
     // VSCode Vim
-    "vim.leader": "<space>",
+    "vim.leader": "\\",
     "vim.enableNeovim": true,
     "vim.neovimPath": "/usr/local/bin/nvim",
     "vim.ignorecase": true,
@@ -42,6 +41,7 @@
     "vim.incsearch": true,
     "vim.useCtrlKeys": true,
     "vim.useSystemClipboard": true,
+
     "vim.easymotion": true,
     "vim.visualstar": true,
     "vim.cursorStylePerMode.insert": "line",
@@ -49,6 +49,20 @@
     "vim.showmodename": true,
 
     // VSCode Vim (keymaps)
+    "vim.normalModeKeyBindings": [
+        // Workaround: Visual Mode chord bug
+        // https://github.com/VSCodeVim/Vim/issues/2842
+        {
+            "before": [ "v" ],
+            "after": [ "v", "l", "h" ]
+        },
+    ],
+    "vim.visualModeKeyBindings": [
+        {
+            "before": ["v"],
+            "after": ["$", "h"]
+        }
+    ],
     "vim.normalModeKeyBindingsNonRecursive": [
         {
             "before": [ "<Esc>" ],
@@ -60,19 +74,15 @@
         },
         {
             "before": ["t", "h"],
-            "commands": [
-                {
-                    "command": ":tabprevious",
-                }
-            ]
+            "commands": [{
+                "command": ":tabprevious",
+            }]
         },
         {
             "before": ["t", "l"],
-            "commands": [
-                {
-                    "command": ":tabnext",
-                }
-            ]
+            "commands": [{
+                "command": ":tabnext",
+            }]
         },
         {
             "before": ["j"],
@@ -91,20 +101,21 @@
     "vim.statusBarColors.visualline": "#B48EAD",
     "vim.statusBarColors.visualblock": "#A3BE8C",
     "vim.statusBarColors.replace": "#D08770",
-
-    "workbench.colorTheme": "Visual Studio Light",
     "window.zoomLevel": 0,
     "explorer.confirmDragAndDrop": false,
     "workbench.startupEditor": "newUntitledFile",
 
+
     "terminal.integrated.shell.windows": "C:\\Windows\\System32\\bash.exe",
     "workbench.colorCustomizations": {
-        "statusBar.background": "#BF616A",
-        "statusBar.noFolderBackground": "#BF616A",
-        "statusBar.debuggingBackground": "#BF616A"
+        "statusBar.background": "#8FBCBB",
+        "statusBar.noFolderBackground": "#8FBCBB",
+        "statusBar.debuggingBackground": "#8FBCBB",
+        "statusBar.foreground": "#434C5E"
     },
     "window.menuBarVisibility": "default",
     "workbench.editor.closeEmptyGroups": false,
     "breadcrumbs.enabled": true,
     "python.jediEnabled": false,
+    "workbench.colorTheme": "papercolor-vscode",
 }
