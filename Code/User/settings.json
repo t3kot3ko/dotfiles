@@ -20,7 +20,9 @@
     "editor.renderWhitespace": "boundary",
     "editor.wordWrap": "on",
 
+    // Always open with a new tab
     "workbench.editor.enablePreview": false,
+    "workbench.editor.enablePreviewFromQuickOpen": false,
 
     // Terminal
     "terminal.integrated.fontSize": 14,
@@ -32,7 +34,8 @@
     "files.trimTrailingWhitespace": true,
 
     // VSCode Vim
-    "vim.leader": "\\",
+    // Note: tried to use "\" as leader, but it conflicts with some keybindings
+    "vim.leader": "<space>",
     "vim.enableNeovim": true,
     "vim.neovimPath": "/usr/local/bin/nvim",
     "vim.ignorecase": true,
@@ -41,12 +44,13 @@
     "vim.incsearch": true,
     "vim.useCtrlKeys": true,
     "vim.useSystemClipboard": true,
-
-    "vim.easymotion": true,
     "vim.visualstar": true,
     "vim.cursorStylePerMode.insert": "line",
     "vim.surround": true,
     "vim.showmodename": true,
+    "vim.easymotion": true,
+    "vim.sneak": true,
+    "vim.camelCaseMotion.enable": true,
 
     // VSCode Vim (keymaps)
     "vim.normalModeKeyBindings": [
@@ -108,14 +112,17 @@
 
     "terminal.integrated.shell.windows": "C:\\Windows\\System32\\bash.exe",
     "workbench.colorCustomizations": {
-        "statusBar.background": "#8FBCBB",
-        "statusBar.noFolderBackground": "#8FBCBB",
-        "statusBar.debuggingBackground": "#8FBCBB",
-        "statusBar.foreground": "#434C5E"
+        "statusBar.background": "#BF616A",
+        "statusBar.noFolderBackground": "#BF616A",
+        "statusBar.debuggingBackground": "#BF616A"
     },
     "window.menuBarVisibility": "default",
     "workbench.editor.closeEmptyGroups": false,
     "breadcrumbs.enabled": true,
     "python.jediEnabled": false,
     "workbench.colorTheme": "papercolor-vscode",
+    "scm.alwaysShowProviders": true,
+    "debug.inlineValues": true,
+    "workbench.activityBar.visible": false,
+
 }

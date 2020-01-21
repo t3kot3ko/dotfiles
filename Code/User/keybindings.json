@@ -6,25 +6,6 @@
         "when": "editorTextFocus && vim.active && vim.use<C-k> && !inDebugRepl"
     },
 
-    // Focus
-    // -- integrated terminal
-    {
-        "key": "ctrl+shift+t",
-        "command": "workbench.action.terminal.focus",
-        "when": "editorTextFocus && vim.mode != 'SearchInProgressMode' && vim.mode != 'Insert'"
-    },
-    {
-        "key": "ctrl+shift+t",
-        "command": "workbench.action.focusActiveEditorGroup",
-        "when": "terminalFocus"
-    },
-    // To avoid conflict with tmux search
-    {
-        "key": "ctrl+f",
-        "command": "",
-        "when": "terminalFocus"
-    },
-
     // Move pane
     {
         "key": "ctrl+w ctrl+h",
@@ -55,8 +36,9 @@
         "when": "editorTextFocus && vim.mode != 'Insert' && vim.mode != 'SearchInProgressMode'"
     },
 
-    // Open command pallet / symbol list
+    // Control+Shift mappings
     // (redefine the defaults to use ctrl key on Mac)
+    // Open command pallet / symbol list
     {
         "key": "ctrl+shift+p",
         "command": "workbench.action.showCommands"
@@ -65,6 +47,23 @@
         "key": "ctrl+shift+o",
         "command": "workbench.action.showAllEditors"
 
+    },
+    // Focus on integrated terminal
+    {
+        "key": "ctrl+shift+t",
+        "command": "workbench.action.terminal.focus",
+        "when": "editorTextFocus && vim.mode != 'SearchInProgressMode' && vim.mode != 'Insert'"
+    },
+    {
+        "key": "ctrl+shift+t",
+        "command": "workbench.action.focusActiveEditorGroup",
+        "when": "terminalFocus"
+    },
+    // To avoid conflict with tmux search
+    {
+        "key": "ctrl+f",
+        "command": "",
+        "when": "terminalFocus"
     },
     // Remap quickOpen
     {
@@ -81,6 +80,10 @@
         "key": "ctrl+p",
         "command": "workbench.action.quickOpenSelectPrevious",
         "when": "inQuickOpen"
+    },
+    {
+        "key": "ctrl+shift+a",
+        "command": "workbench.action.toggleActivityBarVisibility"
     },
 
 ]
