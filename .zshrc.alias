@@ -10,6 +10,7 @@ alias g="grep"
 alias d="cd"
 alias dr="cd-gitroot"
 alias l="less"
+alias xg="xargs grep"
 
 # use 256-colors mode
 alias tmux='tmux -2' 
