@@ -35,12 +35,16 @@ xmap <C-e>     <Plug>(neosnippet_expand_target)
 '''
 [[plugins]]
 repo = 'vim-scripts/AutoClose'
+on_i = 1
 [[plugins]]
 repo = 'Shougo/neomru.vim'
 on_path = '.*'
-[[plugins]]
-repo = 'jiangmiao/auto-pairs'
-on_i = 1
+
+# Disabled due to the conflict of <CR>
+# [[plugins]]
+# repo = 'jiangmiao/auto-pairs'
+# on_i = 1
+
 [[plugins]]
 repo = 'Shougo/neoyank.vim'
 on_path = '.*'
@@ -56,7 +60,6 @@ on_ft = ['snippet']
 repo = "neoclide/coc.nvim"
 rev = "release"
 build = "./install.sh nightly"
-# hook_add = "source path/to/your/coc-setting.vim"
 [[plugins]]
 repo = 'Shougo/unite.vim'
 depends = 'neomru.vim'
@@ -78,8 +81,11 @@ endif
 repo = "Shougo/unite-outline"
 [[plugins]]
 repo = 'tpope/vim-surround'
-[[plugins]]
-repo = 'tpope/vim-endwise'
+
+# Disabled due to the conflict of <CR>
+# [[plugins]]
+# repo = 'tpope/vim-endwise'
+
 [[plugins]]
 repo = 'vim-scripts/surround.vim'
 [[plugins]]
@@ -147,10 +153,11 @@ nmap <silent> <C-u>- :<C-u>Denite -resume -immediately -select=-1<CR>
 repo = 'majutsushi/tagbar'
 [[plugins]]
 repo = "kassio/neoterm"
-# [[plugins]]
-# repo = "junegunn/fzf"
-# [[plugins]]
-# repo = "junegunn/fzf.vim"
+[[plugins]]
+repo = "junegunn/fzf"
+build = "./install --all"
+[[plugins]]
+repo = "junegunn/fzf.vim"
 [[plugins]]
 repo = "vim-scripts/gtags.vim"
 [[plugins]]

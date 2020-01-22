@@ -58,6 +58,8 @@ nmap <Esc><Esc> :nohlsearch<CR>
 " "" let g:monster#completion#backend = 'solargraph'
 " ""}}}
 
+let mapleader = "\<Space>"
+
 " Python
 let python3_host_prog = $PYENV_ROOT . "/versions/neovim3/bin/python"
 let python_host_prog  = $PYENV_ROOT . "/versions/neovim2/bin/python"
@@ -84,8 +86,6 @@ nnoremap <silent> t9 :<C-u>tabnext 9<CR>
 nnoremap <silent> t0 :<C-u>tabnext 10<CR>
 command TN tabnew
 nnoremap <C-g><C-g> :Unite tab<CR>
-
-
 
 
 " let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -136,8 +136,8 @@ nnoremap k gk
 
 tnoremap <silent> <ESC> <C-\><C-n>
 
-nnoremap <unique> <silent> <C-S> :FufBuffer!<CR>
-nnoremap <unique> <silent> ef :FufFile!<CR>
+" nnoremap <unique> <silent> <C-S> :FufBuffer!<CR>
+" nnoremap <unique> <silent> ef :FufFile!<CR>
 nnoremap <silent> eff :FufFile!<CR>
 nnoremap <silent> efm :FufMruFile!<CR>
 autocmd FileType fuf nmap <C-c> <ESC>
@@ -189,6 +189,8 @@ augroup dirvish_config
 				\ gh :silent keeppatterns g@\v/\.[^\/]+/?$@d _<cr>
 augroup END
 
+map <leader>1 <Plug>ToggleAutoCloseMappings
+
 " coc-nvim
 " if hidden is not set, TextEdit might fail.
 set hidden
@@ -227,9 +229,9 @@ inoremap <silent><expr> <c-space> coc#refresh()
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " Or use `complete_info` if your vim support it, like:
-inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -271,8 +273,8 @@ augroup mygroup
 augroup end
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-" xmap <leader>a  <Plug>(coc-codeaction-selected)
-" nmap <leader>a  <Plug>(coc-codeaction-selected)
+xmap <leader><S-a>  <Plug>(coc-codeaction-selected)
+nmap <leader><S-a>  <Plug>(coc-codeaction-selected)
 
 " Remap for do codeAction of current line
 nmap <leader>ac  <Plug>(coc-codeaction)

@@ -1,5 +1,6 @@
 {
 	"suggest.noselect":false,
+	"coc.preferences.noselect": false,
 	"suggest.preferCompleteThanJumpPlaceholder":true,
 	"languageserver": {
 		"golang": {
@@ -7,5 +8,7 @@
 			"rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
 			"filetypes": ["go"]
 		}
-	}
+	},
+	"python.linting.enabled":true,
+	"python.jediEnabled":true
 }
