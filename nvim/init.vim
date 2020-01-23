@@ -23,8 +23,13 @@ nmap <Esc><Esc> :nohlsearch<CR>
 let mapleader = "\<Space>"
 
 " Python
-let python3_host_prog = $PYENV_ROOT . "/versions/neovim3/bin/python"
-let python_host_prog  = $PYENV_ROOT . "/versions/neovim2/bin/python"
+if has("unix") || has("mac")
+	let python3_host_prog = $PYENV_ROOT . "/versions/neovim3/bin/python"
+	let python_host_prog  = $PYENV_ROOT . "/versions/neovim2/bin/python"
+elseif has("win64") || has("win64")
+	let python3_host_prog = "c:\\Python37\\python.exe"
+	let python_host_prog  = "c:\\Python27\\python.exe"
+endif
 
 " Tab
 nnoremap <Space>t t
