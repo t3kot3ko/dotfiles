@@ -16,6 +16,6 @@
 
   },
   "python.linting.enabled":true,
-  "python.jediEnabled":true,
+  "python.jediEnabled":false,
   "python.formatting.provider":"yapf"
 }
