@@ -85,5 +85,22 @@
         "key": "ctrl+shift+a",
         "command": "workbench.action.toggleActivityBarVisibility"
     },
+    // Language server related bindings
+    // Using Ctrl+G as prefix because just 'g' may conflict with VSCode Vim bindings
+    {
+        "key": "ctrl+g d",
+        "command": "editor.action.peekDefinition",
+        "when": "editorHasDefinitionProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
+    },
+    {
+        "key": "alt+f12",
+        "command": "-editor.action.peekDefinition",
+        "when": "editorHasDefinitionProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
+    },
+    {
+        "key": "ctrl+g r",
+        "command": "editor.action.referenceSearch.trigger",
+        "when": "editorHasDefinitionProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
+    },
 
 ]
