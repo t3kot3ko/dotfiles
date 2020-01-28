@@ -20,44 +20,6 @@ augroup END
 vnoremap v $h
 nmap <Esc><Esc> :nohlsearch<CR>
 
-" Use deoplete
-" "let g:deoplete#enable_at_startup = 1
-" "let g:deoplete#file#enable_buffer_path = 1
-" "let g:deoplete#enable_smart_case = 1
-" "inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" "let g:deoplete#auto_completion_start_length = 1
-" "let g:deoplete#sources = {}
-" "let g:deoplete#sources._ = []
-" "
-" "let g:deoplete#omni#input_patterns = {}
-" "let g:deoplete#omni#input_patterns.ruby = "."
-" "let g:deoplete#omni#input_patterns.go = ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::']
-" "let g:deoplete#omni#input_patterns.java = '[^. *\t]\.\w*'
-" "let g:deoplete#omni#input_patterns.php = '\w+|[^. \t]->\w*|\w+::\w*'
-" "" let g:deoplete#omni#input_patterns.javascript = ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::']
-" "let g:deoplete#omni#input_patterns.javascript = '\.'
-" "let g:deoplete#omni#input_patterns.typescript = '\.'
-" "
-" "let g:deoplete#omni#functions = {}
-" "let g:deoplete#omni#functions.javascript = ["LanguageClient#complete"]
-" "
-" "" Automatically start language servers.
-" "let g:LanguageClient_autoStart = 1
-" "
-" "" Minimal LSP configuration for JavaScript
-" "let g:LanguageClient_serverCommands = {}
-" "let g:LanguageClient_serverCommands.javascript = ['javascript-typescript-stdio']
-" "" Use LanguageServer for omnifunc completion
-" "autocmd FileType javascript setlocal omnifunc=LanguageClient#complete
-" "
-" "nnoremap gh :call LanguageClient#textDocument_hover() <CR>
-" "
-" "
-" "let g:monster#completion#rcodetools#backend = "async_rct_complete"
-" "" let g:monster#completion#solargraph#backend = "async_solargraph_suggest"
-" "" let g:monster#completion#backend = 'solargraph'
-" ""}}}
-
 let mapleader = "\<Space>"
 
 " Python
@@ -149,9 +111,6 @@ let g:fuf_enumeratingLimit = 20
 
 nnoremap <silent> ff :Unite file_mru<CR>
 
-" pythonのrename用のマッピングがquickrunとかぶるため回避させる
-let g:jedi#rename_command = ""
-
 " Python でコメントを入力するとき，行頭に戻らないように
 autocmd FileType python inoremap # X#
 
@@ -165,8 +124,8 @@ nnoremap <C-[> <C-t>
 map <C-k> :Gtags -r <C-r><C-w><CR>
 "" jump to the definition
 map <C-j> :GtagsCursor<CR>
-map <C-n> :cn<CR>
-map <C-p> :cp<CR>
+nnoremap <C-n> :cn<CR>
+nnoremap <C-p> :cp<CR>
 
 " Rename
 command! -nargs=+ -bang -complete=file Rename let pbnr=fnamemodify(bufname('%'), ':p')|exec 'f '.escape(<q-args>, ' ')|w<bang>|call delete(pbnr)
