@@ -8,8 +8,6 @@ repo = 'Shougo/context_filetype.vim'
 [[plugins]] # toml syntax
 repo = 'cespare/vim-toml'
 on_ft = 'toml'
-[[plugins]] # Color scheme (c.f. http://qiita.com/kawaz/items/ee725f6214f91337b42b)
-repo = 'dracula/vim'
 [[plugins]]
 repo = "NLKNguyen/papercolor-theme"
 hook_add = '''
@@ -169,12 +167,8 @@ map <A-n> :NERDTreeToggle<CR>
 '''
 [[plugins]]
 repo = 'rking/ag.vim'
-# [[plugins]]
-# repo = "justinmk/vim-dirvish"
 [[plugins]]
 repo = "Shougo/defx.nvim"
-# [[plugins]]
-# repo = 'Shougo/vimfiler'
 [[plugins]]
 repo = 'neomake/neomake'
 
@@ -189,11 +183,6 @@ repo = 'vim-ruby/vim-ruby'
 repo = 'vim-scripts/rails.vim'
 [[plugins]]
 repo = 'tpope/vim-rails'
-# [[plugins]]
-# repo = "Shougo/deoplete-rct"
-# on_ft = "rb"
-# [[plugins]]
-# repo = "osyo-manga/vim-monster"
 
 # Golang
 # [[plugins]]
@@ -234,12 +223,6 @@ on_ft = "markdown"
 [[plugins]]
 repo = "ivanov/vim-ipython"
 on_ft = "python"
-# [[plugins]]
-# repo = "kevinw/pyflakes-vim"
-# on_ft = "python"
-# [[plugins]]
-# repo = "davidhalter/jedi-vim"
-# on_ft = "python"
 
 # JavaScript/Nodejs
 [[plugins]]
@@ -251,11 +234,6 @@ let g:nodejs_complete_config = {
 			\  'max_node_compl_len': 15
 			\}
 '''
-
-# [[plugins]]
-# repo = 'autozimu/LanguageClient-neovim'
-# rev = 'next'
-# build = 'bash install.sh'
 
 [[plugins]]
 repo = "pangloss/vim-javascript"
