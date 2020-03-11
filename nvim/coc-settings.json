@@ -17,5 +17,6 @@
   },
   "python.linting.enabled":true,
   "python.jediEnabled":false,
-  "python.formatting.provider":"yapf"
+  "python.formatting.provider":"yapf",
+  "python.venvPath": "~/.anyenv/envs/pyenv"
 }
