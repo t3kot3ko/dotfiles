@@ -77,8 +77,6 @@ endif
 '''
 [[plugins]]
 repo = "Shougo/unite-outline"
-[[plugins]]
-repo = 'tpope/vim-surround'
 
 # Disabled due to the conflict of <CR>
 # [[plugins]]
