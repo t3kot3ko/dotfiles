@@ -6,11 +6,12 @@ alias cp="cp -i"
 alias mv="mv -i"
 alias rm="rm -i"
 
-alias g="grep"
+alias g="git"
 alias d="cd"
 alias dr="cd-gitroot"
 alias l="less"
 alias p="pwd"
+alias xg="xargs grep"
 
 # use 256-colors mode
 alias tmux='tmux -2' 
