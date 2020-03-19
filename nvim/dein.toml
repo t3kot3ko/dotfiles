@@ -164,11 +164,13 @@ hook_add = '''
 map <A-n> :NERDTreeToggle<CR>
 '''
 [[plugins]]
+repo = "APZelos/blamer.nvim"
+[[plugins]]
 repo = 'rking/ag.vim'
 [[plugins]]
 repo = "Shougo/defx.nvim"
 hook_add = '''
-nnoremap - :<C-u>Defx -split=vertical -toggle -winwidth=50<CR>
+nnoremap <silent>- :<C-u>Defx -split=vertical -toggle -winwidth=50<CR>
 
 autocmd FileType defx call s:defx_my_settings()
 function! s:defx_my_settings() abort
@@ -288,7 +290,7 @@ on_ft = "markdown"
 
 # Python
 [[plugins]]
-repo = "ivanov/vim-ipython"
+repo = "mgedmin/python-imports.vim"
 on_ft = "python"
 
 # JavaScript/Nodejs
