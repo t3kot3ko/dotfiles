@@ -45,7 +45,7 @@
     },
     {
         "key": "ctrl+shift+o",
-        "command": "workbench.action.showAllEditors"
+        "command": "workbench.action.quickOpen"
 
     },
     // Focus on integrated terminal
