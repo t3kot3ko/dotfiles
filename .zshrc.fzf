@@ -23,8 +23,8 @@ bindkey '^]' fzf-src
 function fzf-src-show () {
   local selected_dir=$(ghq list -p | fzf )
   if [ -n "$selected_dir" ]; then
-    BUFFER="$LBUFFER ${selected_dir}"
-    # zle accept-line
+    BUFFER="$LBUFFER${selected_dir}"
+    CURSOR=$#BUFFER
   fi
 }
 zle -N fzf-src-show
