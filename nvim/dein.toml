@@ -165,6 +165,9 @@ map <A-n> :NERDTreeToggle<CR>
 '''
 [[plugins]]
 repo = "APZelos/blamer.nvim"
+hook_add = '''
+let g:blamer_enabled = 1
+'''
 [[plugins]]
 repo = 'rking/ag.vim'
 [[plugins]]
@@ -312,10 +315,6 @@ repo = "marijnh/tern_for_vim"
 on_ft = "javascript"
 
 # TypeScript
-[[plugins]]
-repo = "mhartington/nvim-typescript"
-[[plugins]]
-repo = "HerringtonDarkholme/yats.vim"
 [[plugins]]
 repo = 'maxmellon/vim-jsx-pretty'
 
