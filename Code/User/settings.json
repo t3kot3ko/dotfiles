@@ -53,14 +53,6 @@
     "vim.camelCaseMotion.enable": true,
 
     // VSCode Vim (keymaps)
-    "vim.normalModeKeyBindings": [
-        // Workaround: Visual Mode chord bug
-        // https://github.com/VSCodeVim/Vim/issues/2842
-        {
-            "before": [ "v" ],
-            "after": [ "v", "l", "h" ]
-        },
-    ],
     "vim.visualModeKeyBindings": [
         {
             "before": ["v"],
@@ -112,9 +104,10 @@
 
     "terminal.integrated.shell.windows": "C:\\Windows\\System32\\bash.exe",
     "workbench.colorCustomizations": {
-        "statusBar.background": "#BF616A",
-        "statusBar.noFolderBackground": "#BF616A",
-        "statusBar.debuggingBackground": "#BF616A"
+        "statusBar.background": "#8FBCBB",
+        "statusBar.noFolderBackground": "#8FBCBB",
+        "statusBar.debuggingBackground": "#8FBCBB",
+        "statusBar.foreground": "#434C5E"
     },
     "window.menuBarVisibility": "default",
     "workbench.editor.closeEmptyGroups": false,
@@ -123,6 +116,17 @@
     "workbench.colorTheme": "papercolor-vscode",
     "scm.alwaysShowProviders": true,
     "debug.inlineValues": true,
-    "workbench.activityBar.visible": false,
+    "workbench.activityBar.visible": true,
+    "aws.samcli.location": "/usr/local/bin/sam",
+    "aws.profile": "profile:default",
+
+    "go.toolsEnvVars": {
+        "GO111MODULES": "on"
+    },
+    "emmet.includeLanguages": {
+        "javascript": "javascriptreact"
+    },
+    "editor.accessibilitySupport": "off",
+    "workbench.iconTheme": "eq-material-theme-icons"
 
 }
