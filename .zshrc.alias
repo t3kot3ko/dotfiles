@@ -8,6 +8,7 @@ alias rm="rm -i"
 
 alias g="git"
 alias d="cd"
+alias dh="cd .."
 alias dr="cd-gitroot"
 alias l="less"
 alias p="pwd"

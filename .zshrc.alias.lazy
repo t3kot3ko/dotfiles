@@ -5,8 +5,10 @@ if [[ $(uname) == "Linux" ]]; then
 	fi
 fi
 
-if $(whence bat >/dev/null); then
+if $(whence bat > /dev/null); then
 	alias b="bat"
+elif $(whence batcat > /dev/null); then
+	alias b="batcat"
 else
 	alias b="cat"
 fi
