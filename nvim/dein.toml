@@ -325,3 +325,6 @@ repo = 'herringtondarkholme/yats.vim'
 repo = "ElmCast/elm-vim"
 on_ft = "elm"
 
+[[plugins]]
+repo = "simeji/winresizer"
+
