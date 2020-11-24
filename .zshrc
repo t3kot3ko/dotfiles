@@ -1,13 +1,13 @@
 [ -e ~/.zshrc.alias ] && source ~/.zshrc.alias
-
-source ~/.zshrc.zplug
-source ~/.zshrc.custom
-
 [ -e ~/.zshrc.alias ] && source ~/.zshrc.alias.lazy
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -e ~/.zshrc.tmp ] && source ~/.zshrc.tmp
 [ -e ~/.zshrc.dev ] && source ~/.zshrc.dev
 [ -e ~/.zshrc.tmux ] && source ~/.zshrc.tmux
+
+source ~/.zshrc.zplug
+source ~/.zshrc.custom
+
 
 # fzf
 if $(whence fzf > /dev/null) && [ -e $HOME/.zshrc.fzf  ]; then

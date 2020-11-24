@@ -28,3 +28,10 @@ if $(whence z > /dev/null); then
 	alias j=z
 fi
 
+# vim/nvim
+if $(whence nvim > /dev/null); then
+	alias vim=nvim
+	export EDITOR=nvim
+fi
+	
+

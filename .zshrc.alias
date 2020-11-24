@@ -20,7 +20,6 @@ alias tmux='tmux -2'
 alias rr="source ~/.zshrc"
 alias reload='clear; exec zsh -l'
 
-alias vim="nvim"
 alias v="vim"
 
 alias _="sudo"
