@@ -18,6 +18,7 @@ augroup BufferAu
 augroup END
 
 vnoremap v $h
+nmap <Esc> :call coc#util#float_hide() <CR>
 nmap <Esc><Esc> :nohlsearch<CR>
 
 let mapleader = "\<Space>"

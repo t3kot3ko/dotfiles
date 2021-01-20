@@ -23,7 +23,7 @@ bindkey '^]' fzf-src
 function fzf-src-show () {
   local selected_dir=$(ghq list -p | fzf )
   if [ -n "$selected_dir" ]; then
-    BUFFER="$LBUFFER${selected_dir}"
+    BUFFER="$LBUFFER${selected_dir}$RBUFFER"
     CURSOR=$#BUFFER
   fi
 }
@@ -37,6 +37,16 @@ alias -g B='`git branch | fzf | sed -e "s/^\*[ ]*//g"`'
 alias -g BB='`git branch -a | fzf | sed -e "s/^\*[ ]*//g"`'
 ### list modified files
 alias -g F='`git status --short | fzf -m | cut -d" " -f3`'
+
+function fzf-git-branch () {
+  local selected_dir=$(git branch | fzf )
+  if [ -n "$selected_dir" ]; then
+    BUFFER="$LBUFFER${selected_dir}"
+    CURSOR=$#BUFFER
+  fi
+}
+zle -N fzf-git-branch
+bindkey '^G^B' fzf-git-branch
 
 ## Select history
 function fzf-select-history() {

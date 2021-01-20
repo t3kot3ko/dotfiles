@@ -253,8 +253,6 @@ repo = 'vim-scripts/ruby-matchit'
 repo = 'vim-ruby/vim-ruby'
 [[plugins]]
 repo = 'vim-scripts/rails.vim'
-[[plugins]]
-repo = 'tpope/vim-rails'
 
 # Golang
 # [[plugins]]
