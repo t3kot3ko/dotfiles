@@ -1,0 +1,114 @@
+// an example to replace `T` with `gt`, click `Default mappings` to see how `T` works.
+map('gt', 'T');
+
+addSearchAliasX('g', 'Google', 'https://www.google.com/search?q=', 's', 'https://www.google.com/complete/search?client=chrome-omni&gs_ri=chrome-ext&oit=1&cp=1&pgcl=7&q=', function(response) {
+    var res = JSON.parse(response.text);
+    return res[1];
+});
+
+unmap("t")
+
+map("h", "S") // Back
+map("l", "D") // Foward
+
+map("S", "og") // Search with Google in a new tab
+map("o", "go") // Open URL in current tab
+mapkey('tt', '#8Open a URL', function() {
+    Front.openOmnibar({type: "URLs", extra: "getAllSites"});
+});
+
+mapkey('Q', '#8Open omnibar for word translation', function() {
+    Front.openomnibar({type: Normal.getWordUnderCursor(), style: "opacity: 0.8;"});
+});
+
+map("T", ";u") // new tab
+map("O", ";U") // current
+
+// Search with Google in current tab
+mapkey('s', '#8Open Search with alias g', function() {
+    Front.openOmnibar({type: "SearchEngine", extra: "g", tabbed: false});
+});
+
+map("@", '<Alt-p>') // Toggle pin
+
+
+map("[[", 'gx0') // Close all left tabs
+map("]]", 'gx$') // Close all right tabs
+
+map("<Ctrl-f>", "d") // Page down
+map("<Ctrl-b>", "u") // Page up
+
+map("u", "X") // Restore closed tab
+
+map("b", "t") // Tab list
+
+mapkey("th", "Go one tab left", function() {
+	RUNTIME("previousTab");
+})
+
+mapkey("tl", "Go one tab left", function() {
+	RUNTIME("nextTab");
+})
+// Yank URL
+// mapkey('yy', "#7Copy current page's URL", function() {
+// Yank
+map("yt", 'yl') // Yank title
+
+// Marks
+mapkey('gm', '#10Add current URL to vim-like marks', Normal.addVIMark);
+mapkey("go", '#10Jump to vim-like mark', Normal.jumpVIMark);
+mapkey("gn", '#10Jump to vim-like mark in new tab.', function(mark) {
+    Normal.jumpVIMark(mark);
+});
+mapkey('gl', '#8Open URL from vim-like marks', function() {
+    Front.openOmnibar({type: "VIMarks"});
+});
+
+
+settings.smoothScroll = false
+settings.tabsThreshold = 0
+settings.omnibarPosition = "bottom"
+
+// set theme
+settings.theme = `
+.sk_theme {
+    font-family: Input Sans Condensed, Charcoal, sans-serif;
+    font-size: 10pt;
+    background: #24272e;
+    color: #abb2bf;
+}
+.sk_theme tbody {
+    color: #fff;
+}
+.sk_theme input {
+    color: #d0d0d0;
+}
+.sk_theme .url {
+    color: #61afef;
+}
+.sk_theme .annotation {
+    color: #56b6c2;
+}
+.sk_theme .omnibar_highlight {
+    color: #528bff;
+}
+.sk_theme .omnibar_timestamp {
+    color: #e5c07b;
+}
+.sk_theme .omnibar_visitcount {
+    color: #98c379;
+}
+.sk_theme #sk_omnibarSearchResult ul li:nth-child(odd) {
+    background: #303030;
+}
+.sk_theme #sk_omnibarSearchResult ul li.focused {
+    background: #3e4452;
+}
+#sk_status, #sk_find {
+    font-size: 14pt;
+}
+#sk_omnibar {
+    width: 100%;
+    left: 0%;
+}
+`;
