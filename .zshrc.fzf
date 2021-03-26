@@ -103,20 +103,20 @@ bindkey '^w' fzf-find-dir
 ## SSH
 #
 function fzf-ssh () {
-	local selected_host=$(awk '
-	tolower($1)=="host" {
-		for (i=2; i<=NF; i++) {
-			if ($i !~ "[*?]") {
-				print $i
-			}
-		}
-	}
+  local selected_host=$(awk '
+  tolower($1)=="host" {
+    for (i=2; i<=NF; i++) {
+      if ($i !~ "[*?]") {
+        print $i
+      }
+    }
+  }
   ' ~/.ssh/config | sort | fzf --query "$LBUFFER" --prompt "SSH to: ")
-	if [ -n "$selected_host" ]; then
-		BUFFER="ssh ${selected_host}"
-		zle accept-line
-	fi
-	zle clear-screen
+  if [ -n "$selected_host" ]; then
+    BUFFER="ssh ${selected_host}"
+    zle accept-line
+  fi
+  zle clear-screen
 }
 zle -N fzf-ssh
 bindkey '^s' fzf-ssh
@@ -130,6 +130,16 @@ function fzf-kill() {
 }
 zle -N fzf-kill
 bindkey '^k^k' fzf-kill
+
+function fzf-select-docker-container() {
+  selected=$(docker container ls | fzf --reverse --multi --header-lines=1 | awk '{print $1}')
+  BUFFER="$LBUFFER${selected}"
+  CURSOR=$#BUFFER
+  zle redisplay
+
+}
+zle -N fzf-select-docker-container
+bindkey '^g^q' fzf-select-docker-container
 
 alias -g ADB='`adb devices | grep -v "List of devices" | egrep -v "^\s*$" | fzf --prompt="Device ID>"  | sed "s/device//g"`'
 
