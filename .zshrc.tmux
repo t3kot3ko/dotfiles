@@ -1,6 +1,6 @@
 # Start tmux at the same time when new shell session starts
 
-if [[ ! -n $TMUX ]]; then
+if [[ ! -n $TMUX && $TERM_PROGRAM != "vscode" ]]; then
   # get the IDs
   ID="`tmux list-sessions`"
   if [[ -z "$ID" ]]; then
