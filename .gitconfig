@@ -7,6 +7,8 @@
   co = checkout
   cm = commit
   l = log
+  fe = fetch 
+  cl = clean
 [color]
   # automatically colored for following commands
   status = auto
@@ -17,11 +19,11 @@
 [core]
   editor = nvim
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
   required = true
-	process = git-lfs filter-process
+  process = git-lfs filter-process
 [ghq]
   root = ~/Projects/src
 [pull]
-	ff = only
+  ff = only
