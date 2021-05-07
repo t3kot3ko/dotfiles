@@ -43,11 +43,11 @@ map("u", "X") // Restore closed tab
 
 
 mapkey("th", "Go one tab left", function() {
-	RUNTIME("previousTab");
+  RUNTIME("previousTab");
 })
 
 mapkey("tl", "Go one tab left", function() {
-	RUNTIME("nextTab");
+  RUNTIME("nextTab");
 })
 // Yank URL
 // mapkey('yy', "#7Copy current page's URL", function() {
@@ -65,36 +65,35 @@ mapkey('gl', '#8Open URL from vim-like marks', function() {
 });
 
 unmap("p")
-mapkey("p", "#0Open URL or search with cliopboard in new tab", function() {
-		Clipboard.read(function(response) {
-			const data = response.data
-			if (data.match(/^http|^https/)) {
-				tabOpenLink(data);
-			} else {
-				tabOpenLink("https://www.google.com/search?q=" + data);
-			}
-		});
-	}
-)
-
-mapkey("P", "#0Open URL or search with cliopboard in current tab", function() {
-		Clipboard.read(function(response) {
-			const data = response.data
-			if (data.match(/^http|^https/)) {
+mapkey("p", "#0Open URL or search with cliopboard in current tab", function() {
+    Clipboard.read(function(response) {
+      const data = response.data
+      if (data.match(/^http|^https/)) {
         RUNTIME("openLink", {
             tab: { tabbed: false },
             url: data
         });
-			} else {
+      } else {
         RUNTIME("openLink", {
             tab: { tabbed: false },
             url: "https://www.google.com/search?q=" + data
         });
-			}
-		});
-	}
+      }
+    });
+  }
 )
 
+mapkey("P", "#0Open URL or search with cliopboard in new tab", function() {
+    Clipboard.read(function(response) {
+      const data = response.data
+      if (data.match(/^http|^https/)) {
+        tabOpenLink(data);
+      } else {
+        tabOpenLink("https://www.google.com/search?q=" + data);
+      }
+    });
+  }
+)
 
 
 settings.smoothScroll = false
