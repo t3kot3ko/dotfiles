@@ -13,9 +13,15 @@ repo = "NLKNguyen/papercolor-theme"
 hook_add = '''
 set background=dark
 au MyAutoCmd VimEnter * nested colorscheme PaperColor
+let g:PaperColor_Theme_Options = 
+      \{
+      \  'theme': {
+      \    'default.dark': {
+      \      'transparent_background': 0,
+      \    }
+      \  }
+      \}
 '''
-[[plugins]]
-repo = "edkolev/tmuxline.vim"
 [[plugins]]
 repo = "vim-airline/vim-airline"
 [[plugins]]
