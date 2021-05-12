@@ -70,6 +70,8 @@ zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 # ファイル名の展開で辞書順ではなく数値的にソート
 setopt numeric_glob_sort
 
+setopt interactivecomments
+
 #Git ブランチ名を表示
 function chpwd () {
     #_reg_pwd_screennum
