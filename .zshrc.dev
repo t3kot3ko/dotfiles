@@ -53,3 +53,10 @@ fi
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
+## homebrew (linux)
+if [[ $(uname) == "Linux" ]]; then
+	if $(whence /home/linuxbrew/.linuxbrew/bin/brew >/dev/null); then
+		eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+	fi
+fi
+
