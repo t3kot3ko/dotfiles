@@ -141,6 +141,17 @@ function fzf-select-docker-container() {
 zle -N fzf-select-docker-container
 bindkey '^g^q' fzf-select-docker-container
 
+function fzf-cdr() {
+    local selected_dir=$(cdr -l | awk '{ print $2 }' | fzf)
+    if [ -n "$selected_dir" ]; then
+        BUFFER="cd ${selected_dir}"
+        zle accept-line
+    fi
+    zle clear-screen
+}
+zle -N fzf-cdr
+bindkey '^r^r' fzf-cdr
+
 alias -g ADB='`adb devices | grep -v "List of devices" | egrep -v "^\s*$" | fzf --prompt="Device ID>"  | sed "s/device//g"`'
 
 
