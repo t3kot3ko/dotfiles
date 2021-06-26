@@ -32,7 +32,6 @@ mapkey('s', '#8Open Search with alias g', function() {
 
 map("@", '<Alt-p>') // Toggle pin
 
-
 map("[[", 'gx0') // Close all left tabs
 map("]]", 'gx$') // Close all right tabs
 
@@ -40,7 +39,6 @@ map("<Ctrl-f>", "d") // Page down
 map("<Ctrl-b>", "u") // Page up
 
 map("u", "X") // Restore closed tab
-
 
 mapkey("th", "Go one tab left", function() {
   RUNTIME("previousTab");
@@ -53,6 +51,11 @@ mapkey("tl", "Go one tab left", function() {
 // mapkey('yy', "#7Copy current page's URL", function() {
 // Yank
 map("yt", 'yl') // Yank title
+
+mapkey("yA", "Copy ASIN URL", function() {
+ const asin = window.document.getElementById('ASIN').value
+ Clipboard.write("http://amazon.jp/dp/" + asin)
+});
 
 // Marks
 mapkey('gm', '#10Add current URL to vim-like marks', Normal.addVIMark);
