@@ -6,58 +6,7 @@ if !&compatible
 	set nocompatible
 endif
 
-" reset augroup
-augroup MyAutoCmd
-	autocmd!
-augroup END
-
-augroup BufferAu
-    autocmd!
-    " カレントディレクトリを自動的に移動
-    autocmd BufNewFile,BufRead,BufEnter * if isdirectory(expand("%:p:h")) && bufname("%") !~ "NERD_tree" | cd %:p:h | endif
-augroup END
-
-vnoremap v $h
-nmap <Esc> :call coc#util#float_hide() <CR>
-nmap <Esc><Esc> :nohlsearch<CR>
-
-let mapleader = "\<Space>"
-
-" Python
-if has("unix") || has("mac")
-	let python3_host_prog = $PYENV_ROOT . "/versions/neovim3/bin/python"
-	let python_host_prog  = $PYENV_ROOT . "/versions/neovim2/bin/python"
-elseif has("win64") || has("win64")
-	let python3_host_prog = "c:\\Python37\\python.exe"
-	let python_host_prog  = "c:\\Python27\\python.exe"
-endif
-
-" Tab
-nnoremap <Space>t t
-nnoremap <Space>T T
-nnoremap t <Nop>
-nnoremap <silent> tc :<C-u>tabnew<CR>:tabmove<CR>
-nnoremap <silent> tx :<C-u>tabclose<CR>
-nnoremap <silent> tn :<C-u>tabnext<CR>
-nnoremap <silent> tl :<C-u>tabnext<CR>
-nnoremap <silent> tp :<C-u>tabprevious<CR>
-nnoremap <silent> th :<C-u>tabprevious<CR>
-nnoremap <silent> t1 :<C-u>tabnext 1<CR>
-nnoremap <silent> t2 :<C-u>tabnext 2<CR>
-nnoremap <silent> t3 :<C-u>tabnext 3<CR>
-nnoremap <silent> t4 :<C-u>tabnext 4<CR>
-nnoremap <silent> t5 :<C-u>tabnext 5<CR>
-nnoremap <silent> t6 :<C-u>tabnext 6<CR>
-nnoremap <silent> t7 :<C-u>tabnext 7<CR>
-nnoremap <silent> t8 :<C-u>tabnext 8<CR>
-nnoremap <silent> t9 :<C-u>tabnext 9<CR>
-nnoremap <silent> t0 :<C-u>tabnext 10<CR>
-command TN tabnew
-nnoremap <C-g><C-g> :Unite tab<CR>
-
-
-" let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-
+" Common settings{{{
 set cursorline
 set backspace=2
 set history=999         " keep 50 lines of command line history
@@ -99,11 +48,84 @@ set undodir=~/.vim/.undo
 set spelllang+=cjk
 set wildmode=list:longest
 
+" For coc-nvim
+" if hidden is not set, TextEdit might fail.
+set hidden
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+" Better display for messages
+set cmdheight=2
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+" always show signcolumns
+set signcolumn=yes
+
+" Add status line support, for integration with other plugin, checkout `:h coc-status`
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" reset augroup
+augroup MyAutoCmd
+	autocmd!
+augroup END
+
+augroup BufferAu
+    autocmd!
+    " カレントディレクトリを自動的に移動
+    autocmd BufNewFile,BufRead,BufEnter * if isdirectory(expand("%:p:h")) && bufname("%") !~ "NERD_tree" | cd %:p:h | endif
+augroup END
+
+vnoremap v $h
+nmap <Esc> :call coc#util#float_hide() <CR>
+nmap <Esc><Esc> :nohlsearch<CR>
+
+let mapleader = "\<Space>"
+
+" Python
+if has("unix") || has("mac")
+	let python3_host_prog = $PYENV_ROOT . "/versions/neovim3/bin/python"
+	let python_host_prog  = $PYENV_ROOT . "/versions/neovim2/bin/python"
+elseif has("win64") || has("win64")
+	let python3_host_prog = "c:\\Python37\\python.exe"
+	let python_host_prog  = "c:\\Python27\\python.exe"
+endif
+
+" Rename
+command! -nargs=+ -bang -complete=file Rename let pbnr=fnamemodify(bufname('%'), ':p')|exec 'f '.escape(<q-args>, ' ')|w<bang>|call delete(pbnr)
+"}}}
+
+" Keymapping: common{{{
 nnoremap j gj
 nnoremap k gk
+tnoremap <silent> <ESC> <C-\><C-n>"}}}
 
-tnoremap <silent> <ESC> <C-\><C-n>
+" Keymapping: tab{{{
+nnoremap <Space>t t
+nnoremap <Space>T T
+nnoremap t <Nop>
+nnoremap <silent> tc :<C-u>tabnew<CR>:tabmove<CR>
+nnoremap <silent> tx :<C-u>tabclose<CR>
+nnoremap <silent> tn :<C-u>tabnext<CR>
+nnoremap <silent> tl :<C-u>tabnext<CR>
+nnoremap <silent> tp :<C-u>tabprevious<CR>
+nnoremap <silent> th :<C-u>tabprevious<CR>
+nnoremap <silent> t1 :<C-u>tabnext 1<CR>
+nnoremap <silent> t2 :<C-u>tabnext 2<CR>
+nnoremap <silent> t3 :<C-u>tabnext 3<CR>
+nnoremap <silent> t4 :<C-u>tabnext 4<CR>
+nnoremap <silent> t5 :<C-u>tabnext 5<CR>
+nnoremap <silent> t6 :<C-u>tabnext 6<CR>
+nnoremap <silent> t7 :<C-u>tabnext 7<CR>
+nnoremap <silent> t8 :<C-u>tabnext 8<CR>
+nnoremap <silent> t9 :<C-u>tabnext 9<CR>
+nnoremap <silent> t0 :<C-u>tabnext 10<CR>
+command TN tabnew
+nnoremap <C-g><C-g> :Unite tab<CR>
+"}}}
 
+" fuf{{{
 " nnoremap <unique> <silent> <C-S> :FufBuffer!<CR>
 " nnoremap <unique> <silent> ef :FufFile!<CR>
 nnoremap <silent> eff :FufFile!<CR>
@@ -115,11 +137,12 @@ let g:fuf_mrufile_exclude = '\v\~$|\.bak$|\.swp|\.howm$'
 let g:fuf_mrufile_maxItem = 2000
 let g:fuf_enumeratingLimit = 20
 
-nnoremap <silent> ff :Unite file_mru<CR>
+nnoremap <silent> ff :Unite file_mru<CR>"}}}
 
 " Python でコメントを入力するとき，行頭に戻らないように
 autocmd FileType python inoremap # X#
 
+" ctags/gtags{{{
 " ctags (to avoid conflict between tmux escape-sequence)
 nnoremap <C-[> <C-t>
 
@@ -131,51 +154,10 @@ map <C-k> :Gtags -r <C-r><C-w><CR>
 "" jump to the definition
 map <C-j> :GtagsCursor<CR>
 nnoremap <C-n> :cn<CR>
-nnoremap <C-p> :cp<CR>
+nnoremap <C-p> :cp<CR>"}}}
 
-" Rename
-command! -nargs=+ -bang -complete=file Rename let pbnr=fnamemodify(bufname('%'), ':p')|exec 'f '.escape(<q-args>, ' ')|w<bang>|call delete(pbnr)
 
-" dirvish
-augroup dirvish_config
-	autocmd!
-
-	" Map `t` to open in new tab.
-	autocmd FileType dirvish
-				\  nnoremap <silent><buffer> t :call dirvish#open('tabedit', 0)<CR>
-				\ |xnoremap <silent><buffer> t :call dirvish#open('tabedit', 0)<CR>
-
-	" Map `gr` to reload.
-	autocmd FileType dirvish nnoremap <silent><buffer>
-				\ gr :<C-U>Dirvish %<CR>
-
-	" Map `gh` to hide dot-prefixed files.  Press `R` to "toggle" (reload).
-	autocmd FileType dirvish nnoremap <silent><buffer>
-				\ gh :silent keeppatterns g@\v/\.[^\/]+/?$@d _<cr>
-augroup END
-
-map <leader>1 <Plug>ToggleAutoCloseMappings
-
-" coc-nvim
-" if hidden is not set, TextEdit might fail.
-set hidden
-
-" Some servers have issues with backup files, see #649
-set nobackup
-set nowritebackup
-
-" Better display for messages
-set cmdheight=2
-
-" You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
-
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-
-" always show signcolumns
-set signcolumn=yes
-
+" coc-nvim settings{{{
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
@@ -266,8 +248,6 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 " use `:OR` for organize import of current buffer
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
-" Add status line support, for integration with other plugin, checkout `:h coc-status`
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Using CocList
 " Show all diagnostics
@@ -285,9 +265,11 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 " Do default action for previous item.
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>"
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>"}}}
 
-nnoremap - :<C-u>Defx<CR>
+" Defx{{{
+nnoremap - :<C-u>Defx<CR>"
+"}}}
 
 " dein settings {{{
 " ===== Install dein itself =====
