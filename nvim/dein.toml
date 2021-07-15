@@ -8,7 +8,7 @@ repo = 'Shougo/context_filetype.vim'
 [[plugins]] # toml syntax
 repo = 'cespare/vim-toml'
 on_ft = 'toml'
-[[plugins]]
+[[plugins]] # Papercolor colorscheme
 repo = "NLKNguyen/papercolor-theme"
 hook_add = '''
 set background=dark
@@ -17,7 +17,7 @@ let g:PaperColor_Theme_Options =
       \{
       \  'theme': {
       \    'default.dark': {
-      \      'transparent_background': 0,
+      \      'transparent_background': 1,
       \    }
       \  }
       \}
@@ -113,10 +113,22 @@ repo = 'vim-scripts/spinner.vim'
 [[plugins]]
 repo = "vim-scripts/FuzzyFinder"
 depends = ["L9"]
+hook_add = '''
+nnoremap <unique> <silent> <C-S> :FufBuffer!<CR>
+nnoremap <unique> <silent> ef :FufFile!<CR>
+nnoremap <silent> eff :FufFile!<CR>
+nnoremap <silent> efm :FufMruFile!<CR>
+autocmd FileType fuf nmap <C-c> <ESC>
+let g:fuf_patternSeparator = ' '
+let g:fuf_modesDisable = ['mrucmd']
+let g:fuf_mrufile_exclude = '\v\~$|\.bak$|\.swp|\.howm$'
+let g:fuf_mrufile_maxItem = 2000
+let g:fuf_enumeratingLimit = 20
+
+nnoremap <silent> ff :Unite file_mru<CR>"}}}
+'''
 [[plugins]]
 repo = "vim-scripts/L9"
-[[plugins]]
-repo = "dag/vim-fish"
 [[plugins]]
 repo = 'Shougo/denite.nvim'
 hook_post_source = '''
@@ -160,6 +172,9 @@ repo = "junegunn/fzf"
 build = "./install --all"
 [[plugins]]
 repo = "junegunn/fzf.vim"
+hook_add = '''
+nnoremap ff :Buffers <CR>
+'''
 [[plugins]]
 repo = "vim-scripts/gtags.vim"
 [[plugins]]
@@ -185,7 +200,7 @@ autocmd FileType defx call s:defx_my_settings()
 function! s:defx_my_settings() abort
   " Define mappings
   nnoremap <silent><buffer><expr> <CR>
-  \ defx#do_action('drop')
+  \ defx#do_action('open', "tabnew")
   nnoremap <silent><buffer><expr> c
   \ defx#do_action('copy')
   nnoremap <silent><buffer><expr> m

@@ -125,20 +125,6 @@ command TN tabnew
 nnoremap <C-g><C-g> :Unite tab<CR>
 "}}}
 
-" fuf{{{
-" nnoremap <unique> <silent> <C-S> :FufBuffer!<CR>
-" nnoremap <unique> <silent> ef :FufFile!<CR>
-nnoremap <silent> eff :FufFile!<CR>
-nnoremap <silent> efm :FufMruFile!<CR>
-autocmd FileType fuf nmap <C-c> <ESC>
-let g:fuf_patternSeparator = ' '
-let g:fuf_modesDisable = ['mrucmd']
-let g:fuf_mrufile_exclude = '\v\~$|\.bak$|\.swp|\.howm$'
-let g:fuf_mrufile_maxItem = 2000
-let g:fuf_enumeratingLimit = 20
-
-nnoremap <silent> ff :Unite file_mru<CR>"}}}
-
 " Python でコメントを入力するとき，行頭に戻らないように
 autocmd FileType python inoremap # X#
 
