@@ -132,9 +132,8 @@ runtime 'plugin/nvim-tresitter.vim'
 nnoremap ff :Fern . -reveal=% -drawer -toggle -width=40<CR>
 
 " Colorscheme
-colorscheme PaperColor
 set background=dark
-au MyAutoCmd VimEnter * nested colorscheme PaperColor
+colorscheme PaperColor
 let g:PaperColor_Theme_Options = 
       \{
       \  'theme': {
@@ -143,8 +142,7 @@ let g:PaperColor_Theme_Options =
       \    }
       \  }
       \}
-
-colorscheme PaperColor
+let g:dracula_colorterm = 0
 
 " Keymapping: common{{{
 nnoremap j gj
