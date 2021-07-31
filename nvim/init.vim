@@ -128,17 +128,7 @@ call plug#end()
 
 runtime 'plugin/completion.vim'
 runtime 'plugin/nvim-tresitter.vim'
-
-" fern.vim
-nnoremap ff :Fern . -reveal=% -drawer -toggle -width=40<CR>
-function! s:init_fern() abort
-	nmap <buffer> h <Plug>(fern-action-leave)
-endfunction
-augroup fern-custom
-  autocmd! *
-  autocmd FileType fern call s:init_fern()
-augroup END
-
+runtime 'plugin/fern.vim'
 
 " Colorscheme
 set background=dark
@@ -153,7 +143,7 @@ let g:PaperColor_Theme_Options =
       \}
 let g:dracula_colorterm = 0
 
-" Keymapping: common{{{
+" Keymappings {{{
 nnoremap j gj
 nnoremap k gk
 tnoremap <silent> <ESC> <C-\><C-n>"
