@@ -18,5 +18,9 @@
   "python.linting.enabled":true,
   "python.jediEnabled":false,
   "python.formatting.provider":"yapf",
-  "python.venvPath": "~/.anyenv/envs/pyenv"
+  "python.venvPath": "~/.anyenv/envs/pyenv",
+  "clangd.path": "/Users/tomoyuki/.config/coc/extensions/coc-clangd-data/install/12.0.0/clangd_12.0.0/bin/clangd",
+	"coc.preferences.formatOnSaveFiletypes": [
+		"cpp"
+	]
 }
