@@ -28,7 +28,7 @@ function fzf-src-show () {
   fi
 }
 zle -N fzf-src-show
-bindkey '^G^R' fzf-src-show
+bindkey '^lr' fzf-src-show
 
 ## Select git branch (global alias)
 ### local branches
@@ -46,7 +46,7 @@ function fzf-git-branch () {
   fi
 }
 zle -N fzf-git-branch
-bindkey '^G^B' fzf-git-branch
+bindkey '^lb' fzf-git-branch
 
 ## Select history
 function fzf-select-history() {
@@ -85,7 +85,7 @@ function fzf-ls-file() {
     zle redisplay
 }
 zle -N fzf-ls-file
-bindkey '^l^s' fzf-ls-file
+bindkey '^ls' fzf-ls-file
 
 ## Find directory
 function fzf-find-dir() {
@@ -139,7 +139,7 @@ function fzf-select-docker-container() {
 
 }
 zle -N fzf-select-docker-container
-bindkey '^g^q' fzf-select-docker-container
+bindkey '^lc' fzf-select-docker-container
 
 function fzf-cdr() {
     local selected_dir=$(cdr -l | awk '{ print $2 }' | fzf)
@@ -150,8 +150,6 @@ function fzf-cdr() {
     zle clear-screen
 }
 zle -N fzf-cdr
-bindkey '^r^r' fzf-cdr
+bindkey '^lh' fzf-cdr
 
 alias -g ADB='`adb devices | grep -v "List of devices" | egrep -v "^\s*$" | fzf --prompt="Device ID>"  | sed "s/device//g"`'
-
-
