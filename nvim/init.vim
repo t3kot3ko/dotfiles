@@ -108,6 +108,11 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'lambdalisue/fern.vim'
 Plug 'hrsh7th/vim-vsnip'
+Plug 'APZelos/blamer.nvim'
+Plug 'ray-x/lsp_signature.nvim'
+Plug 'folke/trouble.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 
 " Ruby / Rails
 Plug 'tpope/vim-rails'
@@ -126,9 +131,12 @@ Plug 'mgedmin/python-imports.vim'
 
 call plug#end()
 
+" Plugin settings
 runtime 'plugin/completion.vim'
 runtime 'plugin/nvim-tresitter.vim'
 runtime 'plugin/fern.vim'
+
+let g:blamer_enabled = 1
 
 " Colorscheme
 set background=dark
