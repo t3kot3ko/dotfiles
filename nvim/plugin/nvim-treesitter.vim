@@ -16,9 +16,10 @@ require'nvim-treesitter.configs'.setup {
       scope_incremental = "grc",
       node_decremental = "grm",
     },
-	},
+  },
   indent = {
-    enable = true
+    enable = true,
+    disable = {"python", }
   }
 }
 EOF
