@@ -5,9 +5,8 @@
 [ -e ~/.zshrc.dev ] && source ~/.zshrc.dev
 [ -e ~/.zshrc.tmux ] && source ~/.zshrc.tmux
 
-source ~/.zshrc.zplug
+source ~/.zshrc.zinit
 source ~/.zshrc.custom
-
 
 # fzf
 if $(whence fzf > /dev/null) && [ -e $HOME/.zshrc.fzf  ]; then

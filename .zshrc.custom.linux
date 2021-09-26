@@ -6,12 +6,23 @@ alias ls="ls --color=auto"
 
 set -o vi
 
-if [[ "$(uname)" == "Darwin" ]]; then
-	# Use GNU binaries for Darwin
-	export PATH="/usr/local/opt/coreutils/libexec/gnubin/:$PATH"
-	export PATH="/usr/local/opt/findutils/libexec/gnubin/:$PATH"
 
-	export PATH="/usr/local/opt/gettext/bin/gettext:$PATH"
+# Use GNU binaries for Darwin
+if [[ "$(uname)" == "Darwin" ]]; then
+  case $(uname -m); in
+    # For Apple Silicon
+    arm64 )
+      export PATH=/opt/homebrew/bin:$PATH
+
+      export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:${PATH}"
+      export MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:${MANPATH}"
+      ;;
+    # For ordinary Macs
+    x86_64 )
+      export PATH="/usr/local/opt/findutils/libexec/gnubin/:$PATH"
+      export PATH="/usr/local/opt/gettext/bin/gettext:$PATH"
+      ;;
+  esac
 fi
 
 
