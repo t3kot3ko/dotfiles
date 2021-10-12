@@ -3,7 +3,6 @@
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -e ~/.zshrc.tmp ] && source ~/.zshrc.tmp
 [ -e ~/.zshrc.dev ] && source ~/.zshrc.dev
-[ -e ~/.zshrc.tmux ] && source ~/.zshrc.tmux
 
 source ~/.zshrc.zinit
 source ~/.zshrc.custom
@@ -13,6 +12,7 @@ if $(whence fzf > /dev/null) && [ -e $HOME/.zshrc.fzf  ]; then
 	source $HOME/.zshrc.fzf
 fi
 
+[ -e ~/.zshrc.tmux ] && source ~/.zshrc.tmux
 [ -e ~/.zshrc.local ] && source ~/.zshrc.local
 
 # TODO: extract OS dependent settings
