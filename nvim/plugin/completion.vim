@@ -40,7 +40,7 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "pyright", "bashls", "gopls", "solargraph", "tsserver" }
+local servers = { "pyright", "bashls", "gopls", "solargraph", "tsserver", "clangd", "dockerls" }
 
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
@@ -50,6 +50,10 @@ for _, lsp in ipairs(servers) do
     }
   }
 end
+
+nvim_lsp["clangd"].setup {
+  cmd = { "clangd-10", "--background-index" }
+}
 EOF
 
 
@@ -70,7 +74,7 @@ require'compe'.setup {
   max_menu_width = 100;
   documentation = {
     -- border = { '', '' ,'', ' ', '', '', '', ' ' }, -- the border option is the same as `|help nvim_open_win|`
-		border = { "╔", "═" ,"╗", "║", "╝", "═", "╚", "║" },
+    border = { "╔", "═" ,"╗", "║", "╝", "═", "╚", "║" },
     winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
     max_width = 120,
     min_width = 60,

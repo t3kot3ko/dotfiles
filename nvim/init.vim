@@ -111,6 +111,7 @@ Plug 'hrsh7th/vim-vsnip'
 Plug 'APZelos/blamer.nvim'
 Plug 'ray-x/lsp_signature.nvim'
 Plug 'folke/trouble.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
@@ -119,6 +120,7 @@ Plug 'tpope/vim-rails'
 Plug 'vim-scripts/ruby-matchit'
 
 Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
 
 " Markdown
 Plug 'plasticboy/vim-markdown'
