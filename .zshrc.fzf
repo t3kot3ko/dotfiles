@@ -48,6 +48,38 @@ function fzf-git-branch () {
 zle -N fzf-git-branch
 bindkey '^lb' fzf-git-branch
 
+
+function fzf-git-checkout() {
+  local selected=$(git branch -a | grep -v '*' | sed -e "s/^\*[ ]*//g" | fzf)
+  echo $selected
+  
+  if git rev-parse 2> /dev/null; then
+    if [ -n "$selected" ]; then
+      ecoh $selected
+      git checkout ${selected}
+      zle accept-line
+    fi
+    zle clear-screen
+  fi
+}
+zle -N fzf-git-checkout
+bindkey '^kc' fzf-git-checkout
+
+function fzf-git-cd-submodule () {
+  local selected=$(git submodule | fzf)
+  local dir=$(echo $selected | cut -d " " -f3)
+  if git rev-parse 2> /dev/null; then
+    if [ -n "$dir" ]; then
+      cd ${dir}
+      zle accept-line
+    fi
+    zle clear-screen
+  fi
+}
+zle -N fzf-git-cd-submodule
+bindkey '^ks' fzf-git-cd-submodule
+
+
 ## Select history
 function fzf-select-history() {
     BUFFER=$(fc -l -r -n 1 | fzf --query "$LBUFFER" --prompt "History > ")
