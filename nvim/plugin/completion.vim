@@ -52,7 +52,7 @@ for _, lsp in ipairs(servers) do
 end
 
 nvim_lsp["clangd"].setup {
-  cmd = { "clangd-10", "--background-index" }
+  cmd = { "clangd", "--background-index" }
 }
 EOF
 
