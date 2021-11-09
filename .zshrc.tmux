@@ -1,3 +1,20 @@
+if [[ -n ${SSH_TTY} ]]; then
+	tmux source ${HOME}/.tmux.green.conf
+
+	# Set G as prefix
+	tmux set -g prefix C-g;
+	tmux unbind C-t
+	tmux bind C-g last-window
+	
+else
+	tmux source ${HOME}/.tmux.blue.conf
+
+	# Set G as prefix
+	tmux set -g prefix C-t;
+	tmux unbind C-t
+	tmux bind C-t last-window
+fi
+
 # Start tmux at the same time when new shell session starts
 
 if [[ ! -n $TMUX && $TERM_PROGRAM != "vscode" ]]; then
@@ -17,3 +34,4 @@ if [[ ! -n $TMUX && $TERM_PROGRAM != "vscode" ]]; then
     :  # Start terminal normally
   fi
 fi
+
