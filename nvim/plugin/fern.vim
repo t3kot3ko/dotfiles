@@ -1,6 +1,9 @@
 nnoremap ff :Fern . -reveal=% -drawer -toggle -width=40<CR>
 function! s:init_fern() abort
-	nmap <buffer> h <Plug>(fern-action-leave)
+	map <buffer> h <Plug>(fern-action-leave)
+	map <buffer> v <Plug>(fern-action-open:vsplit)
+	map <buffer> s <Plug>(fern-action-open:split)
+	map <buffer> <S-s> <Plug>(fern-action-open:select)
 endfunction
 augroup fern-custom
   autocmd! *
