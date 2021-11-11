@@ -39,7 +39,7 @@ alias -g BB='`git branch -a | fzf | sed -e "s/^\*[ ]*//g"`'
 alias -g F='`git status --short | fzf -m | cut -d" " -f3`'
 
 function fzf-git-branch () {
-  local selected_dir=$(git branch | fzf )
+  local selected_dir=$(git branch | grep -v "*" | grep -v "\->" | sed -e "s/^[ ]*//g" | fzf )
   if [ -n "$selected_dir" ]; then
     BUFFER="$LBUFFER${selected_dir}"
     CURSOR=$#BUFFER
@@ -47,6 +47,16 @@ function fzf-git-branch () {
 }
 zle -N fzf-git-branch
 bindkey '^lb' fzf-git-branch
+
+function fzf-git-branch-all () {
+  local selected_dir=$(git branch -a | grep -v "*" | grep -v "\->" | sed -e "s/^[ ]*//g" | fzf )
+  if [ -n "$selected_dir" ]; then
+    BUFFER="$LBUFFER${selected_dir}"
+    CURSOR=$#BUFFER
+  fi
+}
+zle -N fzf-git-branch-all
+bindkey '^lB' fzf-git-branch-all
 
 
 function fzf-git-checkout() {
