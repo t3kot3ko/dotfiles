@@ -3,8 +3,7 @@
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -e ~/.zshrc.tmp ] && source ~/.zshrc.tmp
 [ -e ~/.zshrc.dev ] && source ~/.zshrc.dev
-
-source ~/.zshrc.zinit
+source ~/.zshrc.zplug
 source ~/.zshrc.custom
 
 # fzf
