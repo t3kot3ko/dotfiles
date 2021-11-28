@@ -1,4 +1,6 @@
-if [[ -n ${SSH_TTY} ]]; then
+if [[ -h ${SSH_TTY} || $(uname) == "Darwin" && -v SSH_CONNECTION ]]; then
+	# In SSH session
+
 	tmux source ${HOME}/.tmux.green.conf
 
 	# Set G as prefix
@@ -9,7 +11,7 @@ if [[ -n ${SSH_TTY} ]]; then
 else
 	tmux source ${HOME}/.tmux.blue.conf
 
-	# Set G as prefix
+	# Set T as prefix
 	tmux set -g prefix C-t;
 	tmux unbind C-t
 	tmux bind C-t last-window
