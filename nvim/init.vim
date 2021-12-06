@@ -8,6 +8,9 @@ endif
 
 let mapleader = "\<Space>"
 
+" For OS running with US locale
+lang en_US.UTF-8
+
 
 " Common settings{{{
 set cursorline
@@ -96,7 +99,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/AutoClose'
 Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/nvim-compe'
+" Plug 'hrsh7th/nvim-compe'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'thinca/vim-quickrun'
 Plug 'vim-scripts/surround.vim'
@@ -115,6 +118,27 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
+" ddc.vim本体
+Plug 'Shougo/ddc.vim'
+" DenoでVimプラグインを開発するためのプラグイン
+Plug 'vim-denops/denops.vim'
+" ポップアップウィンドウを表示するプラグイン
+Plug 'Shougo/pum.vim'
+" カーソル周辺の既出単語を補完するsource
+Plug 'Shougo/ddc-around'
+" ファイル名を補完するsource
+Plug 'LumaKernel/ddc-file'
+" 入力中の単語を補完の対象にするfilter
+Plug 'Shougo/ddc-matcher_head'
+" 補完候補を適切にソートするfilter
+Plug 'Shougo/ddc-sorter_rank'
+" 補完候補の重複を防ぐためのfilter
+Plug 'Shougo/ddc-converter_remove_overlap'
+Plug 'Shougo/ddc-nvim-lsp'
+" "Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/vim-lsp'
+
+
 " Ruby / Rails
 Plug 'tpope/vim-rails'
 Plug 'vim-scripts/ruby-matchit'
@@ -131,12 +155,9 @@ Plug 'dhruvasagar/vim-table-mode'
 " Python
 Plug 'mgedmin/python-imports.vim'
 
-call plug#end()
+Plug 'github/copilot.vim'
 
-" Plugin settings
-runtime 'plugin/completion.vim'
-runtime 'plugin/nvim-tresitter.vim'
-runtime 'plugin/fern.vim'
+call plug#end()
 
 let g:blamer_enabled = 1
 
@@ -174,7 +195,7 @@ nnoremap <silent> tp :<C-u>tabprevious<CR>
 nnoremap <silent> th :<C-u>tabprevious<CR>
 command TN tabnew
 
-nnoremap <silent><Leader>r :<C-u>QuickRun <CR>
+" nnoremap <silent><Leader>r :<C-u>QuickRun <CR>
 
 "}}}
 
