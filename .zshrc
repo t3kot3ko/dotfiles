@@ -3,7 +3,7 @@
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -e ~/.zshrc.tmp ] && source ~/.zshrc.tmp
 [ -e ~/.zshrc.dev ] && source ~/.zshrc.dev
-source ~/.zshrc.zplug
+source ~/.zshrc.zinit
 source ~/.zshrc.custom
 
 # fzf
@@ -22,4 +22,3 @@ if [ `uname` = "Linux" ]; then
 	fi
 	[ -e $HOME/.Xmodmap ] && xmodmap $HOME/.Xmodmap
 fi
-

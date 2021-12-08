@@ -25,13 +25,6 @@ if [ -d $ANDROID_NDK_HOME ]; then
   export PATH=$PATH:$ANDROID_NDK_HOME
 fi
 
-## anyenv
-export ANYENV_ROOT="${HOME}/.anyenv"
-if [ -d "${ANYENV_ROOT}" ]; then
-  export PATH=${ANYENV_ROOT}/bin:$PATH
-  eval "$(anyenv init -)"
-fi
-
 ## Golang
 if [ -d ${GOROOT} ]; then
   export GOENV_DISABLE_GOPATH=1
