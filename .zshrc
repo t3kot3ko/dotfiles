@@ -1,9 +1,9 @@
 [ -e ~/.zshrc.alias ] && source ~/.zshrc.alias
-[ -e ~/.zshrc.alias ] && source ~/.zshrc.alias.lazy
+[ -e ~/.zshrc.alias.lazy ] && source ~/.zshrc.alias.lazy
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -e ~/.zshrc.tmp ] && source ~/.zshrc.tmp
+[ -e ~/.zshrc.zinit ] && source ~/.zshrc.zinit
 [ -e ~/.zshrc.dev ] && source ~/.zshrc.dev
-source ~/.zshrc.zinit
 source ~/.zshrc.custom
 
 # fzf
