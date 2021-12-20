@@ -5,7 +5,6 @@
 if !&compatible
 	set nocompatible
 endif
-
 let mapleader = "\<Space>"
 
 
@@ -101,7 +100,6 @@ Plug 'vim-scripts/surround.vim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
 Plug 'easymotion/vim-easymotion'
 Plug 'vim-scripts/spinner.vim'
-Plug 'Shougo/denite.nvim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'lambdalisue/fern.vim'
@@ -112,6 +110,8 @@ Plug 'folke/trouble.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'github/copilot.vim'
+Plug 'airblade/vim-rooter'
 
 " nvim-cmp
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -125,6 +125,7 @@ Plug 'hrsh7th/vim-vsnip'
 Plug 'tpope/vim-rails'
 Plug 'vim-scripts/ruby-matchit'
 
+" Git
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 
@@ -148,6 +149,7 @@ call plug#end()
 " "runtime 'plugin/fern.vim'
 
 let g:blamer_enabled = 1
+let g:rooter_patterns = ['.git', 'Makefile', '*.sln', 'build/env.sh']
 
 " Colorscheme
 set background=dark
