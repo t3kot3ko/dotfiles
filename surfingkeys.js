@@ -39,9 +39,9 @@ mapkey('tt', '#8Open a URL', function() {
     Front.openOmnibar({type: "URLs", extra: "getAllSites"});
 });
 
-mapkey('Q', '#8Open omnibar for word translation', function() {
-    Front.openomnibar({type: Normal.getWordUnderCursor(), style: "opacity: 0.8;"});
-});
+// mapkey('Q', '#8Open omnibar for word translation', function() {
+//     Front.openomnibar({type: Normal.getWordUnderCursor(), style: "opacity: 0.8;"});
+// });
 
 map("T", ";u") // new tab
 map("O", ";U") // current
@@ -79,11 +79,11 @@ mapkey("yA", "Copy ASIN URL", function() {
 });
 
 // Marks
-mapkey('gm', '#10Add current URL to vim-like marks', Normal.addVIMark);
-mapkey("go", '#10Jump to vim-like mark', Normal.jumpVIMark);
-mapkey("gn", '#10Jump to vim-like mark in new tab.', function(mark) {
-    Normal.jumpVIMark(mark);
-});
+// mapkey('gm', '#10Add current URL to vim-like marks', Normal.addVIMark);
+// mapkey("go", '#10Jump to vim-like mark', Normal.jumpVIMark);
+// mapkey("gn", '#10Jump to vim-like mark in new tab.', function(mark) {
+//     Normal.jumpVIMark(mark);
+// });
 mapkey('gl', '#8Open URL from vim-like marks', function() {
     Front.openOmnibar({type: "VIMarks"});
 });
