@@ -88,11 +88,9 @@ autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
 
 " Plugins
 call plug#begin('$HOME/.local/share/nvim/plugged')
-Plug 'NLKNguyen/papercolor-theme'
 Plug 'dracula/vim', { 'as': 'dracula' } 
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-scripts/AutoClose'
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'cohama/lexima.vim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'thinca/vim-quickrun'
@@ -112,6 +110,15 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'github/copilot.vim'
 Plug 'airblade/vim-rooter'
+Plug 'liuchengxu/vista.vim'
+Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'simeji/winresizer'
+Plug 'simeji/winresizer'
+Plug 'hoschi/yode-nvim'
+
+" Colorschems
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'EdenEast/nightfox.nvim'
 
 " nvim-cmp
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -149,6 +156,7 @@ call plug#end()
 " "runtime 'plugin/fern.vim'
 
 let g:blamer_enabled = 1
+let g:rooter_manual_only = 1
 let g:rooter_patterns = ['.git', 'Makefile', '*.sln', 'build/env.sh']
 
 " Colorscheme
@@ -163,6 +171,54 @@ let g:PaperColor_Theme_Options =
       \  }
       \}
 let g:dracula_colorterm = 0
+
+lua << EOF
+require('yode-nvim').setup({})
+EOF
+
+lua << EOF
+local nightfox = require('nightfox')
+
+-- This function set the configuration of nightfox. If a value is not passed in the setup function
+-- it will be taken from the default configuration above
+nightfox.setup({
+  fox = "duskfox", -- change the colorscheme to use nordfox
+  styles = {
+    comments = "italic", -- change style of comments to be italic
+    keywords = "bold", -- change style of keywords to be bold
+    functions = "italic,bold" -- styles can be a comma separated list
+  },
+	transparent = true, -- do not set background color
+  inverse = {
+    match_paren = false, -- inverse the highlighting of match_parens
+    search = true,
+    visual = true,
+  },
+  colors = {
+    bg_alt = "#000000",
+  },
+  hlgroups = {
+    TSPunctDelimiter = { fg = "${red}" }, -- Override a highlight group with the color red
+    LspCodeLens = { bg = "#000000", style = "italic" },
+  }
+})
+
+-- Load the configuration set above and apply the colorscheme
+nightfox.load()
+EOF
+
+
+lua << EOF
+require('lualine').setup {
+  options = {
+    -- ... your lualine config
+    theme = "nightfox"
+  }
+}
+EOF
+
+let g:airline_theme='papercolor'
+
 
 " Keymappings {{{
 nnoremap j gj
@@ -195,7 +251,7 @@ autocmd FileType python inoremap # X#
 
 " ctags/gtags{{{
 " ctags (to avoid conflict between tmux escape-sequence)
-nnoremap <C-[> <C-t>
+" nnoremap <C-[> <C-t>
 
 " gtags
 "" list functions defined in a file
