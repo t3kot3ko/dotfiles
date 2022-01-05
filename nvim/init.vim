@@ -112,6 +112,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'github/copilot.vim'
 Plug 'airblade/vim-rooter'
+Plug 'rebelot/kanagawa.nvim'
 
 " nvim-cmp
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -163,6 +164,35 @@ let g:PaperColor_Theme_Options =
       \  }
       \}
 let g:dracula_colorterm = 0
+
+lua << EOF
+-- Default options:
+require('kanagawa').setup({
+    undercurl = true,           -- enable undercurls
+    commentStyle = "italic",
+    functionStyle = "NONE",
+    keywordStyle = "italic",
+    statementStyle = "bold",
+    typeStyle = "NONE",
+    variablebuiltinStyle = "italic",
+    specialReturn = true,       -- special highlight for the return keyword
+    specialException = true,    -- special highlight for exception handling keywords 
+    transparent = true,        -- do not set background color
+    colors = {},
+    overrides = {},
+})
+
+
+-- this will affect all the hl-groups where the redefined colors are used
+local my_colors = {
+    -- use the palette color name...
+    -- waveBlue1 = "#76946A",
+}
+
+
+require'kanagawa'.setup({ colors = my_colors})
+vim.cmd("colorscheme kanagawa")
+EOF
 
 " Keymappings {{{
 nnoremap j gj
