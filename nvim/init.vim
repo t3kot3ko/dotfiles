@@ -113,6 +113,8 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'github/copilot.vim'
 Plug 'airblade/vim-rooter'
 Plug 'rebelot/kanagawa.nvim'
+Plug 'EdenEast/nightfox.nvim'
+Plug 'simrat39/symbols-outline.nvim'
 
 " nvim-cmp
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -189,10 +191,41 @@ local my_colors = {
     -- waveBlue1 = "#76946A",
 }
 
-
 require'kanagawa'.setup({ colors = my_colors})
-vim.cmd("colorscheme kanagawa")
 EOF
+
+lua << EOF
+local nightfox = require('nightfox')
+
+-- This function set the configuration of nightfox. If a value is not passed in the setup function
+-- it will be taken from the default configuration above
+nightfox.setup({
+  fox = "duskfox", -- change the colorscheme to use nordfox
+  styles = {
+    comments = "italic", -- change style of comments to be italic
+    keywords = "bold", -- change style of keywords to be bold
+    functions = "italic,bold" -- styles can be a comma separated list
+  },
+	transparent = true, -- do not set background color
+  inverse = {
+    match_paren = true, -- inverse the highlighting of match_parens
+  },
+  colors = {
+    red = "#FF000", -- Override the red color for MAX POWER
+    bg_alt = "#000000",
+  },
+  hlgroups = {
+    TSPunctDelimiter = { fg = "${red}" }, -- Override a highlight group with the color red
+    LspCodeLens = { bg = "#000000", style = "italic" },
+  }
+})
+
+-- Load the configuration set above and apply the colorscheme
+nightfox.load()
+EOF
+
+let g:airline_theme='papercolor'
+
 
 " Keymappings {{{
 nnoremap j gj
