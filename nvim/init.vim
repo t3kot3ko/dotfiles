@@ -114,7 +114,6 @@ Plug 'github/copilot.vim'
 Plug 'airblade/vim-rooter'
 Plug 'rebelot/kanagawa.nvim'
 Plug 'EdenEast/nightfox.nvim'
-Plug 'simrat39/symbols-outline.nvim'
 
 " nvim-cmp
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -208,7 +207,7 @@ nightfox.setup({
   },
 	transparent = true, -- do not set background color
   inverse = {
-    match_paren = true, -- inverse the highlighting of match_parens
+    match_paren = false, -- inverse the highlighting of match_parens
   },
   colors = {
     red = "#FF000", -- Override the red color for MAX POWER
@@ -258,7 +257,8 @@ autocmd FileType python inoremap # X#
 
 " ctags/gtags{{{
 " ctags (to avoid conflict between tmux escape-sequence)
-nnoremap <C-[> <C-t>
+" "nnoremap <C-[> <C-t>
+
 
 " gtags
 "" list functions defined in a file
