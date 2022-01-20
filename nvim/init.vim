@@ -88,7 +88,6 @@ autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
 
 " Plugins
 call plug#begin('$HOME/.local/share/nvim/plugged')
-Plug 'NLKNguyen/papercolor-theme'
 Plug 'dracula/vim', { 'as': 'dracula' } 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -112,6 +111,11 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'github/copilot.vim'
 Plug 'airblade/vim-rooter'
+Plug 'simrat39/symbols-outline.nvim'
+Plug 'liuchengxu/vista.vim'
+
+" Colorschems
+Plug 'NLKNguyen/papercolor-theme'
 Plug 'rebelot/kanagawa.nvim'
 Plug 'EdenEast/nightfox.nvim'
 
@@ -210,7 +214,6 @@ nightfox.setup({
     match_paren = false, -- inverse the highlighting of match_parens
   },
   colors = {
-    red = "#FF000", -- Override the red color for MAX POWER
     bg_alt = "#000000",
   },
   hlgroups = {
@@ -257,8 +260,7 @@ autocmd FileType python inoremap # X#
 
 " ctags/gtags{{{
 " ctags (to avoid conflict between tmux escape-sequence)
-" "nnoremap <C-[> <C-t>
-
+" nnoremap <C-[> <C-t>
 
 " gtags
 "" list functions defined in a file
