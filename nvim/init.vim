@@ -91,7 +91,7 @@ call plug#begin('$HOME/.local/share/nvim/plugged')
 Plug 'dracula/vim', { 'as': 'dracula' } 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-scripts/AutoClose'
+Plug 'cohama/lexima.vim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'thinca/vim-quickrun'
@@ -111,8 +111,9 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'github/copilot.vim'
 Plug 'airblade/vim-rooter'
-Plug 'simrat39/symbols-outline.nvim'
 Plug 'liuchengxu/vista.vim'
+Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'simeji/winresizer'
 
 " Colorschems
 Plug 'NLKNguyen/papercolor-theme'
