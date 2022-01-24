@@ -156,6 +156,7 @@ call plug#end()
 " "runtime 'plugin/fern.vim'
 
 let g:blamer_enabled = 1
+let g:rooter_manual_only = 1
 let g:rooter_patterns = ['.git', 'Makefile', '*.sln', 'build/env.sh']
 
 " Colorscheme
