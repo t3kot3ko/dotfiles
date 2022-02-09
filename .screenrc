@@ -1,0 +1,18 @@
+defutf8 on
+defencoding utf8
+encoding utf8 utf8
+
+startup_message off
+vbell off
+
+defscrollback 10000
+termcapinfo xterm* ti@:te@
+
+bind y copy
+bind p paste
+
+bind h log
+bind H hardcopy
+hardcopy_append on
+
+logfile "screen-%Y%m%d-%n.log"
