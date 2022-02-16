@@ -15,8 +15,9 @@ set history=999         " keep 50 lines of command line history
 set ruler               " show the cursor position all the time
 set showcmd             " display incomplete commands
 set incsearch           " do incremental searching
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set shortmess+=I
 set visualbell
 set listchars=eol:$,tab:>-
@@ -25,7 +26,7 @@ set grepprg=search\ $*
 set number
 set showmatch
 set showmode
-set noexpandtab
+set expandtab
 set wildmenu
 set autoindent 
 set smartindent 
@@ -200,7 +201,8 @@ nightfox.setup({
   hlgroups = {
     TSPunctDelimiter = { fg = "${red}" }, -- Override a highlight group with the color red
     LspCodeLens = { bg = "#000000", style = "italic" },
-  }
+    TabLineSel = { bg = "${yellow}", fg = "${black}" },
+  },
 })
 
 -- Load the configuration set above and apply the colorscheme
