@@ -61,12 +61,10 @@ bindkey '^lB' fzf-git-branch-all
 
 function fzf-git-checkout() {
   local selected=$(git branch -a | grep -v '*' | sed -e "s/^\*[ ]*//g" | fzf)
-  echo $selected
   
   if git rev-parse 2> /dev/null; then
     if [ -n "$selected" ]; then
-      ecoh $selected
-      git checkout ${selected}
+      BUFFER="git checkout ${selected}"
       zle accept-line
     fi
     zle clear-screen
