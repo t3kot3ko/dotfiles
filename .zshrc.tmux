@@ -1,4 +1,4 @@
-if [[ -h ${SSH_TTY} || $(uname) == "Darwin" && -v SSH_CONNECTION ]]; then
+if [[ -h ${SSH_TTY} || "${SSH_TTY}" != "" || $(uname) == "Darwin" && -v SSH_CONNECTION ]]; then
 	# In SSH session
 
 	tmux source ${HOME}/.tmux.green.conf
