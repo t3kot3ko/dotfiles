@@ -221,6 +221,9 @@ EOF
 
 let g:airline_theme='papercolor'
 
+" Disable Copilot on startup
+autocmd VimEnter * Copilot disable
+
 
 " Keymappings {{{
 nnoremap j gj
