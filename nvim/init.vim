@@ -237,6 +237,10 @@ nmap <Esc><Esc> :nohlsearch<CR>
 nnoremap x "_x
 nnoremap s "_s
 
+" Don't jump to top/bottom with S-h / S-l
+nnoremap <S-l> <Nop>
+nnoremap <S-h> <Nop>
+
 " tab
 nnoremap <silent> tc :<C-u>tabnew<CR>:tabmove<CR>
 nnoremap <silent> tx :<C-u>tabclose<CR>
