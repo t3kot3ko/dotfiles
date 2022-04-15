@@ -183,31 +183,32 @@ local nightfox = require('nightfox')
 -- This function set the configuration of nightfox. If a value is not passed in the setup function
 -- it will be taken from the default configuration above
 nightfox.setup({
-  fox = "duskfox", -- change the colorscheme to use nordfox
-  styles = {
-    comments = "italic", -- change style of comments to be italic
-    keywords = "bold", -- change style of keywords to be bold
-    functions = "italic,bold" -- styles can be a comma separated list
-  },
-	transparent = true, -- do not set background color
-  inverse = {
-    match_paren = false, -- inverse the highlighting of match_parens
-    search = true,
-    visual = true,
-  },
-  colors = {
-    bg_alt = "#000000",
-  },
-  hlgroups = {
-    TSPunctDelimiter = { fg = "${red}" }, -- Override a highlight group with the color red
-    LspCodeLens = { bg = "#000000", style = "italic" },
-    TabLineSel = { bg = "${yellow}", fg = "${black}" },
-  },
+    options = {
+        transparent = true, -- do not set background color
+        inverse = {
+            match_paren = false, -- inverse the highlighting of match_parens
+            search = true,
+            visual = true,
+            },
+        styles = {
+            comments = "italic", -- change style of comments to be italic
+            keywords = "bold", -- change style of keywords to be bold
+            functions = "italic,bold" -- styles can be a comma separated list
+            },
+        },
+    paletts = {
+        bg_alt = "#000000",
+        },
+    groups = {
+        TSPunctDelimiter = { fg = "palette.red" }, -- Override a highlight group with the color red
+        LspCodeLens = { bg = "#000000", style = "italic" },
+        TabLineSel = { bg = "palette.yellow", fg = "palette.black" },
+        },
 })
 
--- Load the configuration set above and apply the colorscheme
-nightfox.load()
 EOF
+
+colorscheme duskfox
 
 
 lua << EOF
