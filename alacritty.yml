@@ -1,5 +1,5 @@
 font:
-  size: 20 
+  size: 16 
   normal:
     family: Hack NF
   bold:
@@ -12,7 +12,7 @@ font:
     style: Bold Italic
 
 window: 
-  opacity: 0.87
+  opacity: 0.85
 
 cursor:
   style:
@@ -49,3 +49,11 @@ colors:
   indexed_colors:
     - { index: 16, color: '0xea9a97' }
     - { index: 17, color: '0xEB98C3' }
+
+mouse_bindings:
+- { mouse: Right, action: Paste }
+
+key_bindings:
+- { key: V,mods: Control|Shift, action: Paste}
+- { key: C,mods: Control|Shift, action: Copy}
+
