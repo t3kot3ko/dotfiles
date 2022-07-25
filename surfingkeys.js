@@ -117,12 +117,29 @@ mapkey("P", "#0Open URL or search with cliopboard in new tab", function() {
       }
     });
   }
-)
+);
 
+unmap("ta");
+mapkey("ta", "#0Open Japanese-translated version of Azure doc", function() {
+    const url = window.location.href.replace("en-us", "ja-jp");
+    RUNTIME("openLink", {
+        tab: { tabbed: false },
+        url: url
+    });
+});
+unmap("te");
+mapkey("te", "#0Open English version of Azure doc", function() {
+    const url = window.location.href.replace("ja-jp", "en-us");
+    RUNTIME("openLink", {
+        tab: { tabbed: false },
+        url: url
+    });
+});
 
 settings.smoothScroll = false
 settings.tabsThreshold = 0
 settings.omnibarPosition = "bottom"
+settings.blacklistPattern = undefined
 
 // set theme
 settings.theme = `
