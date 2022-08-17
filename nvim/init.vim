@@ -41,6 +41,7 @@ set laststatus=2
 set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
 set clipboard=unnamed,unnamedplus
 set showtabline=2			" Always shows tabs (even when only one file is opening)
+set scrolloff=1
 
 " Backup / swap
 set swapfile
@@ -183,27 +184,29 @@ local nightfox = require('nightfox')
 -- This function set the configuration of nightfox. If a value is not passed in the setup function
 -- it will be taken from the default configuration above
 nightfox.setup({
-    options = {
-        transparent = true, -- do not set background color
-        inverse = {
-            match_paren = false, -- inverse the highlighting of match_parens
-            search = true,
-            visual = true,
-            },
-        styles = {
-            comments = "italic", -- change style of comments to be italic
-            keywords = "bold", -- change style of keywords to be bold
-            functions = "italic,bold" -- styles can be a comma separated list
-            },
+options = {
+    transparent = true, -- do not set background color
+    inverse = {
+        match_paren = false, -- inverse the highlighting of match_parens
+        search = true,
+        visual = true,
         },
-    paletts = {
-        bg_alt = "#000000",
+    styles = {
+        comments = "italic", -- change style of comments to be italic
+        keywords = "bold", -- change style of keywords to be bold
+        functions = "italic,bold" -- styles can be a comma separated list
         },
-    groups = {
+    },
+paletts = {
+    bg_alt = "#000000",
+    },
+groups = {
+    all= {
         TSPunctDelimiter = { fg = "palette.red" }, -- Override a highlight group with the color red
         LspCodeLens = { bg = "#000000", style = "italic" },
         TabLineSel = { bg = "palette.yellow", fg = "palette.black" },
-        },
+        }
+    },
 })
 
 EOF
