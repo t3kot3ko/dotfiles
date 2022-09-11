@@ -1,0 +1,4 @@
+autocmd GUIEnter * set transparency=220
+set guioptions=
+colorscheme dracula
+set guifont=MeiryoKe_Console:h14
