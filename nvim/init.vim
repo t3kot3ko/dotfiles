@@ -280,6 +280,10 @@ let g:go_higlight_functions = 1
 let g:go_higlight_methods = 1
 let g:go_higlight_structs = 1
 
+" Suppress error on WSL
+" cf. https://github.com/neovim/neovim/issues/2642
+let g:yankring_clipboard_monitor=0
+
 " Indent settings {{{
 filetype on
 filetype plugin on
