@@ -78,6 +78,12 @@ mapkey("yA", "Copy ASIN URL", function() {
  Clipboard.write("http://amazon.jp/dp/" + asin)
 });
 
+mapkey("yx", "Copy title and URL", function() {
+ const title = window.document.title;
+ const url = window.document.location.href;
+ Clipboard.write("< " + title + " >\r" + url)
+});
+
 // Marks
 // mapkey('gm', '#10Add current URL to vim-like marks', Normal.addVIMark);
 // mapkey("go", '#10Jump to vim-like mark', Normal.jumpVIMark);
@@ -132,6 +138,14 @@ mapkey("te", "#0Open English version of Azure doc", function() {
     const url = window.location.href.replace("ja-jp", "en-us");
     RUNTIME("openLink", {
         tab: { tabbed: false },
+        url: url
+    });
+});
+unmap("tk");
+mapkey("tk", "#0Open Kudu", function() {
+    const url = window.location.href.replace(".azurewebsites.net", ".scm.azurewebsites.net");
+    RUNTIME("openLink", {
+        tab: { tabbed: true },
         url: url
     });
 });
