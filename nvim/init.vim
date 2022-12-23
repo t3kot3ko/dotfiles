@@ -110,7 +110,6 @@ Plug 'folke/trouble.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'github/copilot.vim'
 Plug 'airblade/vim-rooter'
 Plug 'liuchengxu/vista.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
@@ -224,10 +223,6 @@ require('lualine').setup {
 EOF
 
 let g:airline_theme='papercolor'
-
-" Disable Copilot on startup
-autocmd VimEnter * Copilot disable
-
 
 " Keymappings {{{
 nnoremap j gj
