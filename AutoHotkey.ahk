@@ -9,9 +9,20 @@ $vkDE::Send, "
 ; Single Ctrl to send ESC
 !Esc::Send, {Esc}
 
+^escape::
+return
+
+; Henkan
+;; Embedded keyboard
+$vkFF::Send,{vk1C}
+; Muhenkan
+;; Embedded keyboard
+$vkEB::Send,{vk1D}
+
 #ifWinNotActive ahk_class TscShellContainerClass
 Ctrl::
      Send,{Esc}
+     ; IME_SET(0)
      KeyWait,Ctrl
 return
 
