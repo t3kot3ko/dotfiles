@@ -35,6 +35,29 @@ return
         Send, #{Up}
 return
 
+
+; Press Alt+Q twice to close window 
+!q::
+ {
+   count++
+   settimer, actions, 200
+ }
+return
+
+actions:
+ {
+  if (count = 1) {
+      ; do nothing
+    }
+   else if (count = 2)
+    {
+      Send, !{F4}
+    }
+ count := 0
+ }
+return
+
+
 ; --------------------------------------------------
 ; Togge IME with LAlt / RAlt
 ; cf. https://github.com/karakaram/alt-ime-ahk
