@@ -1,24 +1,29 @@
+# Alias
 [ -e ~/.zshrc.alias ] && source ~/.zshrc.alias
-[ -e ~/.zshrc.alias.lazy ] && source ~/.zshrc.alias.lazy
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -e ~/.zshrc.tmp ] && source ~/.zshrc.tmp
-[ -e ~/.zshrc.zinit ] && source ~/.zshrc.zinit
-[ -e ~/.zshrc.dev ] && source ~/.zshrc.dev
-source ~/.zshrc.custom
 
-# fzf
+# Plugins (Sheldon)
+autoload -Uz compinit && compinit
+eval "$(sheldon source)"
+
+# Development
+[ -e ~/.zshrc.dev ] && source ~/.zshrc.dev
+
+# Custom
+[ -e ~/.zshrc.custom ] && source ~/.zshrc.custom
+
+# fzf custom commands
 if $(whence fzf > /dev/null) && [ -e $HOME/.zshrc.fzf  ]; then
 	source $HOME/.zshrc.fzf
 fi
 
+# tmux
 [ -e ~/.zshrc.tmux ] && source ~/.zshrc.tmux
+
+# Alias (loaded after plugins installed)
+[ -e ~/.zshrc.alias.lazy ] && source ~/.zshrc.alias.lazy
+
+# Local settings (not version controlled)
 [ -e ~/.zshrc.local ] && source ~/.zshrc.local
 
-# TODO: extract OS dependent settings
-if [ `uname` = "Linux" ]; then
-	# set key-repeat for Ubuntu (GUI setting is ignored)
-	if [ $DISPLAY ]; then
-		xset r rate 230 60
-	fi
-	[ -e $HOME/.Xmodmap ] && xmodmap $HOME/.Xmodmap
-fi
+# Prompt (Starship)
+eval "$(starship init zsh)"

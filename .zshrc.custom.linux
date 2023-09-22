@@ -2,10 +2,7 @@ HISTFILE=$HOME/.zsh-history # file to save history
 HISTSIZE=100000 # the number of histories extracted into RAM
 SAVEHIST=100000 # the number of saved histories
 
-alias ls="ls --color=auto"
-
 set -o vi
-
 
 # Use GNU binaries for Darwin
 if [[ "$(uname)" == "Darwin" ]]; then
@@ -14,7 +11,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
     arm64 )
       export PATH=/opt/homebrew/bin:$PATH
 
-      export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:${PATH}"
+      export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:/opt/homebrew/opt/findutils/libexec/gnubin:${PATH}"
       export MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:${MANPATH}"
       ;;
     # For ordinary Macs
@@ -25,9 +22,6 @@ if [[ "$(uname)" == "Darwin" ]]; then
   esac
 fi
 
-
-# プログラマブル保管機能を有効
-autoload -U compinit && compinit
 
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
 add-zsh-hook chpwd chpwd_recent_dirs
@@ -64,7 +58,7 @@ setopt share_history
 ## ディレクトリスタックを保存 
 setopt auto_pushd
 
-## 補完候補を一覧表示
+# t## 補完候補を一覧表示
 setopt auto_list
 
 ## ディレクトリ名の補完で末尾の / を自動的に付加し、次の補完に備える
@@ -81,6 +75,10 @@ setopt correct
 # 'cd -' [Tab] で以前移動したディレクトリに移動する
 # setopt pushd_ignore_dups
 
+# Do not enter command lines into the history list if they are duplicates of the previous event.
+setopt hist_ignore_dups
+setopt hist_ignore_all_dups
+
 # 保管候補をカーソルで選択可能に
 zstyle ':completion:*:default' menu select=1
 
@@ -92,127 +90,23 @@ setopt numeric_glob_sort
 
 setopt interactivecomments
 
-#Git ブランチ名を表示
+function _prompt_compute_vars() {
+    export __ZSH_RPROMPT_DIR="$PWD"
+}
 function chpwd () {
-    #_reg_pwd_screennum
-    #_color_ls
-		[ -n $TMUX ] && tmux setenv TMUXPWD_$(tmux display -p "#I") $PWD
+	[ -n $TMUX ] && tmux setenv TMUXPWD_$(tmux display -p "#I") $PWD
     _prompt_compute_vars
 }
 
-function preexec () {
-    _git_preexec_update_vars
-}
-
-
-function _git_compute_vars() {
-    export __ZSH_GIT_STATE=
-    export __ZSH_GIT_DIR=
-
-    local git_dir state branch
-
-    git_dir=$(git rev-parse --git-dir 2> /dev/null) || return
-
-    if test -d "$git_dir/../.dotest"; then
-        if test -f "$git_dir/../.dotest/rebasing"; then
-            state="rebase"
-        elif test -f "$git_dir/../.dotest/applying"; then
-            state="am"
-        else
-            state="am/rebase"
-        fi
-        branch="$(git symbolic-ref HEAD 2>/dev/null)"
-    elif test -f "$git_dir/.dotest-merge/interactive"; then
-        state="rebase-i"
-        branch="$(cat "$git_dir/.dotest-merge/head-name")"
-    elif test -d "$git_dir/.dotest-merge"; then
-        state="rebase-m"
-        branch="$(cat "$git_dir/.dotest-merge/head-name")"
-    elif test -f "$git_dir/MERGE_HEAD"; then
-        state="merge"
-        branch="$(git symbolic-ref HEAD 2>/dev/null)"
-    else
-        test -f "$git_dir/BISECT_LOG" && state="bisect"
-        branch="$(git symbolic-ref HEAD 2>/dev/null)" || \
-            branch="$(git describe --exact-match HEAD 2>/dev/null)" || \
-            branch="$(cut -c1-7 "$git_dir/HEAD")..."
-    fi
-
-    branch="${branch#refs/heads/}"
-
-    if test "$state" ; then
-        state=":$state"
-    fi
-
-   case $git_dir in 
-	   (.git)
-	   git_dir="$(pwd)/.git";;
-   esac 
-
-    export __ZSH_GIT_STATE="%{$fg[cyan]%}(${branch}${state})"
-    export __ZSH_GIT_DIR="${${git_dir:h}/$HOME/~}"
-}
-
-function _prompt_compute_vars() {
-    _git_compute_vars
-
-    local git_dir
-    git_dir=${${__ZSH_GIT_DIR}%% }
-
-    local short
-    short="${PWD/$HOME/~}"
-
-    if test -z "$git_dir" ; then
-            export __ZSH_RPROMPT_DIR="$short"
-            return
-    fi
-
-    local lead rest
-    lead=$git_dir
-    rest=${${short#$lead}#/}
-
-    export __ZSH_RPROMPT_DIR="$lead%{$fg[gray]%}/$rest"
-}
-
-function _git_preexec_update_vars() {
-    case "$(history $HISTCMD)" in 
-        (*git*) 
-		_git_compute_vars
-		;;
-    esac
-}
-
-
-# cd と同時に ls
+# cd and ls
 function _xxx_ls() { ls }
 function _set_rprompt() { 
 	RPROMPT="[%~]" 
 }
 
 chpwd_functions=(_set_rprompt _xxx_ls)
-_prompt_compute_vars
-
-# PROMPT='${WINDOW:+"[$WINDOW]"}%{$fg[#gray]%}${USER}@`hostname -s`${__ZSH_GIT_STATE}%{$fg[green]%}%#%{$reset_color%} '
-
-show_buffer_stack() {
-	POSTDISPLAY="
-	stack: $LBUFFER"
-	zle push-line-or-edit
-}
-zle -N show_buffer_stack
-setopt noflowcontrol
-bindkey '^Q' show_buffer_stack
-
 
 export PATH=$PATH:~/bin
-
-
-bindkey '^p' history-beginning-search-backward
-bindkey '^n' history-beginning-search-forward
-bindkey '^R' history-incremental-pattern-search-backward
-bindkey '^S' history-incremental-pattern-search-forward
-bindkey '^r' history-incremental-pattern-search-backward
-bindkey '^s' history-incremental-pattern-search-forward
 
 # ssh
 function ssh() {
@@ -220,3 +114,10 @@ function ssh() {
 	command ssh $@
 	tmux rename-window $window_name
 }
+
+# Plugin related settings#
+## enhancd
+export ENHANCD_ENABLE_HOME=false
+export ENHANCD_ENABLE_DOUBLE_DOT=false
+export ENHANCD_ENABLE_SINGLE_DOT=false
+

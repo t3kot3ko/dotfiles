@@ -26,3 +26,14 @@ alias _="sudo"
 alias __="command"
 
 alias be="bundle exec"
+
+# Global alias 
+## Select git branch (global alias)
+### local branches
+alias -g B='`git branch | fzf | sed -e "s/^\*[ ]*//g"`'
+### all branches (including remote branches)
+alias -g BB='`git branch -a | fzf | sed -e "s/^\*[ ]*//g"`'
+### list modified files
+alias -g F='`git status --short | fzf -m | cut -d" " -f3`'
+## adb
+alias -g ADB='`adb devices | grep -v "List of devices" | egrep -v "^\s*$" | fzf --prompt="Device ID>"  | sed "s/device//g"`'

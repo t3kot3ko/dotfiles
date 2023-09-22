@@ -9,6 +9,16 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 --color=info:#f6c177,prompt:#65b1cd,pointer:#a6dae3 
 --color=marker:#b1d196,spinner:#ccb1ed,header:#a3be8c'
 
+## files
+function show_buffer_stack() {
+	POSTDISPLAY="
+	stack: $LBUFFER"
+	zle push-line-or-edit
+}
+zle -N show_buffer_stack
+setopt noflowcontrol
+bindkey '^Q' show_buffer_stack
+
 ## ghq
 function fzf-src () {
   local selected_dir=$(ghq list -p | fzf --query "$LBUFFER")
@@ -31,13 +41,6 @@ function fzf-src-show () {
 zle -N fzf-src-show
 bindkey '^lr' fzf-src-show
 
-## Select git branch (global alias)
-### local branches
-alias -g B='`git branch | fzf | sed -e "s/^\*[ ]*//g"`'
-### all branches (including remote branches)
-alias -g BB='`git branch -a | fzf | sed -e "s/^\*[ ]*//g"`'
-### list modified files
-alias -g F='`git status --short | fzf -m | cut -d" " -f3`'
 
 function fzf-git-branch () {
   local selected_dir=$(git branch | grep -v "*" | grep -v "\->" | sed -e "s/^[ ]*//g" | fzf )
@@ -88,7 +91,6 @@ function fzf-git-cd-submodule () {
 zle -N fzf-git-cd-submodule
 bindkey '^ks' fzf-git-cd-submodule
 
-
 ## Select history
 function fzf-select-history() {
     BUFFER=$(fc -l -r -n 1 | fzf --query "$LBUFFER" --prompt "History > ")
@@ -97,6 +99,11 @@ function fzf-select-history() {
 }
 zle -N fzf-select-history
 bindkey '^r' fzf-select-history
+
+bindkey '^p' history-beginning-search-backward
+bindkey '^n' history-beginning-search-forward
+bindkey '^S' history-incremental-pattern-search-forward
+bindkey '^s' history-incremental-pattern-search-forward
 
 ## Find file
 function fzf-find-file() {
@@ -193,4 +200,3 @@ function fzf-cdr() {
 zle -N fzf-cdr
 bindkey '^lh' fzf-cdr
 
-alias -g ADB='`adb devices | grep -v "List of devices" | egrep -v "^\s*$" | fzf --prompt="Device ID>"  | sed "s/device//g"`'
