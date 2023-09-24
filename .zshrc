@@ -1,9 +1,18 @@
 # Alias
 [ -e ~/.zshrc.alias ] && source ~/.zshrc.alias
 
+if type brew &>/dev/null
+then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+  autoload -Uz compinit && compinit
+fi
+
 # Plugins (Sheldon)
-autoload -Uz compinit && compinit
+# autoload -Uz compinit && compinit
 eval "$(sheldon source)"
+
+# asdf
+source /opt/homebrew/opt/asdf/libexec/asdf.sh
 
 # Development
 [ -e ~/.zshrc.dev ] && source ~/.zshrc.dev
@@ -27,3 +36,4 @@ fi
 
 # Prompt (Starship)
 eval "$(starship init zsh)"
+
