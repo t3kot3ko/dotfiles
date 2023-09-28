@@ -1,4 +1,5 @@
 # Partial zshrc to build development enviroment
+# Suppose asdf has been activated in this script
 
 ## Android
 export ANDROID_HOME=/opt/android-sdk-linux
@@ -40,8 +41,9 @@ if $(whence direnv > /dev/null); then
 fi
 
 ## Java
-if [ -d ${JAVA_HOME} ]; then
-  export PATH=$PATH:$JAVA_HOME/bin
+if $(whence java 2>&1 > /dev/null); then
+    # Automatically set JAVA_HOME
+    . $HOME/.asdf/plugins/java/set-java-home.zsh
 fi
 
 ## Rust
