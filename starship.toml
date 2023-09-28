@@ -4,6 +4,7 @@
 # Inserts a blank line between shell prompts
 add_newline = false
 format = '$character$directory$git_branch'
+right_format = '$character$directory$git_branch$all'
 
 # Replace the '❯' symbol in the prompt with '➜'
 [character] # The name of the module we are configuring is 'character'
@@ -24,3 +25,8 @@ truncation_symbol = ''
 
 [directory]
 truncation_length = 1
+
+[python]
+disabled = false
+symbol = '👾 '
+pyenv_version_name = true
