@@ -30,10 +30,10 @@ map s{ :surround_curly_brackets
 map s} :surround_curly_brackets
 
 " Emulate Tab Switching https://vimhelp.org/tabpage.txt.html#gt
-" requires Cycle Through Panes Plugins https://obsidian.md/plugins?id=cycle-through-panes
-exmap tabnext obcommand cycle-through-panes:cycle-through-panes
+" requires Pane Relief: https://github.com/pjeby/pane-relief
+exmap tabnext obcommand pane-relief:go-next
 nmap tl :tabnext
-exmap tabprev obcommand cycle-through-panes:cycle-through-panes-reverse
+exmap tabprev obcommand pane-relief:go-prev
 nmap th :tabprev
 
 " Vim-like pane moving
@@ -45,3 +45,14 @@ exmap focusTop obcommand editor:focus-top
 nmap <C-w>k :focusTop
 exmap focusBottom obcommand editor:focus-bottom
 nmap <C-w>j :focusBottom
+
+" :wq and :q to close
+exmap wq obcommand workspace:close
+exmap q obcommand workspace:close
+
+" Split pane
+exmap vsplit obcommand workspace:split-vertical
+exmap vsp obcommand workspace:split-vertical
+exmap hsplit obcommand workspace:split-horizontal
+exmap split obcommand workspace:split-horizontal
+exmap sp obcommand workspace:split-vertical
