@@ -11,6 +11,9 @@
 # See the documentation for more https://github.com/rossmacarthur/sheldon#readme
 
 [plugins]
+[plugins.zsh-defer]
+github = "romkatv/zsh-defer"
+apply = ["source"]
 # [plugins.zsh-autosuggestions]
 # github = "zsh-users/zsh-autosuggestions"
 # use = ["{{ name }}.zsh"]
@@ -18,6 +21,7 @@
 # github = "zsh-users/zsh-syntax-highlighting"
 [plugins.fast-syntax-highlighting]
 github = "zdharma/fast-syntax-highlighting"
+apply = ["defer"]
 [plugins.cd-gitroot]
 github = "mollifier/cd-gitroot"
 [plugins.zsh-interactive-cd]
@@ -30,3 +34,7 @@ github = "skywind3000/z.lua"
 github = "chriskempson/base16-shell"
 [plugins.extract]
 github = "le0me55i/zsh-extract.git"
+
+[templates]
+defer = "{{ hooks | get: \"pre\" | nl }}{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}{{ hooks | get: \"post\" | nl }}"
+
