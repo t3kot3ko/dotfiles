@@ -76,3 +76,8 @@ bind generic K view-help
 bind generic <C-w><C-w> view-next
 
 set diff-options = -m --first-parent
+
+# Browse GitHub of specific commit 
+bind main go !@gh browse %(commit)
+bind diff go !@gh browse %(commit)
+
