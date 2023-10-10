@@ -38,17 +38,29 @@ nmap th :tabprev
 
 " Vim-like pane moving
 exmap focusRight obcommand editor:focus-right
-nmap <C-w>l :focusRight
 exmap focusLeft obcommand editor:focus-left
-nmap <C-w>h :focusLeft
 exmap focusTop obcommand editor:focus-top
-nmap <C-w>k :focusTop
 exmap focusBottom obcommand editor:focus-bottom
+nmap <C-w>l :focusRight
+nmap <C-w>h :focusLeft
+nmap <C-w>k :focusTop
 nmap <C-w>j :focusBottom
+nmap <C-w><C-l> :focusRight
+nmap <C-w><C-h> :focusLeft
+nmap <C-w><C-k> :focusTop
+nmap <C-w><C-j> :focusBottom
 
 " :wq and :q to close
 exmap wq obcommand workspace:close
 exmap q obcommand workspace:close
+
+" Follow link under cursor
+exmap followLinkUnderCursor obcommand editor:follow-link
+nmap go :followLinkUnderCursor
+exmap goBack obcommand app:go-back
+nmap <C-o> :goBack
+exmap goForward obcommand app:go-forward
+nmap <C-i> :goForward
 
 " Split pane
 exmap vsplit obcommand workspace:split-vertical
