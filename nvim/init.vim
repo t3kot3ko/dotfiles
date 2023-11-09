@@ -42,6 +42,7 @@ set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V
 set clipboard=unnamed,unnamedplus
 set showtabline=2			" Always shows tabs (even when only one file is opening)
 set scrolloff=1
+set signcolumn=yes:1 " Alywas shows Sign Column to avoid showing and disappering repeatedly
 
 " Backup / swap
 set swapfile
@@ -87,6 +88,14 @@ endif
 autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
   \| PlugInstall --sync | source $MYVIMRC
 \| endif
+
+
+" Neovide (GUI frontend) specific setting
+if exists("g:neovide")
+    let g:neovide_transparency = 0.8
+    let g:neovide_cursor_animation_length = 0 " Disable cursor animation
+    set guifont=Hack\ Nerd\ Font:h14
+endif
 
 " Plugins
 call plug#begin('$HOME/.local/share/nvim/plugged')
@@ -285,5 +294,4 @@ filetype plugin on
 filetype indent on
 syntax on
 " }}}
-
 
