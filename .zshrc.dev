@@ -43,7 +43,9 @@ fi
 ## Java
 if $(whence java 2>&1 > /dev/null); then
     # Automatically set JAVA_HOME
-    . $HOME/.asdf/plugins/java/set-java-home.zsh
+    if [[ -e $HOME/.asdf/plugins/java/set-java-home.zsh ]]; then
+        . $HOME/.asdf/plugins/java/set-java-home.zsh
+    fi
 fi
 
 ## Rust

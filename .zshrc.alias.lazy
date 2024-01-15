@@ -1,3 +1,50 @@
+# Use Rust command line tools
+if $(whence exa > /dev/null); then
+	alias ls="exa"
+fi
+
+
+# alias ls='ls --color=auto'
+# alias ll='ls -al'
+alias grep="grep --color=auto"
+
+alias cp="cp -i"
+alias mv="mv -i"
+alias rm="rm -i"
+
+alias g="git"
+alias d="cd"
+alias dh="cd .."
+alias dr="cd-gitroot"
+alias l="less"
+alias p="pwd"
+alias xg="xargs grep"
+
+# use 256-colors mode
+alias tmux='tmux -2' 
+
+alias rr="source ~/.zshrc"
+alias reload='clear; exec zsh -l'
+
+alias v="vim"
+
+alias _="sudo"
+alias __="command"
+
+alias be="bundle exec"
+
+# Global alias 
+## Select git branch (global alias)
+### local branches
+alias -g B='`git branch | fzf | sed -e "s/^\*[ ]*//g"`'
+### all branches (including remote branches)
+alias -g BB='`git branch -a | fzf | sed -e "s/^\*[ ]*//g"`'
+### list modified files
+alias -g F='`git status --short | fzf -m | cut -d" " -f3`'
+## adb
+alias -g ADB='`adb devices | grep -v "List of devices" | egrep -v "^\s*$" | fzf --prompt="Device ID>"  | sed "s/device//g"`'
+
+
 # Use xdg-open as "open" for Linux
 if [[ $(uname) == "Linux" ]]; then
 	if $(whence xdg-open >/dev/null); then
