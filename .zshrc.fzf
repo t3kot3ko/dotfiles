@@ -200,3 +200,13 @@ function fzf-cdr() {
 zle -N fzf-cdr
 bindkey '^lh' fzf-cdr
 
+function paste-current-git-branch() {
+    local branch_name
+    branch_name=$(git branch --show-current 2>/dev/null)
+    if [ -n "$branch_name" ]; then
+        BUFFER="$LBUFFER${branch_name}"
+        CURSOR=$#BUFFER
+    fi
+}
+zle -N paste-current-git-branch
+bindkey '^kb' paste-current-git-branch
