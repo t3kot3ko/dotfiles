@@ -119,6 +119,7 @@ Plug 'folke/trouble.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'airblade/vim-rooter'
 Plug 'liuchengxu/vista.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
@@ -157,6 +158,9 @@ Plug 'mgedmin/python-imports.vim'
 
 " Golang
 Plug 'mattn/vim-goimports'
+
+Plug 'github/copilot.vim'
+Plug 'onsails/lspkind.nvim'
 
 call plug#end()
 
