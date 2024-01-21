@@ -90,13 +90,6 @@ autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
 \| endif
 
 
-" Neovide (GUI frontend) specific setting
-if exists("g:neovide")
-    let g:neovide_transparency = 0.8
-    let g:neovide_cursor_animation_length = 0 " Disable cursor animation
-    set guifont=Hack\ Nerd\ Font:h14
-endif
-
 " Plugins
 call plug#begin('$HOME/.local/share/nvim/plugged')
 Plug 'dracula/vim', { 'as': 'dracula' } 
@@ -120,12 +113,16 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-file-browser.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
 Plug 'airblade/vim-rooter'
 Plug 'liuchengxu/vista.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'simeji/winresizer'
 Plug 'simeji/winresizer'
 Plug 'hoschi/yode-nvim'
+Plug 'github/copilot.vim'
+Plug 'zbirenbaum/copilot.lua'
+Plug 'zbirenbaum/copilot-cmp'
 
 " Colorschems
 Plug 'NLKNguyen/papercolor-theme'
@@ -291,6 +288,42 @@ let g:go_higlight_structs = 1
 " Suppress error on WSL
 " cf. https://github.com/neovim/neovim/issues/2642
 let g:yankring_clipboard_monitor=0
+
+lua << EOF
+-- You dont need to set any of these options. These are the default ones. Only
+-- the loading is important
+require('telescope').setup {
+  extensions = {
+    fzf = {
+      fuzzy = true,                    -- false will only do exact matching
+      override_generic_sorter = true,  -- override the generic sorter
+      override_file_sorter = true,     -- override the file sorter
+      case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+                                       -- the default case_mode is "smart_case"
+    }
+  }
+}
+-- To get fzf loaded and working with telescope, you need to call
+-- load_extension, somewhere after setup function:
+require('telescope').load_extension('fzf')
+EOF
+
+
+" Neovide (GUI frontend) specific setting
+if exists("g:neovide")
+    let g:neovide_transparency = 0.9
+    let g:neovide_cursor_animation_length = 0 " Disable cursor animation
+    set guifont=Hack\ Nerd\ Font:h14
+    set background=light
+    colorscheme PaperColor
+    nmap <c-c> "+y
+    vmap <c-c> "+y
+    nmap <c-v> "+p
+    inoremap <c-v> <c-r>+
+    cnoremap <c-v> <c-r>+
+    inoremap <c-r> <c-v>
+endif
+
 
 " Indent settings {{{
 filetype on

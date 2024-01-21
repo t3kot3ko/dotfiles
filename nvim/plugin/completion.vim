@@ -32,6 +32,7 @@ lua <<EOF
     }, {
       { name = 'buffer' },
       { name = 'path' },
+      { name = "copilot", group_index = 2 },
     }),
     formatting = {
         format = lspkind.cmp_format({
