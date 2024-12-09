@@ -4,7 +4,7 @@
 if type brew &>/dev/null
 then
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-  autoload -Uz compinit && compinit
+  autoload -Uz compinit && compinit -d
 fi
 
 # Plugins (Sheldon)
@@ -13,6 +13,9 @@ eval "$(sheldon source)"
 
 # asdf
 source /opt/homebrew/opt/asdf/libexec/asdf.sh
+
+eval "$(zoxide init zsh)"
+
 
 # Development
 [ -e ~/.zshrc.dev ] && source ~/.zshrc.dev

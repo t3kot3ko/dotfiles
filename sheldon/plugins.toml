@@ -10,6 +10,8 @@
 #
 # See the documentation for more https://github.com/rossmacarthur/sheldon#readme
 
+shell = "zsh"
+
 [plugins]
 [plugins.zsh-defer]
 github = "romkatv/zsh-defer"
@@ -24,12 +26,16 @@ github = "zdharma/fast-syntax-highlighting"
 apply = ["defer"]
 [plugins.cd-gitroot]
 github = "mollifier/cd-gitroot"
+use = ["cd-gitroot.plugin.zsh"]
+apply = ["source"]
 [plugins.zsh-interactive-cd]
 github = "changyuheng/zsh-interactive-cd"
 [plugins.enhancd]
 github = "b4b4r07/enhancd"
-[plugins."z.lua"]
-github = "skywind3000/z.lua"
+# [plugins."z.lua"]
+# github = "skywind3000/z.lua"
+[plugins.zoxide]
+github = "ajeetdsouza/zoxide"
 [plugins.base16]
 github = "chriskempson/base16-shell"
 [plugins.extract]
