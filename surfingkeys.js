@@ -128,7 +128,7 @@ mapkey("P", "#0Open URL or search with cliopboard in new tab", function() {
 settings.smoothScroll = false
 settings.tabsThreshold = 0
 settings.omnibarPosition = "bottom"
-settings.blocklistPattern = /.*mail.google.com.*|.*inbox.google.com.*|.*docs.google.com.*|trello.com|udemy.com/i;
+settings.blocklistPattern = /.*mail.google.com.*|.*docs.google.com.*|.*inbox.google.com.*|.*docs.google.com.*|trello.com|udemy.com/i;
 
 
 // set theme
