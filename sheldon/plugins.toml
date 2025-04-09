@@ -26,8 +26,7 @@ github = "zdharma/fast-syntax-highlighting"
 apply = ["defer"]
 [plugins.cd-gitroot]
 github = "mollifier/cd-gitroot"
-use = ["cd-gitroot.plugin.zsh"]
-apply = ["source"]
+apply = ["fpath"]
 [plugins.zsh-interactive-cd]
 github = "changyuheng/zsh-interactive-cd"
 [plugins.enhancd]
