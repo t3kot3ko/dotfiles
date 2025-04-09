@@ -3,6 +3,16 @@ if $(whence eza > /dev/null); then
 	alias ls="eza"
 fi
 
+if $(whence fd > /dev/null); then
+	alias find="fd"
+fi
+
+if $(whence delta > /dev/null); then
+	alias diff="delta"
+fi
+
+
+
 
 # alias ls='ls --color=auto'
 # alias ll='ls -al'

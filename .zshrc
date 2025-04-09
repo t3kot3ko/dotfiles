@@ -1,18 +1,20 @@
 # Alias
 [ -e ~/.zshrc.alias ] && source ~/.zshrc.alias
 
-if type brew &>/dev/null
-then
-  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-  autoload -Uz compinit && compinit -d
+if type brew &>/dev/null; then
+    FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 fi
 
+fpath=(~/.local/share/sheldon/repos/github.com/mollifier/cd-gitroot $fpath)
+autoload -Uz cd-gitroot
+
+
+# Initialize completion system
+autoload -Uz compinit && compinit
+
 # Plugins (Sheldon)
-# autoload -Uz compinit && compinit
 eval "$(sheldon source)"
 
-# asdf
-source /opt/homebrew/opt/asdf/libexec/asdf.sh
 
 eval "$(zoxide init zsh)"
 
@@ -36,6 +38,10 @@ fi
 
 # Local settings (not version controlled)
 [ -e ~/.zshrc.local ] && source ~/.zshrc.local
+
+# asdf
+export ASDF_DATA_DIR="${HOME}/.asdf"
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 # Prompt (Starship)
 eval "$(starship init zsh)"

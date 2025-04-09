@@ -26,15 +26,6 @@ if [ -d $ANDROID_NDK_HOME ]; then
   export PATH=$PATH:$ANDROID_NDK_HOME
 fi
 
-## Golang
-if [ -d ${GOROOT} ]; then
-  export GOENV_DISABLE_GOPATH=1
-  export GOPATH=$HOME/Projects
-  export PATH=$PATH:$GOROOT/bin
-  export PATH=$PATH:$GOPATH/bin
-  export PATH=$PATH:$(go env GOPATH)/bin
-fi
-
 ## direnv
 if $(whence direnv > /dev/null); then
   eval "$(direnv hook zsh)"
