@@ -73,9 +73,6 @@ end
 g.rooter_manual_only = 1
 g.rooter_patterns = { ".git", "Makefile", "*.sln", "build/env.sh" }
 
--- blamer
-g.blamer_enabled = 1
-
 -- Indent, filetype, syntax
 vim.cmd([[filetype on]])
 vim.cmd([[filetype plugin on]])

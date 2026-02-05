@@ -20,7 +20,6 @@ require("lazy").setup({
   -- UI（起動時に必要）
   { "nvim-lualine/lualine.nvim", event = "VeryLazy" },
   { "nvim-tree/nvim-web-devicons", lazy = true },
-  { "akinsho/bufferline.nvim", version = "*", event = "VeryLazy", dependencies = "nvim-tree/nvim-web-devicons" },
   { "lukas-reineke/indent-blankline.nvim", main = "ibl", event = { "BufReadPost", "BufNewFile" } },
   { "rcarriga/nvim-notify", event = "VeryLazy" },
   { "stevearc/dressing.nvim", event = "VeryLazy" },
@@ -70,7 +69,6 @@ require("lazy").setup({
     dependencies = {
       "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build" },
-      "nvim-telescope/telescope-file-browser.nvim",
     }
   },
   { "stevearc/aerial.nvim", cmd = { "AerialToggle", "AerialOpen" }, dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" } },
@@ -78,19 +76,10 @@ require("lazy").setup({
   -- Git（遅延読み込み）
   { "lewis6991/gitsigns.nvim", event = { "BufReadPre", "BufNewFile" } },
   { "tpope/vim-fugitive", cmd = { "Git", "Gstatus", "Gblame" } },
-  { "APZelos/blamer.nvim", event = "VeryLazy" },
-
-  -- 言語固有（ファイルタイプで遅延読み込み）
-  { "plasticboy/vim-markdown", ft = "markdown" },
 
   -- 開発ツール（コマンドで遅延読み込み）
   { "folke/trouble.nvim", cmd = { "Trouble", "TroubleToggle" }, dependencies = "nvim-tree/nvim-web-devicons" },
-  { "kannokanno/previm", ft = "markdown" },
-  { "tyru/open-browser.vim", cmd = "OpenBrowser" },
   { "akinsho/toggleterm.nvim", version = "*", cmd = { "ToggleTerm", "TermExec" } },
-
-  -- その他（遅延読み込み）
-  { "zbirenbaum/copilot.lua", event = "InsertEnter" },
 }, {
   -- lazy.nvim の設定
   performance = {

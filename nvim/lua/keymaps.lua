@@ -15,14 +15,10 @@ map("n", "<S-l>", "<Nop>")
 map("n", "<S-h>", "<Nop>")
 
 -- ============================================================================
--- バッファ操作（bufferline）
+-- バッファ操作
 -- ============================================================================
-map("n", "<Tab>", ":BufferLineCycleNext<CR>", { silent = true })
-map("n", "<S-Tab>", ":BufferLineCyclePrev<CR>", { silent = true })
-map("n", "<leader>bc", ":BufferLinePickClose<CR>", { silent = true })
-map("n", "<leader>bp", ":BufferLinePick<CR>", { silent = true })
-map("n", "<leader>bh", ":BufferLineCloseLeft<CR>", { silent = true })
-map("n", "<leader>bl", ":BufferLineCloseRight<CR>", { silent = true })
+map("n", "<Tab>", ":bnext<CR>", { silent = true, desc = "Next buffer" })
+map("n", "<S-Tab>", ":bprevious<CR>", { silent = true, desc = "Previous buffer" })
 
 -- タブ操作（従来のタブも使う場合）
 map("n", "tc", ":tabnew<CR>:tabmove<CR>", { silent = true })
@@ -38,10 +34,7 @@ vim.api.nvim_create_user_command("TN", "tabnew", {})
 -- ============================================================================
 
 -- Neo-tree（ファイルエクスプローラー）
--- メイン: - で開く（最も押しやすい、頻繁に使う、現在のファイルの場所で開く）
-map("n", "-", ":Neotree reveal<CR>", { silent = true, desc = "Open file explorer at current file" })
--- サブ: <leader>e でも開く
-map("n", "<leader>e", ":Neotree toggle<CR>", { silent = true, desc = "Toggle file explorer" })
+map("n", "-", ":Neotree toggle<CR>", { silent = true, desc = "Toggle file explorer" })
 
 -- 注: fキーはVim標準の行内文字検索として使用（f{char}で右方向検索）
 

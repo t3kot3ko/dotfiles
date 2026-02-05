@@ -229,7 +229,7 @@ pcall(function()
       ["<C-Space>"] = cmp.mapping.complete(),
       ["<C-e>"] = cmp.mapping.abort(),
       ["<CR>"] = cmp.mapping.confirm({ select = true }),
-      -- Tab: nvim-cmpの補完を選択（Copilotとは分離）
+      -- Tab: nvim-cmpの補完を選択
       ["<Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_next_item()
@@ -419,9 +419,35 @@ end)
 -- flash.nvim: 高速移動
 pcall(function()
   require("flash").setup({
+    -- ラベルの表示設定
+    labels = "asdfghjklqwertyuiopzxcvbnm",
+    search = {
+      multi_window = true,
+      forward = true,
+      wrap = true,
+    },
+    jump = {
+      jumplist = true,
+      pos = "start",
+      history = false,
+      register = false,
+      nohlsearch = false,
+      autojump = false,
+    },
+    label = {
+      uppercase = false,
+      rainbow = {
+        enabled = false,
+      },
+    },
     modes = {
       search = {
-        enabled = false,
+        enabled = false,  -- 通常の/検索は無効（sキーを使う）
+      },
+      char = {
+        enabled = true,  -- f/t/F/Tのラベル表示を有効化
+        jump_labels = true,
+        multi_line = true,
       },
     },
   })
@@ -439,70 +465,6 @@ end)
 -- Comment.nvim: コメントアウト
 pcall(function()
   require("Comment").setup()
-end)
-
--- bufferline.nvim: バッファライン
-pcall(function()
-  require("bufferline").setup({
-    options = {
-      mode = "buffers",
-      diagnostics = "nvim_lsp",
-      offsets = {
-        {
-          filetype = "neo-tree",
-          text = "File Explorer",
-          highlight = "Directory",
-          text_align = "left"
-        }
-      },
-      separator_style = "slant",  -- "slant", "thick", "thin", or { 'any', 'any' }
-      indicator = {
-        style = "underline",  -- アクティブタブに下線
-      },
-    },
-    highlights = {
-      -- アクティブなタブ（選択中）
-      buffer_selected = {
-        fg = "#ffffff",  -- 白色の文字
-        bg = "#3b8eea",  -- 青色の背景
-        bold = true,
-        italic = false,
-      },
-      -- 非アクティブなタブ（表示されているが選択されていない）
-      buffer_visible = {
-        fg = "#a0a0a0",  -- グレーの文字
-        bg = "#2a2a2a",  -- 暗いグレーの背景
-      },
-      -- 非アクティブなタブ（背景）
-      buffer = {
-        fg = "#666666",  -- 暗いグレーの文字
-        bg = "#1a1a1a",  -- ほぼ黒の背景
-      },
-      -- 修正されたファイル（アクティブ）
-      modified_selected = {
-        fg = "#ffaa00",  -- オレンジ色
-        bg = "#3b8eea",
-      },
-      -- 修正されたファイル（非アクティブ）
-      modified = {
-        fg = "#aa6600",  -- 暗いオレンジ
-        bg = "#1a1a1a",
-      },
-      -- 区切り線
-      separator_selected = {
-        fg = "#3b8eea",
-        bg = "#3b8eea",
-      },
-      separator_visible = {
-        fg = "#2a2a2a",
-        bg = "#2a2a2a",
-      },
-      separator = {
-        fg = "#1a1a1a",
-        bg = "#1a1a1a",
-      },
-    }
-  })
 end)
 
 -- indent-blankline.nvim: インデントガイド
@@ -555,10 +517,11 @@ pcall(function()
       position = "left",
       width = 35,
       mappings = {
-        -- h/l/Enter でディレクトリナビゲーション
+        -- h/l/Enter でナビゲーション
         ["h"] = "navigate_up",         -- 親ディレクトリに移動
-        ["l"] = "toggle_node",         -- ツリーを展開/折りたたむ（その場で見る）
-        ["<CR>"] = "cd",               -- Enter: ディレクトリに入る（ファイルなら開く）
+        ["l"] = "open",                -- ツリーを展開/ファイルを開く
+        ["<CR>"] = "open_tabnew",      -- Enter: 新しいタブで開く
+        ["o"] = "open",                -- 現在のバッファで開く
         ["<space>"] = "none",          -- スペースキーの誤操作を防ぐ
         ["<esc>"] = "revert_preview",
         ["P"] = { "toggle_preview", config = { use_float = true } },
@@ -635,29 +598,6 @@ pcall(function()
     open_mapping = [[<C-\>]],
     direction = "horizontal",
     close_on_exit = true,
-  })
-end)
-
--- Copilot: AI補完
-pcall(function()
-  require("copilot").setup({
-    suggestion = {
-      enabled = true,
-      auto_trigger = true,
-      debounce = 75,
-      keymap = {
-        accept = "<Tab>",      -- Tabで提案を受け入れる
-        accept_word = "<M-w>", -- Alt+w で1単語だけ受け入れる
-        accept_line = "<M-l>", -- Alt+l で1行だけ受け入れる
-        next = "<M-]>",        -- Alt+] で次の提案
-        prev = "<M-[>",        -- Alt+[ で前の提案
-        dismiss = "<C-]>",     -- Ctrl+] で提案を消す
-      },
-    },
-    panel = {
-      enabled = true,
-      auto_refresh = false,
-    },
   })
 end)
 

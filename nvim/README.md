@@ -9,9 +9,10 @@
 - **nvim-lspconfig**: Python (pyright), TypeScript (ts_ls), Go (gopls), Lua (lua_ls)
 - **nvim-cmp**: LSP補完 + LuaSnip統合
 - **LuaSnip**: スニペットエンジン
+- **lsp_signature.nvim**: 関数シグネチャのヘルプ表示
 
 ### フォーマット・リント
-- **conform.nvim**: 保存時自動フォーマット
+- **conform.nvim**: 手動フォーマット（`<leader>fm`）
   - Python: black, isort
   - TypeScript/JavaScript: prettier
   - Go: gofumpt, goimports
@@ -19,15 +20,15 @@
 - **nvim-lint**: リアルタイムリント
   - Python: ruff
   - TypeScript/JavaScript: eslint_d
-  - Go: golangcilint
+  - Go: golangci-lint
 
 ### UI・編集支援
-- **bufferline.nvim**: バッファライン表示
 - **lualine.nvim**: ステータスライン
+- **nvim-notify**: 通知UI改善
+- **dressing.nvim**: 入力UIの改善（Telescope統合）
 - **indent-blankline.nvim**: インデントガイド
 - **nvim-treesitter**: 構文ハイライト・コード解析
-- **gitsigns.nvim**: Git統合（差分表示、ハンクナビゲーション）
-- **which-key.nvim**: キーバインドヘルプ
+- **gitsigns.nvim**: Git統合（差分表示、ハンクナビゲーション、blame）
 
 ### ファイル管理・検索
 - **neo-tree.nvim**: ファイルツリー
@@ -37,14 +38,18 @@
 ### 編集支援
 - **nvim-autopairs**: 括弧自動補完
 - **nvim-surround**: 囲み文字操作
-- **flash.nvim**: 高速移動
+- **flash.nvim**: 高速移動（f/t拡張、検索ジャンプ）
 - **yanky.nvim**: ヤンク履歴管理
 - **Comment.nvim**: コメントアウト
+- **todo-comments.nvim**: TODOコメントのハイライトと管理
+
+### Git
+- **gitsigns.nvim**: Git差分表示、ハンク操作
+- **vim-fugitive**: Git操作コマンド
 
 ### その他
 - **toggleterm.nvim**: ターミナル統合
 - **trouble.nvim**: 診断表示
-- **copilot.lua**: GitHub Copilot
 
 ## 初回セットアップ
 
@@ -56,27 +61,33 @@ nvim
 
 初回起動時、lazy.nvimが自動的にプラグインをインストールします。
 
-### 2. Masonでツールをインストール
+### 2. 必要なツールの自動インストール
 
-Neovim内で以下を実行：
+初回起動時にMasonが以下のツールを自動インストールします：
 
-```vim
-:MasonInstallAll
-```
+**フォーマッター:**
+- black, isort (Python)
+- prettier (TypeScript/JavaScript/Markdown)
+- gofumpt, goimports (Go)
+- stylua (Lua)
 
-または、個別にインストール：
+**リンター:**
+- ruff (Python)
+- eslint_d (TypeScript/JavaScript)
+- golangci-lint (Go)
 
-```vim
-:MasonInstall pyright ts_ls gopls lua_ls
-:MasonInstall black isort prettier gofumpt goimports stylua
-:MasonInstall ruff eslint_d golangcilint
-```
+### 3. LSPサーバーの自動インストール
 
-### 3. TreeSitterのパーサーをインストール
+以下のLSPサーバーが自動インストールされます：
+- pyright (Python)
+- ts_ls (TypeScript/JavaScript)
+- gopls (Go)
+- lua_ls (Lua)
 
-```vim
-:TSInstall python typescript javascript go lua markdown
-```
+### 4. TreeSitterのパーサー
+
+以下の言語のパーサーが自動インストールされます：
+- python, typescript, javascript, go, lua, markdown
 
 ## 主要キーマップ
 
@@ -84,33 +95,51 @@ Neovim内で以下を実行：
 デフォルトは `\` (バックスラッシュ)
 
 ### バッファ操作
-- `<Tab>` / `<S-Tab>`: 次/前のバッファ
-- `<leader>bc`: バッファを選択して閉じる
-- `<leader>bp`: バッファを選択して移動
-- `<leader>bh` / `<leader>bl`: 左/右のバッファを全て閉じる
+- `<Tab>` / `<S-Tab>`: 次/前のバッファに移動
 
 ### ファイル操作
-- `ff`: Neo-tree トグル
+- `-`: Neo-tree トグル
 - `<leader>ff`: ファイル検索 (Telescope)
 - `<leader>fg`: grep検索 (Telescope)
 - `<leader>fb`: バッファ一覧 (Telescope)
 - `<leader>fr`: 最近使ったファイル (Telescope)
+- `<leader>fc`: コマンド一覧 (Telescope)
+
+**Neo-tree内のキーマップ:**
+- `Enter`: ファイルを新しいタブで開く
+- `l`: ディレクトリを展開/ファイルを開く
+- `o`: 現在のバッファで開く
+- `h`: 親ディレクトリに移動
+- `s`: 垂直分割で開く
+- `S`: 水平分割で開く
+- `t`: 新しいタブで開く
+- `a`: ファイル作成
+- `A`: ディレクトリ作成
+- `d`: 削除
+- `r`: リネーム
+- `q`: 閉じる
 
 ### LSP
 - `gd`: 定義へジャンプ
 - `gD`: 宣言へジャンプ
 - `gi`: 実装へジャンプ
 - `gr`: 参照を表示
+- `gt`: 型定義へジャンプ
 - `K`: ホバー情報
+- `gh`: シグネチャヘルプ
+- `<C-k>`: シグネチャヘルプ
 - `<leader>rn`: リネーム
 - `<leader>ca`: コードアクション
-- `<leader>f`: フォーマット
+- `<leader>fm`: フォーマット
 - `[d` / `]d`: 前/次の診断
-- `<leader>e`: 診断を浮動ウィンドウで表示
+- `<leader>d`: 診断を浮動ウィンドウで表示
+- `<leader>q`: 診断をロケーションリストに追加
 
-### 移動
-- `s`: Flash（高速移動）
+### 移動（flash.nvim）
+- `s`: Flash検索（検索パターン入力 → ラベルでジャンプ）
 - `S`: Flash Treesitter（構文ツリーベース移動）
+- `f{char}`: 拡張文字検索（該当文字にラベル表示）
+- `t{char}`: 拡張文字検索（該当文字の前にラベル表示）
 
 ### ヤンク履歴
 - `p` / `P`: ペースト（ヤンク履歴対応）
@@ -121,14 +150,29 @@ Neovim内で以下を実行：
 - `]c` / `[c`: 次/前のハンク
 - `<leader>hs`: ハンクをステージ
 - `<leader>hr`: ハンクをリセット
+- `<leader>hu`: ハンクのステージを取り消し
 - `<leader>hp`: ハンクをプレビュー
 - `<leader>hb`: blame表示
 - `<leader>hd`: diff表示
 
+### タブ操作
+- `tc`: 新しいタブを作成
+- `tx`: タブを閉じる
+- `tn` / `tl`: 次のタブ
+- `tp` / `th`: 前のタブ
+
+### TODO コメント
+- `<leader>ft`: TODOコメント検索 (Telescope)
+- `<leader>fT`: TODO/FIX/FIXMEを検索
+- `]t` / `[t`: 次/前のTODOコメント
+
 ### その他
 - `<leader>a`: Aerial（シンボルアウトライン）トグル
 - `<leader>xx`: Trouble（診断一覧）トグル
-- `<leader>r`: QuickRun
+- `<leader>xd`: Trouble（現在のバッファの診断）
+- `<leader>xl`: Trouble（ロケーションリスト）
+- `<leader>xq`: Trouble（クイックフィックス）
+- `<leader>r`: 現在のファイルを実行
 - `<C-\>`: ターミナルトグル
 - `gcc`: 行コメントトグル
 - `gc`: ビジュアルモードでコメントトグル
@@ -143,7 +187,7 @@ Neovim内で以下を実行：
 │   ├── keymaps.lua       # キーマップ
 │   ├── plugins.lua       # プラグイン定義
 │   ├── plugin-config.lua # プラグイン設定
-│   └── neovide.lua       # Neovide用設定
+│   └── lsp-debug.lua     # LSPデバッグ用
 └── README.md             # このファイル
 ```
 
@@ -152,6 +196,7 @@ Neovim内で以下を実行：
 ### LSPが動作しない
 1. Masonでサーバーがインストールされているか確認：`:Mason`
 2. LSPクライアントが起動しているか確認：`:LspInfo`
+3. LSP通知を確認（起動時に"LSP attached: ..."と表示される）
 
 ### フォーマッターが動作しない
 1. Masonでフォーマッターがインストールされているか確認：`:Mason`
@@ -161,12 +206,16 @@ Neovim内で以下を実行：
 1. nvim-cmpが読み込まれているか確認：`:lua print(vim.inspect(require('cmp')))`
 2. LSPが起動しているか確認：`:LspInfo`
 
+### プラグインの管理
+- `:Lazy`: プラグイン管理画面を開く
+- `:Lazy sync`: プラグインの同期（インストール/更新/削除）
+- `:Lazy clean`: 不要なプラグインを削除
+- `:Lazy update`: プラグインを更新
+
 ## 必要な外部ツール
 
-- **Python**: black, isort, ruff (Masonで自動インストール)
-- **TypeScript**: prettier, eslint_d (Masonで自動インストール)
-- **Go**: gofumpt, goimports, golangcilint (Masonで自動インストール)
-- **その他**: cmake (telescope-fzf-native.nvimのビルドに必要)
+- **cmake**: telescope-fzf-native.nvimのビルドに必要
+- その他のツール（LSP、フォーマッター、リンター）はMasonで自動インストール
 
 ## カスタマイズ
 
@@ -176,3 +225,8 @@ Neovim内で以下を実行：
 - **基本設定**: `lua/settings.lua`
 - **プラグイン追加**: `lua/plugins.lua`
 - **プラグイン設定**: `lua/plugin-config.lua`
+
+## カラースキーム
+
+デフォルトは **duskfox**（nightfox.nvimテーマ）を使用しています。
+変更する場合は `lua/plugin-config.lua` の最終行を編集してください。
