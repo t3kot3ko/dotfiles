@@ -1,5 +1,12 @@
-## Use fzf-tmux instead of fzf
-alias fzf=fzf-tmux
+## fzf configuration
+# Use fd for faster file searching
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
+
+# Preview with bat
+export FZF_CTRL_T_OPTS="--preview 'bat --color=always --line-range :500 {}'"
+export FZF_ALT_C_OPTS="--preview 'eza --tree --level=2 --color=always {} | head -200'"
 
 ## Colorscheme
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'

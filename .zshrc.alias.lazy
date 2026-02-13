@@ -1,6 +1,10 @@
-# Use Rust command line tools
+# Use Rust command line tools (eza - modern ls replacement)
 if $(whence eza > /dev/null); then
 	alias ls="eza"
+	alias ll="eza -la --git --icons"
+	alias la="eza -a --icons"
+	alias lt="eza --tree --level=2 --icons"
+	alias l="eza -l --icons"
 fi
 
 if $(whence fd > /dev/null); then
@@ -9,6 +13,10 @@ fi
 
 if $(whence delta > /dev/null); then
 	alias diff="delta"
+fi
+
+if $(whence rg > /dev/null); then
+	alias grep="rg"
 fi
 
 

@@ -4,6 +4,9 @@ SAVEHIST=100000 # the number of saved histories
 
 set -o vi
 
+# Remove duplicates in PATH automatically
+typeset -U path
+
 # Use GNU binaries for Darwin
 if [[ "$(uname)" == "Darwin" ]]; then
   case $(uname -m); in

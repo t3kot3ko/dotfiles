@@ -27,6 +27,22 @@ truncation_symbol = ''
 truncation_length = 1
 
 [python]
-disabled = false
+disabled = true  # Enable only in Python projects via directory override
 symbol = '👾 '
 pyenv_version_name = true
+
+# Performance optimization: disable heavy modules by default
+[nodejs]
+disabled = true  # Enable only in Node.js projects
+
+[ruby]
+disabled = true
+
+[rust]
+disabled = true
+
+[golang]
+disabled = true
+
+[java]
+disabled = true

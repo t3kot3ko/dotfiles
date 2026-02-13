@@ -55,3 +55,8 @@ if [[ $(uname) == "Linux" ]]; then
   fi
 fi
 
+## GitHub CLI
+if $(whence gh > /dev/null); then
+  eval "$(gh completion -s zsh)"
+fi
+

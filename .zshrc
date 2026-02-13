@@ -9,8 +9,14 @@ fpath=(~/.local/share/sheldon/repos/github.com/mollifier/cd-gitroot $fpath)
 autoload -Uz cd-gitroot
 
 
-# Initialize completion system
-autoload -Uz compinit && compinit
+# Initialize completion system (optimized for performance)
+# Only regenerate .zcompdump once a day
+autoload -Uz compinit
+if [[ -n ${HOME}/.zcompdump(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
 
 # Plugins (Sheldon)
 eval "$(sheldon source)"
@@ -42,6 +48,7 @@ fi
 # asdf
 export ASDF_DATA_DIR="${HOME}/.asdf"
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+-
 
 # Prompt (Starship)
 eval "$(starship init zsh)"
