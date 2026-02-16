@@ -22,9 +22,6 @@ fi
 eval "$(sheldon source)"
 
 
-eval "$(zoxide init zsh)"
-
-
 # Development
 [ -e ~/.zshrc.dev ] && source ~/.zshrc.dev
 
@@ -52,4 +49,7 @@ export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 # Prompt (Starship)
 eval "$(starship init zsh)"
+
+# zoxide (https://github.com/ajeetdsouza/zoxide)
+eval "$(zoxide init zsh)"
 
