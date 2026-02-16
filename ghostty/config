@@ -1,3 +1,59 @@
+# Font and theme
 font-family = "Hack Nerd Font Mono"
+font-size = 16
 theme = "Duskfox"
-background-opacity = 0.92
+
+background-opacity = 0.85
+background-blur = 10
+
+font-thicken = true
+font-thicken-strength = 1
+
+# セルの高さを調整
+adjust-cell-height = 1
+
+# Window
+macos-titlebar-style = hidden
+macos-window-shadow = false
+
+# Cmd + Shift + ; to reload
+keybind = cmd+shift+semicolon=reload_config
+
+# A
+window-padding-x = 10
+window-padding-y = 10
+window-padding-balance = true
+
+
+# Shell
+shell-integration-features = no-cursor
+
+# Cursor
+cursor-style = block
+cursor-style-blink = true
+cursor-invert-fg-bg = false
+# cursor-opacity = 0.8
+
+# Other
+mouse-hide-while-typing = true
+resize-overlay = never
+
+# Quick terminal
+# キーバインド
+keybind = global:cmd+ctrl+semicolon=toggle_quick_terminal
+
+# 位置とサイズ
+quick-terminal-position = center
+quick-terminal-size = 50%
+
+# アニメーション
+quick-terminal-animation-duration = 0.2
+
+# フォーカスを失ったら自動で非表示
+quick-terminal-autohide = true
+
+# 表示するスクリーン
+quick-terminal-screen = main
+
+
+shell-integration = zsh
