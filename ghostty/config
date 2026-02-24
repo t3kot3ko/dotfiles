@@ -13,7 +13,7 @@ font-thicken-strength = 1
 adjust-cell-height = 1
 
 # Window
-macos-titlebar-style = hidden
+macos-titlebar-style = transparent
 macos-window-shadow = false
 
 # Cmd + Shift + ; to reload
@@ -30,7 +30,7 @@ shell-integration-features = no-cursor
 
 # Cursor
 cursor-style = block
-cursor-style-blink = true
+cursor-style-blink = false
 cursor-invert-fg-bg = false
 # cursor-opacity = 0.8
 
@@ -47,7 +47,7 @@ quick-terminal-position = center
 quick-terminal-size = 50%
 
 # アニメーション
-quick-terminal-animation-duration = 0.2
+quick-terminal-animation-duration = 0.1
 
 # フォーカスを失ったら自動で非表示
 quick-terminal-autohide = true
