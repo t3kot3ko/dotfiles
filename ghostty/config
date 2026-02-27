@@ -1,5 +1,9 @@
 # Font and theme
+font-family = "PlemolJP Console NF Regular"
 font-family = "Hack Nerd Font Mono"
+font-feature = "-calt"
+font-feature = "-dlig"
+font-feature = "-liga"
 font-size = 16
 theme = "Duskfox"
 
@@ -15,15 +19,13 @@ adjust-cell-height = 1
 # Window
 macos-titlebar-style = transparent
 macos-window-shadow = false
-
-# Cmd + Shift + ; to reload
-keybind = cmd+shift+semicolon=reload_config
-
-# A
 window-padding-x = 10
 window-padding-y = 10
 window-padding-balance = true
+window-theme = "ghostty"
 
+# Cmd + Shift + ; to reload
+keybind = cmd+shift+semicolon=reload_config
 
 # Shell
 shell-integration-features = no-cursor
