@@ -19,6 +19,7 @@ opt.redrawtime = 1500
 opt.synmaxcol = 200
 
 opt.cursorline = true
+opt.autochdir = true
 opt.backspace = { "indent", "eol", "start" }
 opt.history = 999
 opt.ruler = true

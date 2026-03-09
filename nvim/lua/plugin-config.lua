@@ -519,8 +519,9 @@ pcall(function()
       mappings = {
         -- h/l/Enter でナビゲーション
         ["h"] = "navigate_up",         -- 親ディレクトリに移動
-        ["l"] = "open",                -- ツリーを展開/ファイルを開く
+        ["l"] = "open_tabnew",         -- ツリーを展開/新しいタブで開く
         ["<CR>"] = "open_tabnew",      -- Enter: 新しいタブで開く
+        ["<Return>"] = "open_tabnew",  -- Return: 新しいタブで開く（念のため）
         ["o"] = "open",                -- 現在のバッファで開く
         ["<space>"] = "none",          -- スペースキーの誤操作を防ぐ
         ["<esc>"] = "revert_preview",
@@ -747,3 +748,6 @@ end)
 
 -- カラースキームを duskfox に設定
 vim.cmd.colorscheme("duskfox")
+
+-- カーソルラインを明るくする設定（カラースキーム適用後）
+vim.api.nvim_set_hl(0, "CursorLine", { bg = "#3c3c3c" })
