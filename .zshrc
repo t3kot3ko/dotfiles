@@ -18,6 +18,10 @@ else
   compinit -C
 fi
 
+# zsh-autosuggestions: limit search buffer to avoid lag on large history
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+ZSH_AUTOSUGGEST_USE_ASYNC=true
+
 # Plugins (Sheldon)
 eval "$(sheldon source)"
 
@@ -51,5 +55,5 @@ export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 eval "$(starship init zsh)"
 
 # zoxide (https://github.com/ajeetdsouza/zoxide)
-eval "$(zoxide init zsh)"
+eval "$(zoxide init zsh --cmd d)"
 

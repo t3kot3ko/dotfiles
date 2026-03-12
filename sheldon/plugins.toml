@@ -16,30 +16,32 @@ shell = "zsh"
 [plugins.zsh-defer]
 github = "romkatv/zsh-defer"
 apply = ["source"]
-# [plugins.zsh-autosuggestions]
-# github = "zsh-users/zsh-autosuggestions"
-# use = ["{{ name }}.zsh"]
-# [plugins.zsh-syntax-highlighting]
-# github = "zsh-users/zsh-syntax-highlighting"
-[plugins.fast-syntax-highlighting]
-github = "zdharma/fast-syntax-highlighting"
+
+# Completion UI (must be loaded after compinit, before other completion plugins)
+[plugins.fzf-tab]
+github = "Aloxaf/fzf-tab"
+
+[plugins.zsh-autosuggestions]
+github = "zsh-users/zsh-autosuggestions"
+use = ["{{ name }}.zsh"]
 apply = ["defer"]
+
+[plugins.fast-syntax-highlighting]
+github = "zdharma-continuum/fast-syntax-highlighting"
+apply = ["defer"]
+
 [plugins.cd-gitroot]
 github = "mollifier/cd-gitroot"
 apply = ["fpath"]
-[plugins.zsh-interactive-cd]
-github = "changyuheng/zsh-interactive-cd"
-[plugins.enhancd]
-github = "b4b4r07/enhancd"
-# [plugins."z.lua"]
-# github = "skywind3000/z.lua"
-[plugins.zoxide]
-github = "ajeetdsouza/zoxide"
-[plugins.base16]
-github = "chriskempson/base16-shell"
+
+[plugins.atuin]
+github = "atuinsh/atuin"
+
 [plugins.extract]
 github = "le0me55i/zsh-extract.git"
 
+[plugins.zeno]
+github = "yuki-yano/zeno.zsh"
+
 [templates]
 defer = "{{ hooks?.pre | nl }}{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}{{ hooks?.post | nl }}"
-
