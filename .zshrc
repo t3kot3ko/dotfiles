@@ -25,6 +25,12 @@ ZSH_AUTOSUGGEST_USE_ASYNC=true
 # Plugins (Sheldon)
 eval "$(sheldon source)"
 
+# Restore up/down arrow and vim j/k to history navigation (override atuin's binding)
+bindkey '^[[A' history-beginning-search-backward
+bindkey '^[[B' history-beginning-search-forward
+bindkey -M vicmd 'k' history-beginning-search-backward
+bindkey -M vicmd 'j' history-beginning-search-forward
+
 
 # Development
 [ -e ~/.zshrc.dev ] && source ~/.zshrc.dev
