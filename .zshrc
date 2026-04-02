@@ -31,6 +31,10 @@ bindkey '^[[B' history-beginning-search-forward
 bindkey -M vicmd 'k' history-beginning-search-backward
 bindkey -M vicmd 'j' history-beginning-search-forward
 
+# Ctrl+A: move cursor to end of line (override completion insert in vi mode)
+bindkey -M viins '^A' end-of-line
+bindkey -M vicmd '^A' end-of-line
+
 
 # Development
 [ -e ~/.zshrc.dev ] && source ~/.zshrc.dev
@@ -62,4 +66,5 @@ eval "$(starship init zsh)"
 
 # zoxide (https://github.com/ajeetdsouza/zoxide)
 eval "$(zoxide init zsh --cmd d)"
+export _ZO_FZF_OPTS=${FZF_DEFAULT_OPTS}
 

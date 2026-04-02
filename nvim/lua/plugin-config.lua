@@ -551,6 +551,8 @@ pcall(function()
         ["?"] = "show_help",
         ["<"] = "prev_source",
         [">"] = "next_source",
+        ["/"] = "none",                -- /: vimネイティブ検索に委譲
+        ["H"] = "toggle_hidden",       -- H: 隠しファイルの表示切り替え
       }
     },
     filesystem = {
