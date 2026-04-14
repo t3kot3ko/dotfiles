@@ -25,15 +25,32 @@ ZSH_AUTOSUGGEST_USE_ASYNC=true
 # Plugins (Sheldon)
 eval "$(sheldon source)"
 
+# Esc の誤解釈を防ぐため、タイムアウトを短縮（デフォルト 400ms → 50ms）
+KEYTIMEOUT=5
+
 # Restore up/down arrow and vim j/k to history navigation (override atuin's binding)
-bindkey '^[[A' history-beginning-search-backward
-bindkey '^[[B' history-beginning-search-forward
+# ^[[A (通常カーソルキー) と ^[OA (Application cursor mode) の両方を上書きして統一する
+bindkey -M viins '^[[A' history-beginning-search-backward
+bindkey -M viins '^[[B' history-beginning-search-forward
+bindkey -M viins '^[OA' history-beginning-search-backward
+bindkey -M viins '^[OB' history-beginning-search-forward
 bindkey -M vicmd 'k' history-beginning-search-backward
 bindkey -M vicmd 'j' history-beginning-search-forward
 
 # Ctrl+A: move cursor to end of line (override completion insert in vi mode)
 bindkey -M viins '^A' end-of-line
 bindkey -M vicmd '^A' end-of-line
+
+# Esc → vi normal mode: BUFFER を一切変更せず直接キーマップを切り替える
+# vi-cmd-mode は FSH 等のプラグインにラップされており、
+# そのラッパーが BUFFER をクリアする副作用を持つ場合がある。
+# zle -K vicmd を使うことでラッパーを完全にバイパスする。
+function _zle_vi_escape() {
+  [[ $CURSOR -gt 0 ]] && (( CURSOR-- ))
+  zle -K vicmd
+}
+zle -N _zle_vi_escape
+bindkey -M viins '\e' _zle_vi_escape
 
 
 # Development
