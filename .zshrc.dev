@@ -2,14 +2,19 @@
 # Suppose asdf has been activated in this script
 
 ## Android
-export ANDROID_HOME=/opt/android-sdk-linux
-export ANDROID_NDK_HOME=/opt/android-ndk-linux
+# export ANDROID_HOME=/opt/android-sdk-linux
+export ANDROID_HOME=$HOME/Library/Android/sdk
 export ANDROID_STUDIO_HOME=/opt/android-studio
 
+
 if [ -d $ANDROID_HOME ]; then
+  export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
   export PATH=$PATH:$ANDROID_HOME/tools
   export PATH=$PATH:$ANDROID_HOME/platform-tools
+  export PATH=$PATH:$ANDROID_HOME/emulator
   export PATH=$PATH:$ANDROID_HOME/tools/bin
+  export ANDROID_NDK_HOME=${ANDROID_HOME}/ndk/28.2.13676358
+  export ANDROID_NDK_ROOT=${ANDROID_HOME}/ndk/28.2.13676358
 
   # Latest build-tools
   latest=$(ls ${ANDROID_HOME}/build-tools | tail -n1)
