@@ -78,10 +78,17 @@ mapkey("yA", "Copy ASIN URL", function() {
  Clipboard.write("http://amazon.jp/dp/" + asin)
 });
 
-mapkey("yx", "Copy title and URL", function() {
- const title = window.document.title;
- const url = window.document.location.href;
- Clipboard.write("< " + title + " >\r" + url)
+api.mapkey('yY', 'Copy page title and URL as rich text', function() {
+  const title = document.title;
+  const url = window.location.href;
+
+  const htmlBlob = new Blob([`<a href="${url}">${title}</a>`], { type: 'text/html' });
+  const textBlob = new Blob([`[${title}](${url})`], { type: 'text/plain' });
+
+  navigator.clipboard.write([
+    new ClipboardItem({ 'text/html': htmlBlob, 'text/plain': textBlob })
+  ]).then(() => {
+    Front.showBanner("Copied:" + title);
 });
 
 // Marks
