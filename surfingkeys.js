@@ -78,7 +78,7 @@ mapkey("yA", "Copy ASIN URL", function() {
  Clipboard.write("http://amazon.jp/dp/" + asin)
 });
 
-api.mapkey('yY', 'Copy page title and URL as rich text', function() {
+mapkey('yY', 'Copy page title and URL as rich text', function() {
   const title = document.title;
   const url = window.location.href;
 
@@ -89,6 +89,7 @@ api.mapkey('yY', 'Copy page title and URL as rich text', function() {
     new ClipboardItem({ 'text/html': htmlBlob, 'text/plain': textBlob })
   ]).then(() => {
     Front.showBanner("Copied:" + title);
+  });
 });
 
 // Marks
