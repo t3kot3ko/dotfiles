@@ -18,8 +18,6 @@ pcall(function()
   local mason_registry = require("mason-registry")
   local tools_to_install = {
     -- フォーマッター
-    "black",        -- Python
-    "isort",        -- Python imports
     "prettier",     -- TypeScript/JavaScript/Markdown
     "gofumpt",      -- Go
     "goimports",    -- Go imports
@@ -123,6 +121,10 @@ local setup_lsp = function()
           on_attach = on_attach,
         })
       end,
+
+      -- ruff は nvim-lint でリンターとして使うため LSP サーバーとしては起動しない
+      -- （mason が ruff をインストールすると mason-lspconfig が LSP として認識してしまう）
+      ["ruff"] = function() end,
 
       -- 個別のLSPサーバー設定（カスタマイズが必要な場合）
       ["pyright"] = function()
@@ -314,7 +316,7 @@ end)
 pcall(function()
   require("conform").setup({
     formatters_by_ft = {
-      python = { "black", "isort" },
+      python = { "ruff_format" },
       typescript = { "prettier" },
       javascript = { "prettier" },
       typescriptreact = { "prettier" },
