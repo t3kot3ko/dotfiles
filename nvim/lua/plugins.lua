@@ -16,6 +16,8 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   -- テーマ（起動時に必要）
   { "EdenEast/nightfox.nvim", lazy = false, priority = 1000 },
+  -- Neovide 専用テーマ（lazy = true: neovide.lua の require() でオンデマンドロード）
+  { "catppuccin/nvim", name = "catppuccin", lazy = true },
 
   -- UI（起動時に必要）
   { "nvim-lualine/lualine.nvim", event = "VeryLazy" },
