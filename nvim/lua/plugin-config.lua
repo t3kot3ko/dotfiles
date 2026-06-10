@@ -286,6 +286,9 @@ pcall(function()
     indent = {
       enable = true,
     },
+    matchup = {
+      enable = true,
+    },
     incremental_selection = {
       enable = true,
       keymaps = {

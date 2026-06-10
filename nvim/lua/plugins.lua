@@ -58,6 +58,7 @@ require("lazy").setup({
   -- TreeSitter（ファイル読み込み時）
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", event = { "BufReadPost", "BufNewFile" } },
   { "nvim-treesitter/nvim-treesitter-textobjects", event = { "BufReadPost", "BufNewFile" }, dependencies = "nvim-treesitter/nvim-treesitter" },
+  { "andymass/vim-matchup", event = { "BufReadPost", "BufNewFile" }, dependencies = "nvim-treesitter/nvim-treesitter" },
 
   -- ファイル管理（コマンドで遅延読み込み）
   { "nvim-neo-tree/neo-tree.nvim", branch = "v3.x", cmd = "Neotree",
@@ -74,6 +75,9 @@ require("lazy").setup({
     }
   },
   { "stevearc/aerial.nvim", cmd = { "AerialToggle", "AerialOpen" }, dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" } },
+
+  -- ファイル操作（:Rename, :Move, :Delete 等）
+  { "tpope/vim-eunuch", cmd = { "Rename", "Move", "Delete", "Mkdir", "Chmod", "SudoWrite" } },
 
   -- Git（遅延読み込み）
   { "lewis6991/gitsigns.nvim", event = { "BufReadPre", "BufNewFile" } },
@@ -93,7 +97,7 @@ require("lazy").setup({
       disabled_plugins = {
         "gzip",
         "matchit",
-        "matchparen",
+        "matchparen",  -- vim-matchup が代替するため無効のまま
         "netrwPlugin",
         "tarPlugin",
         "tohtml",
