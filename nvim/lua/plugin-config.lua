@@ -282,6 +282,10 @@ pcall(function()
     highlight = {
       enable = true,
       additional_vim_regex_highlighting = false,
+      -- FIXME: Neovim コアのバグ: markdown injection クエリが nil ノードで
+      -- treesitter.lua:196 の node:range() を呼び落ちる。
+      -- 情報文字列なしのコードフェンスを含む MD で踏むため markdown を無効化する。
+      disable = { "markdown", "markdown_inline" },
     },
     indent = {
       enable = true,
