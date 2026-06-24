@@ -98,119 +98,121 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, opts)
 end
 
--- Mason-LSPConfig: ハンドラーを使ってLSPサーバーを自動設定
-local setup_lsp = function()
-  local capabilities = require("cmp_nvim_lsp").default_capabilities()
+-- ============================================================================
+-- 補完エンジンの切り替えフラグ（ネイティブ機能の試用トグル）
+--   true  = nvim-cmp（従来のリッチな補完: アイコン/バッファ/パス/スニペット集）
+--   false = ネイティブ vim.lsp.completion（0.12+ 組み込み。素朴だが依存ゼロ）
+-- 両方を実際に試して比較し、気に入った方に決めたら不要なプラグインを
+-- plugins.lua から削除する。
+-- ============================================================================
+local use_cmp = true
 
+-- capabilities: 補完エンジンに応じて構築
+local capabilities
+if use_cmp and pcall(require, "cmp_nvim_lsp") then
+  capabilities = require("cmp_nvim_lsp").default_capabilities()
+else
+  capabilities = vim.lsp.protocol.make_client_capabilities()
+  -- ネイティブ補完でも LSP スニペット展開を受け取れるようにする
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
+end
+
+-- ネイティブ補完を有効化（use_cmp = false のときのみ）
+if not use_cmp then
+  vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(ev)
+      local client = vim.lsp.get_client_by_id(ev.data.client_id)
+      if client and client:supports_method("textDocument/completion") then
+        vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+      end
+    end,
+  })
+end
+
+-- ============================================================================
+-- LSP 設定（Neovim ネイティブ vim.lsp.config / vim.lsp.enable, 0.11+）
+--   nvim-lspconfig が提供する lsp/*.lua プリセット（cmd/filetypes/root）に
+--   設定を上乗せする。mason はサーバの「インストール」にのみ使う。
+-- ============================================================================
+local setup_lsp = function()
+  -- mason: サーバのインストールのみ担当
+  -- automatic_enable = false: v2 の自動有効化を切り、下の vim.lsp.enable で明示制御する
+  -- （自動有効化だと ruff まで LSP として起動してしまうため）
   require("mason-lspconfig").setup({
-    ensure_installed = {
-      "pyright",      -- Python
-      "ts_ls",        -- TypeScript/JavaScript
-      "gopls",        -- Go
-      "lua_ls",       -- Lua (Neovim設定用)
-    },
-    automatic_installation = true,
+    ensure_installed = { "pyright", "ts_ls", "gopls", "lua_ls" },
+    automatic_enable = false,
   })
 
-  -- ハンドラーを別途設定
-  require("mason-lspconfig").setup_handlers({
-      -- デフォルトハンドラー（全てのLSPサーバーに適用）
-      function(server_name)
-        require("lspconfig")[server_name].setup({
-          capabilities = capabilities,
-          on_attach = on_attach,
-        })
-      end,
+  -- 全サーバ共通のデフォルト（capabilities と on_attach）
+  vim.lsp.config("*", {
+    capabilities = capabilities,
+    on_attach = on_attach,
+  })
 
-      -- ruff は nvim-lint でリンターとして使うため LSP サーバーとしては起動しない
-      -- （mason が ruff をインストールすると mason-lspconfig が LSP として認識してしまう）
-      ["ruff"] = function() end,
+  -- 個別設定（プリセットに上乗せされる）
+  vim.lsp.config("pyright", {
+    settings = {
+      python = {
+        analysis = {
+          typeCheckingMode = "basic",
+          autoSearchPaths = true,
+          useLibraryCodeForTypes = true,
+        },
+      },
+    },
+  })
 
-      -- 個別のLSPサーバー設定（カスタマイズが必要な場合）
-      ["pyright"] = function()
-        require("lspconfig").pyright.setup({
-          capabilities = capabilities,
-          on_attach = on_attach,
-          settings = {
-            python = {
-              analysis = {
-                typeCheckingMode = "basic",
-                autoSearchPaths = true,
-                useLibraryCodeForTypes = true,
-              }
-            }
-          }
-        })
-      end,
+  vim.lsp.config("ts_ls", {
+    settings = {
+      typescript = {
+        inlayHints = {
+          includeInlayParameterNameHints = "all",
+          includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayVariableTypeHints = true,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayEnumMemberValueHints = true,
+        },
+      },
+    },
+  })
 
-      ["ts_ls"] = function()
-        require("lspconfig").ts_ls.setup({
-          capabilities = capabilities,
-          on_attach = on_attach,
-          settings = {
-            typescript = {
-              inlayHints = {
-                includeInlayParameterNameHints = "all",
-                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                includeInlayFunctionParameterTypeHints = true,
-                includeInlayVariableTypeHints = true,
-                includeInlayPropertyDeclarationTypeHints = true,
-                includeInlayFunctionLikeReturnTypeHints = true,
-                includeInlayEnumMemberValueHints = true,
-              }
-            }
-          }
-        })
-      end,
+  vim.lsp.config("gopls", {
+    settings = {
+      gopls = {
+        analyses = { unusedparams = true },
+        staticcheck = true,
+        gofumpt = true,
+      },
+    },
+  })
 
-      ["gopls"] = function()
-        require("lspconfig").gopls.setup({
-          capabilities = capabilities,
-          on_attach = on_attach,
-          settings = {
-            gopls = {
-              analyses = {
-                unusedparams = true,
-              },
-              staticcheck = true,
-              gofumpt = true,
-            }
-          }
-        })
-      end,
+  vim.lsp.config("lua_ls", {
+    settings = {
+      Lua = {
+        runtime = { version = "LuaJIT" },
+        diagnostics = { globals = { "vim" } },
+        workspace = {
+          library = vim.api.nvim_get_runtime_file("", true),
+          checkThirdParty = false,
+        },
+        telemetry = { enable = false },
+      },
+    },
+  })
 
-      ["lua_ls"] = function()
-        require("lspconfig").lua_ls.setup({
-          capabilities = capabilities,
-          on_attach = on_attach,
-          settings = {
-            Lua = {
-              runtime = {
-                version = "LuaJIT",
-              },
-              diagnostics = {
-                globals = { "vim" },
-              },
-              workspace = {
-                library = vim.api.nvim_get_runtime_file("", true),
-                checkThirdParty = false,
-              },
-              telemetry = {
-                enable = false,
-              },
-            }
-          }
-        })
-      end,
-    })
+  -- 有効化（ruff は nvim-lint で使うため LSP としては有効化しない）
+  vim.lsp.enable({ "pyright", "ts_ls", "gopls", "lua_ls" })
 end
 
 -- LSP設定を実行
 pcall(setup_lsp)
 
 -- ============================================================================
--- nvim-cmp: 補完設定
+-- nvim-cmp: 補完設定（use_cmp = true のときのみ。false ならネイティブ補完を使用）
 -- ============================================================================
+if use_cmp then
 pcall(function()
   local cmp = require("cmp")
   local luasnip = require("luasnip")
@@ -271,6 +273,7 @@ pcall(function()
     },
   })
 end)
+end -- if use_cmp
 
 -- ============================================================================
 -- TreeSitter: 構文解析・ハイライト
