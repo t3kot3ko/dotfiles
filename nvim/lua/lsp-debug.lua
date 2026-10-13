@@ -16,13 +16,12 @@ vim.api.nvim_create_user_command("LspDebug", function()
     print("  - " .. client.name)
   end
 
-  -- nvim-cmpの状態確認
-  local cmp_ok, cmp = pcall(require, "cmp")
+  -- 補完エンジンの状態確認
+  print("Completion engine: " .. tostring(vim.g.completion_engine))
+  local blink_ok = pcall(require, "blink.cmp")
+  print("blink.cmp loaded: " .. tostring(blink_ok))
+  local cmp_ok = pcall(require, "cmp")
   print("nvim-cmp loaded: " .. tostring(cmp_ok))
-
-  -- capabilitiesの確認
-  local cmp_lsp_ok, cmp_lsp = pcall(require, "cmp_nvim_lsp")
-  print("cmp_nvim_lsp loaded: " .. tostring(cmp_lsp_ok))
 
   -- Pythonの実行可能ファイル
   local python_path = vim.fn.exepath("python") .. " or " .. vim.fn.exepath("python3")

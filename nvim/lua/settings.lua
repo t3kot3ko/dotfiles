@@ -6,6 +6,12 @@ local g = vim.g
 g.mapleader = " "
 g.maplocalleader = " "
 
+-- 補完エンジンの切り替え（plugins.lua / plugin-config.lua が参照）
+--   "blink"  = blink.cmp（高速。LSP/パス/バッファ/スニペット/シグネチャ表示を内蔵）
+--   "cmp"    = nvim-cmp（従来の構成）
+--   "native" = ネイティブ vim.lsp.completion（0.12+ 組み込み。素朴だが依存ゼロ）
+g.completion_engine = "blink"
+
 -- 互換性レイヤー: vim.tbl_islist を vim.islist にエイリアス（Neovim 0.12対応）
 if vim.fn.has("nvim-0.10") == 1 and not vim.tbl_islist then
   vim.tbl_islist = vim.islist

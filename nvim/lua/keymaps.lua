@@ -21,30 +21,34 @@ map("n", "<Tab>", ":bnext<CR>", { silent = true, desc = "Next buffer" })
 map("n", "<S-Tab>", ":bprevious<CR>", { silent = true, desc = "Previous buffer" })
 
 -- タブ操作（従来のタブも使う場合）
-map("n", "tc", ":tabnew<CR>:tabmove<CR>", { silent = true })
-map("n", "tx", ":tabclose<CR>", { silent = true })
-map("n", "tn", ":tabnext<CR>", { silent = true })
-map("n", "tl", ":tabnext<CR>", { silent = true })
-map("n", "tp", ":tabprevious<CR>", { silent = true })
-map("n", "th", ":tabprevious<CR>", { silent = true })
+map("n", "tc", ":tabnew<CR>:tabmove<CR>", { silent = true, desc = "New tab" })
+map("n", "tx", ":tabclose<CR>", { silent = true, desc = "Close tab" })
+map("n", "tn", ":tabnext<CR>", { silent = true, desc = "Next tab" })
+map("n", "tl", ":tabnext<CR>", { silent = true, desc = "Next tab" })
+map("n", "tp", ":tabprevious<CR>", { silent = true, desc = "Previous tab" })
+map("n", "th", ":tabprevious<CR>", { silent = true, desc = "Previous tab" })
 vim.api.nvim_create_user_command("TN", "tabnew", {})
 
 -- ============================================================================
 -- ファイル操作
 -- ============================================================================
 
--- Neo-tree（ファイルエクスプローラー）
-map("n", "-", ":Neotree toggle<CR>", { silent = true, desc = "Toggle file explorer" })
+-- oil.nvim（現在のファイルのディレクトリをバッファとして開く。oil 内で - を押すとさらに親へ）
+map("n", "-", "<CMD>Oil<CR>", { silent = true, desc = "Open parent directory (oil)" })
+
+-- Neo-tree（ツリー表示のファイルエクスプローラー）
+map("n", "<leader>e", ":Neotree toggle<CR>", { silent = true, desc = "Toggle file explorer" })
 
 -- 注: fキーはVim標準の行内文字検索として使用（f{char}で右方向検索）
 
 -- Telescope
 map("n", "<leader>ff", ":Telescope find_files<CR>", { silent = true, desc = "Find files" })
-map("n", "<leader>fg", ":Telescope live_grep<CR>", { silent = true })
-map("n", "<leader>fb", ":Telescope buffers<CR>", { silent = true })
-map("n", "<leader>fh", ":Telescope help_tags<CR>", { silent = true })
-map("n", "<leader>fr", ":Telescope oldfiles<CR>", { silent = true })
-map("n", "<leader>fc", ":Telescope commands<CR>", { silent = true })
+map("n", "<leader>fg", ":Telescope live_grep<CR>", { silent = true, desc = "Live grep" })
+map("n", "<leader>fb", ":Telescope buffers<CR>", { silent = true, desc = "Buffers" })
+map("n", "<leader>fh", ":Telescope help_tags<CR>", { silent = true, desc = "Help tags" })
+map("n", "<leader>fr", ":Telescope oldfiles<CR>", { silent = true, desc = "Recent files" })
+map("n", "<leader>fc", ":Telescope commands<CR>", { silent = true, desc = "Commands" })
+map("n", "<leader>fk", function() Snacks.picker.keymaps() end, { silent = true, desc = "Keymaps" })
 
 -- ============================================================================
 -- 移動（flash.nvim）
@@ -62,20 +66,21 @@ end, { desc = "Flash Treesitter" })
 -- ============================================================================
 map({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
 map({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
-map("n", "<leader>p", ":Telescope yank_history<CR>", { silent = true })
+map("n", "<leader>p", ":Telescope yank_history<CR>", { silent = true, desc = "Yank history" })
 map("n", "<c-n>", "<Plug>(YankyCycleForward)")
 map("n", "<c-p>", "<Plug>(YankyCycleBackward)")
 
 -- ============================================================================
 -- シンボルアウトライン（aerial.nvim）
 -- ============================================================================
-map("n", "<leader>a", ":AerialToggle<CR>", { silent = true })
+map("n", "<leader>a", ":AerialToggle<CR>", { silent = true, desc = "Symbol outline" })
 
 -- ============================================================================
 -- 開発ツール
 -- ============================================================================
 
 -- 現在のファイルを実行（vim-quickrunの代替）
+--   LSP の rename は標準の grn を使うため、<leader>r 始まりのキーは置かない（接頭辞衝突の回避）
 map("n", "<Leader>r", function()
   local ft = vim.bo.filetype
   local file = vim.fn.expand("%")
@@ -108,10 +113,13 @@ map("n", "<leader>fm", function()
 end, { silent = true, desc = "Format buffer" })
 
 -- Trouble（診断表示）
-map("n", "<leader>xx", ":Trouble diagnostics toggle<CR>", { silent = true })
-map("n", "<leader>xd", ":Trouble diagnostics toggle filter.buf=0<CR>", { silent = true })
-map("n", "<leader>xl", ":Trouble loclist toggle<CR>", { silent = true })
-map("n", "<leader>xq", ":Trouble quickfix toggle<CR>", { silent = true })
+map("n", "<leader>xx", ":Trouble diagnostics toggle<CR>", { silent = true, desc = "Diagnostics (all)" })
+map("n", "<leader>xd", ":Trouble diagnostics toggle filter.buf=0<CR>", { silent = true, desc = "Diagnostics (buffer)" })
+map("n", "<leader>xl", ":Trouble loclist toggle<CR>", { silent = true, desc = "Location list" })
+map("n", "<leader>xq", ":Trouble quickfix toggle<CR>", { silent = true, desc = "Quickfix list" })
+
+-- 通知履歴（snacks.nvim）
+map("n", "<leader>n", function() Snacks.notifier.show_history() end, { silent = true, desc = "Notification history" })
 
 -- todo-comments（TODOコメント管理）
 map("n", "<leader>ft", ":TodoTelescope<CR>", { silent = true, desc = "Find TODOs" })

@@ -1,6 +1,19 @@
 -- プラグイン個別設定
 
 -- ============================================================================
+-- snacks.nvim: 通知・入力UI・選択UI・インデントガイド
+--   起動時の通知（Mason のインストール通知など）も拾えるよう最初に setup する
+-- ============================================================================
+pcall(function()
+  require("snacks").setup({
+    notifier = { enabled = true, timeout = 3000 },  -- vim.notify を置き換え（旧 nvim-notify）
+    input = { enabled = true },                     -- vim.ui.input を置き換え（旧 dressing.nvim）
+    picker = { enabled = true, ui_select = true },  -- vim.ui.select を置き換え（ファイル検索等は Telescope のまま）
+    indent = { enabled = true },                    -- インデントガイド + スコープ表示（旧 indent-blankline.nvim）
+  })
+end)
+
+-- ============================================================================
 -- Mason: LSPサーバー、フォーマッター、リンターの管理
 -- ============================================================================
 pcall(function()
@@ -74,42 +87,72 @@ vim.api.nvim_create_autocmd("CursorHold", {
 -- CursorHoldの待ち時間を短く設定（デフォルト4000ms → 500ms）
 vim.opt.updatetime = 500
 
--- 共通のon_attach関数
-local on_attach = function(client, bufnr)
-  local opts = { buffer = bufnr, noremap = true, silent = true }
+-- LSP キーマップ
+--   on_attach ではなく LspAttach で設定する（nvim-lspconfig の pyright / ts_ls などは
+--   独自の on_attach を持っており、vim.lsp.config("*") の on_attach が上書きされて消えるため）
+--   Neovim 0.11+ の標準キーをそのまま使い、無いものだけ追加する:
+--     K: hover / grn: rename / gra: code action / grr: references / gri: implementation
+--     grt: type definition / gO: document symbols / [d ]d: 前後の診断 / <C-w>d: 診断の詳細
+--     挿入モード <C-s>: signature help
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(ev)
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    local function map(lhs, rhs, desc)
+      vim.keymap.set("n", lhs, rhs, { buffer = ev.buf, silent = true, desc = desc })
+    end
 
-  -- デバッグ: LSPクライアントが起動したことを通知
-  vim.notify("LSP attached: " .. client.name, vim.log.levels.INFO)
+    -- デバッグ: LSPクライアントが起動したことを通知
+    vim.notify("LSP attached: " .. (client and client.name or "?"), vim.log.levels.INFO)
 
-  -- LSPキーマップ
-  vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-  vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-  vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-  vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-  vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts)
-  vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-  vim.keymap.set("n", "gh", vim.lsp.buf.signature_help, opts)
-  vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
-  vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-  vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-  vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-  vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
-  vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
-  vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, opts)
+    map("gd", vim.lsp.buf.definition, "Go to definition")
+    map("gD", vim.lsp.buf.declaration, "Go to declaration")
+    map("<C-k>", vim.lsp.buf.signature_help, "Signature help")
+    map("<leader>d", vim.diagnostic.open_float, "Line diagnostics")
+    map("<leader>q", vim.diagnostic.setloclist, "Diagnostics to loclist")
+  end,
+})
+
+-- ============================================================================
+-- 補完エンジン（settings.lua の vim.g.completion_engine で切り替え）
+--   "blink" / "cmp" / "native" を実際に試して比較し、気に入った方に決めたら
+-- 不要なプラグインを plugins.lua から削除する。
+-- ============================================================================
+local engine = vim.g.completion_engine
+
+-- blink.cmp: capabilities を取得する前に setup しておく
+if engine == "blink" then
+pcall(function()
+  require("blink.cmp").setup({
+    keymap = {
+      preset = "enter",  -- <C-Space>: 表示, <C-e>: 閉じる, <C-b>/<C-f>: ドキュメントのスクロール
+      -- <CR>: 未選択でも先頭の候補を確定（nvim-cmp の confirm({ select = true }) 相当）
+      ["<CR>"] = { "select_and_accept", "fallback" },
+      -- Tab: 補完候補の選択 → スニペットのジャンプ（nvim-cmp 時代と同じ操作感）
+      ["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
+      ["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
+    },
+    completion = {
+      list = { selection = { preselect = false, auto_insert = true } },
+      menu = { border = "rounded" },
+      documentation = { auto_show = true, window = { border = "rounded" } },
+    },
+    -- 入力中のシグネチャ表示（旧 lsp_signature.nvim）
+    signature = { enabled = true, window = { border = "rounded" } },
+    sources = {
+      default = { "lsp", "path", "snippets", "buffer" },  -- snippets は friendly-snippets を自動で読み込む
+    },
+    -- コマンドライン補完は従来どおり Vim 標準（wildmenu）を使う
+    cmdline = { enabled = false },
+    fuzzy = { implementation = "prefer_rust_with_warning" },
+  })
+end)
 end
-
--- ============================================================================
--- 補完エンジンの切り替えフラグ（ネイティブ機能の試用トグル）
---   true  = nvim-cmp（従来のリッチな補完: アイコン/バッファ/パス/スニペット集）
---   false = ネイティブ vim.lsp.completion（0.12+ 組み込み。素朴だが依存ゼロ）
--- 両方を実際に試して比較し、気に入った方に決めたら不要なプラグインを
--- plugins.lua から削除する。
--- ============================================================================
-local use_cmp = true
 
 -- capabilities: 補完エンジンに応じて構築
 local capabilities
-if use_cmp and pcall(require, "cmp_nvim_lsp") then
+if engine == "blink" and pcall(require, "blink.cmp") then
+  capabilities = require("blink.cmp").get_lsp_capabilities()
+elseif engine == "cmp" and pcall(require, "cmp_nvim_lsp") then
   capabilities = require("cmp_nvim_lsp").default_capabilities()
 else
   capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -117,8 +160,8 @@ else
   capabilities.textDocument.completion.completionItem.snippetSupport = true
 end
 
--- ネイティブ補完を有効化（use_cmp = false のときのみ）
-if not use_cmp then
+-- ネイティブ補完を有効化（engine = "native" のときのみ）
+if engine == "native" then
   vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(ev)
       local client = vim.lsp.get_client_by_id(ev.data.client_id)
@@ -143,10 +186,9 @@ local setup_lsp = function()
     automatic_enable = false,
   })
 
-  -- 全サーバ共通のデフォルト（capabilities と on_attach）
+  -- 全サーバ共通のデフォルト（キーマップは上の LspAttach で設定）
   vim.lsp.config("*", {
     capabilities = capabilities,
-    on_attach = on_attach,
   })
 
   -- 個別設定（プリセットに上乗せされる）
@@ -210,9 +252,9 @@ end
 pcall(setup_lsp)
 
 -- ============================================================================
--- nvim-cmp: 補完設定（use_cmp = true のときのみ。false ならネイティブ補完を使用）
+-- nvim-cmp: 補完設定（engine = "cmp" のときのみ）
 -- ============================================================================
-if use_cmp then
+if engine == "cmp" then
 pcall(function()
   local cmp = require("cmp")
   local luasnip = require("luasnip")
@@ -273,7 +315,7 @@ pcall(function()
     },
   })
 end)
-end -- if use_cmp
+end -- if engine == "cmp"
 
 -- ============================================================================
 -- TreeSitter: 構文解析・ハイライト
@@ -404,28 +446,28 @@ pcall(function()
     },
     on_attach = function(bufnr)
       local gs = package.loaded.gitsigns
-      local opts = { buffer = bufnr }
+      local function opts(desc) return { buffer = bufnr, desc = desc } end
 
       -- Navigation
       vim.keymap.set("n", "]c", function()
         if vim.wo.diff then return "]c" end
         vim.schedule(function() gs.next_hunk() end)
         return "<Ignore>"
-      end, { expr = true, buffer = bufnr })
+      end, { expr = true, buffer = bufnr, desc = "Next hunk" })
 
       vim.keymap.set("n", "[c", function()
         if vim.wo.diff then return "[c" end
         vim.schedule(function() gs.prev_hunk() end)
         return "<Ignore>"
-      end, { expr = true, buffer = bufnr })
+      end, { expr = true, buffer = bufnr, desc = "Previous hunk" })
 
       -- Actions
-      vim.keymap.set("n", "<leader>hs", gs.stage_hunk, opts)
-      vim.keymap.set("n", "<leader>hr", gs.reset_hunk, opts)
-      vim.keymap.set("n", "<leader>hu", gs.undo_stage_hunk, opts)
-      vim.keymap.set("n", "<leader>hp", gs.preview_hunk, opts)
-      vim.keymap.set("n", "<leader>hb", function() gs.blame_line({ full = true }) end, opts)
-      vim.keymap.set("n", "<leader>hd", gs.diffthis, opts)
+      vim.keymap.set("n", "<leader>hs", gs.stage_hunk, opts("Stage hunk"))
+      vim.keymap.set("n", "<leader>hr", gs.reset_hunk, opts("Reset hunk"))
+      vim.keymap.set("n", "<leader>hu", gs.undo_stage_hunk, opts("Undo stage hunk"))
+      vim.keymap.set("n", "<leader>hp", gs.preview_hunk, opts("Preview hunk"))
+      vim.keymap.set("n", "<leader>hb", function() gs.blame_line({ full = true }) end, opts("Blame line"))
+      vim.keymap.set("n", "<leader>hd", gs.diffthis, opts("Diff this"))
     end
   })
 end)
@@ -444,7 +486,10 @@ pcall(function()
     },
   })
 
-  -- nvim-cmpとの統合
+  -- nvim-cmpとの統合（blink.cmp は確定時の括弧補完を内蔵しているため不要）
+  if engine ~= "cmp" then
+    return
+  end
   local cmp_autopairs = require("nvim-autopairs.completion.cmp")
   local cmp = require("cmp")
   cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
@@ -499,20 +544,6 @@ end)
 -- Comment.nvim: コメントアウト
 pcall(function()
   require("Comment").setup()
-end)
-
--- indent-blankline.nvim: インデントガイド
-pcall(function()
-  require("ibl").setup({
-    indent = {
-      char = "│",
-    },
-    scope = {
-      enabled = true,
-      show_start = true,
-      show_end = false,
-    },
-  })
 end)
 
 -- neo-tree.nvim: ファイルエクスプローラー
@@ -601,7 +632,7 @@ pcall(function()
         leave_dirs_open = false,
       },
       group_empty_dirs = false,
-      hijack_netrw_behavior = "open_default",
+      hijack_netrw_behavior = "disabled",  -- ディレクトリを開いた時は oil.nvim に任せる
       use_libuv_file_watcher = true,
     },
     buffers = {
@@ -614,6 +645,33 @@ pcall(function()
         position = "float",
       }
     }
+  })
+end)
+
+-- which-key.nvim: 押しかけのキーに続く候補をポップアップ表示
+--   :checkhealth which-key で重複・衝突しているキーマップも確認できる
+pcall(function()
+  local wk = require("which-key")
+  wk.setup({ preset = "modern" })
+  -- グループ名（<leader> の後に表示される見出し）
+  wk.add({
+    { "<leader>f", group = "Find / Format" },
+    { "<leader>h", group = "Git hunk" },
+    { "<leader>x", group = "Trouble" },
+    { "gr", group = "LSP" },
+    { "t", group = "Tab" },
+  })
+end)
+
+-- oil.nvim: ディレクトリをバッファとして編集
+--   行の書き換え → :w でリネーム、dd → :w で削除、yy/p → :w でコピー
+--   主なキー: <CR> 開く, - 親ディレクトリ, _ cwd を開く, g. 隠しファイル切替, g? ヘルプ
+pcall(function()
+  require("oil").setup({
+    default_file_explorer = true,  -- nvim . などディレクトリを開いた時も oil を使う
+    view_options = {
+      show_hidden = true,  -- neo-tree と同様にドットファイルも表示
+    },
   })
 end)
 
@@ -691,54 +749,6 @@ pcall(function()
   })
   require("telescope").load_extension("fzf")
   require("telescope").load_extension("yank_history")
-end)
-
--- nvim-notify: 通知UI改善
-pcall(function()
-  local notify = require("notify")
-  notify.setup({
-    stages = "fade_in_slide_out",
-    timeout = 3000,
-    background_colour = "#000000",
-    icons = {
-      ERROR = "",
-      WARN = "",
-      INFO = "",
-      DEBUG = "",
-      TRACE = "✎",
-    },
-  })
-  -- デフォルトの通知をnvim-notifyに置き換え
-  vim.notify = notify
-end)
-
--- dressing.nvim: select/input UI改善（Telescope統合）
-pcall(function()
-  require("dressing").setup({
-    input = {
-      enabled = true,
-      default_prompt = "Input:",
-      prompt_align = "left",
-      insert_only = true,
-      start_in_insert = true,
-      border = "rounded",
-      relative = "cursor",
-      prefer_width = 40,
-      width = nil,
-      max_width = { 140, 0.9 },
-      min_width = { 20, 0.2 },
-    },
-    select = {
-      enabled = true,
-      backend = { "telescope", "fzf_lua", "fzf", "builtin", "nui" },
-      telescope = require("telescope.themes").get_dropdown({
-        layout_config = {
-          width = 0.8,
-          height = 0.8,
-        },
-      }),
-    },
-  })
 end)
 
 -- todo-comments.nvim: TODOコメント管理

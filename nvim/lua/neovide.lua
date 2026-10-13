@@ -22,12 +22,14 @@ pcall(function()
         },
       },
       cmp = true,
+      blink_cmp = true,
       gitsigns = true,
       telescope = { enabled = true },
       neotree = true,
-      indent_blankline = { enabled = true },
+      snacks = { enabled = true },
       lualine = true,
       flash = true,
+      which_key = true,
     },
   })
   vim.cmd.colorscheme("catppuccin")

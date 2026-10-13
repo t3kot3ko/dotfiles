@@ -1,7 +1,7 @@
 -- lazy.nvim を使ったプラグイン管理
 -- lazy.nvim のインストール
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system({
     "git",
     "clone",
@@ -22,9 +22,12 @@ require("lazy").setup({
   -- UI（起動時に必要）
   { "nvim-lualine/lualine.nvim", event = "VeryLazy" },
   { "nvim-tree/nvim-web-devicons", lazy = true },
-  { "lukas-reineke/indent-blankline.nvim", main = "ibl", event = { "BufReadPost", "BufNewFile" } },
-  { "rcarriga/nvim-notify", event = "VeryLazy" },
-  { "stevearc/dressing.nvim", event = "VeryLazy" },
+  -- snacks.nvim: 通知・入力UI・vim.ui.select・インデントガイドを担当
+  -- （nvim-notify / dressing.nvim / indent-blankline.nvim の代替。起動直後に setup が必要）
+  { "folke/snacks.nvim", lazy = false, priority = 1000 },
+
+  -- キーマップのガイド（押しかけのキーに続く候補を表示）
+  { "folke/which-key.nvim" },
 
   -- 編集支援（遅延読み込み）
   { "windwp/nvim-autopairs", event = "InsertEnter" },
@@ -35,10 +38,19 @@ require("lazy").setup({
   { "folke/todo-comments.nvim", event = { "BufReadPost", "BufNewFile" }, dependencies = "nvim-lua/plenary.nvim" },
 
   -- LSP・補完（ファイルタイプで遅延読み込み）
-  { "williamboman/mason.nvim", build = ":MasonUpdate", lazy = false },
+  -- mason v2 は :MasonUpdate を setup() 時に定義するため、build 内で先に setup する
+  -- （新規インストール直後は plugin-config.lua の setup より先に build が走る）
+  { "williamboman/mason.nvim", build = function() require("mason").setup() vim.cmd("MasonUpdate") end, lazy = false },
   { "williamboman/mason-lspconfig.nvim", lazy = false, dependencies = { "williamboman/mason.nvim" } },
   { "neovim/nvim-lspconfig", lazy = false, dependencies = { "williamboman/mason-lspconfig.nvim" } },
+  -- 補完エンジンは settings.lua の vim.g.completion_engine で切り替え
+  -- blink.cmp は LSP capabilities を起動時に取得するため遅延読み込みしない
+  { "saghen/blink.cmp", version = "1.*", lazy = false,
+    enabled = vim.g.completion_engine == "blink",
+    dependencies = { "rafamadriz/friendly-snippets" },
+  },
   { "hrsh7th/nvim-cmp", event = "InsertEnter",
+    enabled = vim.g.completion_engine == "cmp",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
@@ -49,7 +61,6 @@ require("lazy").setup({
       "onsails/lspkind.nvim",
     }
   },
-  { "ray-x/lsp_signature.nvim", event = "LspAttach" },
 
   -- フォーマッター・リンター
   { "stevearc/conform.nvim", event = { "BufReadPre", "BufNewFile" } },
@@ -60,7 +71,9 @@ require("lazy").setup({
   { "nvim-treesitter/nvim-treesitter-textobjects", event = { "BufReadPost", "BufNewFile" }, dependencies = "nvim-treesitter/nvim-treesitter" },
   { "andymass/vim-matchup", event = { "BufReadPost", "BufNewFile" }, dependencies = "nvim-treesitter/nvim-treesitter" },
 
-  -- ファイル管理（コマンドで遅延読み込み）
+  -- ファイル管理
+  -- oil.nvim: ディレクトリをバッファとして編集（netrw の代替。ディレクトリを開いた時に効くよう遅延読み込みしない）
+  { "stevearc/oil.nvim", lazy = false, dependencies = "nvim-tree/nvim-web-devicons" },
   { "nvim-neo-tree/neo-tree.nvim", branch = "v3.x", cmd = "Neotree",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -81,7 +94,7 @@ require("lazy").setup({
 
   -- Git（遅延読み込み）
   { "lewis6991/gitsigns.nvim", event = { "BufReadPre", "BufNewFile" } },
-  { "tpope/vim-fugitive", cmd = { "Git", "Gstatus", "Gblame" } },
+  { "tpope/vim-fugitive", cmd = { "Git", "G", "Gdiffsplit", "Gvdiffsplit", "Gread", "Gwrite", "GBrowse" } },
 
   -- 開発ツール（コマンドで遅延読み込み）
   { "folke/trouble.nvim", cmd = { "Trouble", "TroubleToggle" }, dependencies = "nvim-tree/nvim-web-devicons" },
