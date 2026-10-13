@@ -10,7 +10,6 @@
 - **Mason**: LSPサーバー、フォーマッター、リンターのインストール管理
 - **lazydev.nvim**: Neovim の Lua 設定を書くときに、`vim.*` やプラグインの型定義を lua_ls に渡す
 - **blink.cmp**: 補完（LSP / パス / バッファ / スニペット、シグネチャ表示）
-  - `lua/config/options.lua` の `vim.g.completion_engine` で `"blink"` / `"cmp"`（nvim-cmp）/ `"native"` を切り替え可能
 
 ### フォーマット・リント
 - **conform.nvim**: 手動フォーマット（`<leader>fm`）
@@ -26,32 +25,26 @@
 ### UI
 - **nightfox.nvim**: カラースキーム（duskfox）
 - **lualine.nvim**: ステータスライン
-- **snacks.nvim**: 通知、入力UI（`vim.ui.input`）、選択UI（`vim.ui.select`）、インデントガイド
+- **snacks.nvim**: 通知、入力UI（`vim.ui.input`）、ファジー検索・選択UI（picker）、インデントガイド、ターミナル
 - **which-key.nvim**: 押しかけのキーに続く候補をポップアップ表示
 - **nvim-treesitter**: 構文ハイライト・コード解析
 
 ### ファイル管理・検索
 - **oil.nvim**: ディレクトリをバッファとして編集（リネーム・削除・コピーを編集 → `:w` で実行）
 - **neo-tree.nvim**: ファイルツリー
-- **telescope.nvim**: ファジーファインダー
+- **snacks.picker**: ファジー検索（ファイル、grep、バッファ、ヘルプ、診断、TODO、ヤンク履歴など）
 - **aerial.nvim**: シンボルアウトライン
-- **vim-eunuch**: `:Rename` / `:Move` / `:Delete` などのファイル操作コマンド
 
 ### 編集支援
 - **nvim-autopairs**: 括弧自動補完
 - **nvim-surround**: 囲み文字操作
 - **flash.nvim**: 高速移動（f/t拡張、検索ジャンプ）
 - **yanky.nvim**: ヤンク履歴管理
-- **Comment.nvim**: コメントアウト
 - **todo-comments.nvim**: TODOコメントのハイライトと管理
 
 ### Git
 - **gitsigns.nvim**: Git差分表示、ハンク操作
 - **vim-fugitive**: Git操作コマンド
-
-### その他
-- **toggleterm.nvim**: ターミナル統合
-- **trouble.nvim**: 診断表示
 
 ## 初回セットアップ
 
@@ -80,9 +73,15 @@ nvim
 ### ファイル操作
 - `-`: oil で現在のファイルのディレクトリを開く（oil 内で `-` を押すとさらに親へ）
 - `<leader>e`: Neo-tree トグル
-- `<leader>ff`: ファイル検索 / `<leader>fg`: grep検索 / `<leader>fb`: バッファ一覧
-- `<leader>fr`: 最近使ったファイル / `<leader>fc`: コマンド一覧 / `<leader>fh`: ヘルプ
-- `<leader>fk`: キーマップ一覧（snacks picker）
+- `<leader><leader>`: スマート検索（開いているバッファ → 最近使ったファイル → ファイルの順）
+- `<leader>ff`: ファイル検索 / `<leader>fg`: grep検索 / `<leader>fw`: カーソル下の単語（選択範囲）で grep
+- `<leader>fb`: バッファ一覧 / `<leader>fr`: 最近使ったファイル / `<leader>fc`: コマンド一覧
+- `<leader>fh`: ヘルプ / `<leader>fk`: キーマップ一覧 / `<leader>fs`: LSP シンボル / `<leader>fu`: アンドゥ履歴
+- `<leader>f.`: 直前のピッカーを再表示
+
+**ピッカー内のキーマップ:** `<C-j>` / `<C-k>` 移動、`<CR>` 開く、`<C-v>` / `<C-s>` 縦/横分割、`<C-t>` タブで開く、
+`<Tab>` 複数選択、`<C-q>` quickfix へ送る、`<A-h>` 隠しファイル切替、
+`<Esc>` ノーマルモード（`j` / `k` 移動、`?` キー一覧、もう一度 `<Esc>` で閉じる）
 
 **oil 内のキーマップ:** `<CR>` 開く、`-` 親ディレクトリ、`_` cwd を開く、`g.` 隠しファイル切替、
 `<C-s>` 垂直分割で開く、`<C-t>` タブで開く、`<C-p>` プレビュー、`g?` ヘルプ
@@ -113,7 +112,7 @@ nvim
 ### ヤンク履歴
 - `p` / `P`: ペースト（ヤンク履歴対応）
 - `<C-n>` / `<C-p>`: ヤンク履歴を前後にサイクル
-- `<leader>p`: ヤンク履歴をTelescopeで表示
+- `<leader>p`: ヤンク履歴をピッカーで表示
 
 ### Git
 - `]c` / `[c`: 次/前のハンク
@@ -128,12 +127,12 @@ nvim
 
 ### その他
 - `<leader>a`: Aerial（シンボルアウトライン）トグル
-- `<leader>xx` / `<leader>xd`: Trouble（全体 / 現在のバッファの診断）
-- `<leader>xl` / `<leader>xq`: Trouble（ロケーションリスト / クイックフィックス）
-- `<leader>r`: 現在のファイルを実行
+- `<leader>xx` / `<leader>xd`: 診断一覧（全体 / 現在のバッファ）
+- `<leader>xl` / `<leader>xq`: ロケーションリスト / クイックフィックスをピッカーで表示
+- `<leader>r`: 現在のファイルを保存して下部のターミナルで実行（`q` で閉じる）
 - `<leader>n`: 通知履歴
-- `<C-\>`: ターミナルトグル
-- `gcc`: 行コメントトグル / `gc`: ビジュアルモードでコメントトグル
+- `<C-\>`: ターミナルトグル（ターミナル内で `<Esc>` を押すとノーマルモード）
+- `gcc`: 行コメントトグル / `gc{motion}`・ビジュアルモードの `gc`: 範囲をコメントトグル（Neovim 標準）
 
 ## ファイル構造
 
@@ -147,15 +146,14 @@ nvim
 │   │   └── lazy.lua         # lazy.nvim のセットアップ
 │   └── plugins/             # プラグイン定義と設定（lazy.nvim の spec。1 ファイル = 1 分野）
 │       ├── colorscheme.lua
-│       ├── ui.lua           # snacks, lualine, which-key
-│       ├── editor.lua       # autopairs, surround, flash, yanky, Comment, todo-comments
+│       ├── ui.lua           # snacks（通知 / picker / ターミナル等）, lualine, which-key
+│       ├── editor.lua       # autopairs, surround, flash, yanky, todo-comments
 │       ├── lsp.lua          # mason, LSP, 診断, lazydev
-│       ├── completion.lua   # blink.cmp / nvim-cmp
+│       ├── completion.lua   # blink.cmp
 │       ├── formatting.lua   # conform, nvim-lint
 │       ├── treesitter.lua
-│       ├── files.lua        # oil, neo-tree, telescope, aerial, vim-eunuch
-│       ├── git.lua          # gitsigns, fugitive
-│       └── tools.lua        # trouble, toggleterm
+│       ├── files.lua        # oil, neo-tree, aerial
+│       └── git.lua          # gitsigns, fugitive
 └── README.md
 ```
 
@@ -189,8 +187,7 @@ nvim
 
 ## 必要な外部ツール
 
-- **cmake**: telescope-fzf-native.nvimのビルドに必要
-- **ripgrep**: Telescope の live_grep と todo-comments の検索に必要
+- **ripgrep**: snacks.picker の grep と todo-comments の検索に必要（`fd` があればファイル検索にも使われる）
 - その他のツール（LSP、フォーマッター、リンター）はMasonで自動インストール
 
 ## カスタマイズ

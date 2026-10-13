@@ -1,24 +1,17 @@
 -- 編集支援
 return {
   -- 括弧の自動補完
+  --   （補完確定時の関数の括弧は blink.cmp が自前で補うため、補完との連携設定は不要）
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
-    config = function()
-      require("nvim-autopairs").setup({
-        check_ts = true,
-        ts_config = {
-          lua = { "string" },
-          javascript = { "template_string" },
-        },
-      })
-
-      -- nvim-cmpとの統合（blink.cmp は確定時の括弧補完を内蔵しているため不要）
-      if vim.g.completion_engine == "cmp" then
-        local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-        require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
-      end
-    end,
+    opts = {
+      check_ts = true,
+      ts_config = {
+        lua = { "string" },
+        javascript = { "template_string" },
+      },
+    },
   },
 
   { "kylechui/nvim-surround", version = "*", event = "VeryLazy" },
@@ -63,9 +56,11 @@ return {
   },
 
   -- ヤンク履歴（キーマップは config/keymaps.lua）
+  --   snacks より後に読み込むと Snacks.picker.yanky() が自動で登録される
   {
     "gbprod/yanky.nvim",
     event = "VeryLazy",
+    dependencies = "folke/snacks.nvim",
     opts = {
       highlight = {
         timer = 150,
@@ -73,10 +68,9 @@ return {
     },
   },
 
-  -- コメントアウト
-  { "numToStr/Comment.nvim", event = "VeryLazy", opts = {} },
+  -- コメントアウトは Neovim 標準の gc / gcc を使う（0.10+。Treesitter で埋め込み言語も判定）
 
-  -- TODOコメント管理
+  -- TODOコメント管理（setup 時に Snacks.picker.todo_comments() が登録される）
   {
     "folke/todo-comments.nvim",
     event = { "BufReadPost", "BufNewFile" },

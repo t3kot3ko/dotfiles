@@ -1,4 +1,4 @@
--- ファイル管理・検索
+-- ファイル管理（ファジー検索は snacks.picker: lua/plugins/ui.lua）
 return {
   -- oil.nvim: ディレクトリをバッファとして編集（netrw の代替。ディレクトリを開いた時に効くよう遅延読み込みしない）
   --   行の書き換え → :w でリネーム、dd → :w で削除、yy/p → :w でコピー
@@ -125,31 +125,6 @@ return {
     },
   },
 
-  -- telescope: ファジーファインダー
-  {
-    "nvim-telescope/telescope.nvim",
-    cmd = "Telescope",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      { "nvim-telescope/telescope-fzf-native.nvim", build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build" },
-    },
-    config = function()
-      local telescope = require("telescope")
-      telescope.setup({
-        extensions = {
-          fzf = {
-            fuzzy = true,
-            override_generic_sorter = true,
-            override_file_sorter = true,
-            case_mode = "smart_case",
-          }
-        }
-      })
-      telescope.load_extension("fzf")
-      telescope.load_extension("yank_history")
-    end,
-  },
-
   -- aerial.nvim: シンボルアウトライン
   {
     "stevearc/aerial.nvim",
@@ -163,7 +138,4 @@ return {
       attach_mode = "global",
     },
   },
-
-  -- ファイル操作（:Rename, :Move, :Delete 等）
-  { "tpope/vim-eunuch", cmd = { "Rename", "Move", "Delete", "Mkdir", "Chmod", "SudoWrite" } },
 }

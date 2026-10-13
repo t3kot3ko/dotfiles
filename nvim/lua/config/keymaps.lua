@@ -39,14 +39,22 @@ map("n", "<leader>e", "<Cmd>Neotree toggle<CR>", { desc = "Toggle file explorer"
 
 -- 注: fキーはVim標準の行内文字検索として使用（f{char}で右方向検索）
 
--- Telescope
-map("n", "<leader>ff", "<Cmd>Telescope find_files<CR>", { desc = "Find files" })
-map("n", "<leader>fg", "<Cmd>Telescope live_grep<CR>", { desc = "Live grep" })
-map("n", "<leader>fb", "<Cmd>Telescope buffers<CR>", { desc = "Buffers" })
-map("n", "<leader>fh", "<Cmd>Telescope help_tags<CR>", { desc = "Help tags" })
-map("n", "<leader>fr", "<Cmd>Telescope oldfiles<CR>", { desc = "Recent files" })
-map("n", "<leader>fc", "<Cmd>Telescope commands<CR>", { desc = "Commands" })
+-- ファジー検索（snacks.picker）
+--   ピッカー内: <C-j>/<C-k> 移動, <CR> 開く, <C-v>/<C-s> 縦/横分割, <C-t> タブ,
+--   <Tab> 複数選択, <C-q> quickfix へ送る, <A-h> 隠しファイル切替,
+--   <Esc> ノーマルモード（j/k で移動、? でキー一覧、もう一度 <Esc> で閉じる）
+map("n", "<leader>ff", function() Snacks.picker.files() end, { desc = "Find files" })
+map("n", "<leader>fg", function() Snacks.picker.grep() end, { desc = "Live grep" })
+map({ "n", "x" }, "<leader>fw", function() Snacks.picker.grep_word() end, { desc = "Grep word / selection" })
+map("n", "<leader>fb", function() Snacks.picker.buffers() end, { desc = "Buffers" })
+map("n", "<leader>fh", function() Snacks.picker.help() end, { desc = "Help tags" })
+map("n", "<leader>fr", function() Snacks.picker.recent() end, { desc = "Recent files" })
+map("n", "<leader>fc", function() Snacks.picker.commands() end, { desc = "Commands" })
 map("n", "<leader>fk", function() Snacks.picker.keymaps() end, { desc = "Keymaps" })
+map("n", "<leader>fs", function() Snacks.picker.lsp_symbols() end, { desc = "LSP symbols" })
+map("n", "<leader>fu", function() Snacks.picker.undo() end, { desc = "Undo history" })
+map("n", "<leader>f.", function() Snacks.picker.resume() end, { desc = "Resume last picker" })
+map("n", "<leader><leader>", function() Snacks.picker.smart() end, { desc = "Smart find (buffers/recent/files)" })
 
 -- ============================================================================
 -- 移動（flash.nvim）
@@ -64,7 +72,7 @@ end, { desc = "Flash Treesitter" })
 -- ============================================================================
 map({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
 map({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
-map("n", "<leader>p", "<Cmd>Telescope yank_history<CR>", { desc = "Yank history" })
+map("n", "<leader>p", function() Snacks.picker.yanky() end, { desc = "Yank history" })
 map("n", "<c-n>", "<Plug>(YankyCycleForward)")
 map("n", "<c-p>", "<Plug>(YankyCycleBackward)")
 
@@ -94,26 +102,35 @@ map("n", "<leader>r", function()
     vim.notify("No run command for filetype: " .. vim.bo.filetype, vim.log.levels.WARN)
     return
   end
-  -- toggletermで実行
-  require("toggleterm").exec(runner .. " " .. vim.fn.expand("%"))
+  -- 下部の分割ターミナルで実行（終了後も結果を読めるよう自動で閉じない。q で閉じる）
+  vim.cmd("silent! update")
+  Snacks.terminal.open(runner .. " " .. vim.fn.shellescape(vim.fn.expand("%")), {
+    auto_close = false,
+    win = { position = "bottom" },
+  })
 end, { desc = "Run current file" })
+
+-- ターミナルの開閉（<C-\>。ターミナル内でも同じキーで閉じる）
+map({ "n", "t" }, [[<C-\>]], function() Snacks.terminal.toggle() end, { desc = "Toggle terminal" })
 
 -- フォーマット（conform.nvim）
 map("n", "<leader>fm", function()
   require("conform").format({ async = true, lsp_format = "fallback" })
 end, { desc = "Format buffer" })
 
--- Trouble（診断表示）
-map("n", "<leader>xx", "<Cmd>Trouble diagnostics toggle<CR>", { desc = "Diagnostics (all)" })
-map("n", "<leader>xd", "<Cmd>Trouble diagnostics toggle filter.buf=0<CR>", { desc = "Diagnostics (buffer)" })
-map("n", "<leader>xl", "<Cmd>Trouble loclist toggle<CR>", { desc = "Location list" })
-map("n", "<leader>xq", "<Cmd>Trouble quickfix toggle<CR>", { desc = "Quickfix list" })
+-- 診断・リスト（snacks.picker。旧 Trouble と同じキー）
+map("n", "<leader>xx", function() Snacks.picker.diagnostics() end, { desc = "Diagnostics (all)" })
+map("n", "<leader>xd", function() Snacks.picker.diagnostics_buffer() end, { desc = "Diagnostics (buffer)" })
+map("n", "<leader>xl", function() Snacks.picker.loclist() end, { desc = "Location list" })
+map("n", "<leader>xq", function() Snacks.picker.qflist() end, { desc = "Quickfix list" })
 
 -- 通知履歴（snacks.nvim）
 map("n", "<leader>n", function() Snacks.notifier.show_history() end, { desc = "Notification history" })
 
 -- todo-comments（TODOコメント管理）
-map("n", "<leader>ft", "<Cmd>TodoTelescope<CR>", { desc = "Find TODOs" })
-map("n", "<leader>fT", "<Cmd>TodoTelescope keywords=TODO,FIX,FIXME<CR>", { desc = "Find TODO/FIX" })
+map("n", "<leader>ft", function() Snacks.picker.todo_comments() end, { desc = "Find TODOs" })
+map("n", "<leader>fT", function()
+  Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } })
+end, { desc = "Find TODO/FIX" })
 map("n", "]t", function() require("todo-comments").jump_next() end, { desc = "Next TODO" })
 map("n", "[t", function() require("todo-comments").jump_prev() end, { desc = "Previous TODO" })

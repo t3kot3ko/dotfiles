@@ -9,12 +9,6 @@ local g = vim.g
 g.mapleader = " "
 g.maplocalleader = " "
 
--- 補完エンジンの切り替え（lua/plugins/completion.lua と lua/plugins/lsp.lua が参照）
---   "blink"  = blink.cmp（高速。LSP/パス/バッファ/スニペット/シグネチャ表示を内蔵）
---   "cmp"    = nvim-cmp（従来の構成）
---   "native" = ネイティブ vim.lsp.completion（0.12+ 組み込み。素朴だが依存ゼロ）
-g.completion_engine = "blink"
-
 -- パフォーマンス最適化
 opt.updatetime = 500  -- CursorHold（診断フロートの自動表示）までの待ち時間
 opt.timeoutlen = 300

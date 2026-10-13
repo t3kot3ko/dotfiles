@@ -2,26 +2,6 @@
 --   nvim-lspconfig が提供する lsp/*.lua プリセット（cmd/filetypes/root）に設定を上乗せする。
 --   mason はサーバ・ツールの「インストール」にのみ使う。
 
--- capabilities: 補完エンジンに応じて構築
-local function make_capabilities()
-  local engine = vim.g.completion_engine
-  if engine == "blink" then
-    local ok, blink = pcall(require, "blink.cmp")
-    if ok then
-      return blink.get_lsp_capabilities()
-    end
-  elseif engine == "cmp" then
-    local ok, cmp_lsp = pcall(require, "cmp_nvim_lsp")
-    if ok then
-      return cmp_lsp.default_capabilities()
-    end
-  end
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  -- ネイティブ補完でも LSP スニペット展開を受け取れるようにする
-  capabilities.textDocument.completion.completionItem.snippetSupport = true
-  return capabilities
-end
-
 -- 診断の表示設定
 local function setup_diagnostics()
   vim.diagnostic.config({
@@ -76,11 +56,6 @@ local function setup_lsp_attach()
       map("<C-k>", vim.lsp.buf.signature_help, "Signature help")
       map("<leader>d", vim.diagnostic.open_float, "Line diagnostics")
       map("<leader>q", vim.diagnostic.setloclist, "Diagnostics to loclist")
-
-      -- ネイティブ補完を有効化（completion_engine = "native" のときのみ）
-      if vim.g.completion_engine == "native" and client and client:supports_method("textDocument/completion") then
-        vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
-      end
     end,
   })
 end
@@ -202,7 +177,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     lazy = false,
-    dependencies = { "williamboman/mason-lspconfig.nvim" },
+    dependencies = { "williamboman/mason-lspconfig.nvim", "saghen/blink.cmp" },
     config = function()
       setup_diagnostics()
       setup_lsp_attach()
@@ -216,7 +191,7 @@ return {
       })
 
       -- 全サーバ共通のデフォルト（キーマップは LspAttach で設定）
-      vim.lsp.config("*", { capabilities = make_capabilities() })
+      vim.lsp.config("*", { capabilities = require("blink.cmp").get_lsp_capabilities() })
 
       for name, config in pairs(servers) do
         vim.lsp.config(name, config)

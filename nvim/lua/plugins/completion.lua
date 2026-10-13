@@ -1,13 +1,10 @@
--- 補完エンジン（config/options.lua の vim.g.completion_engine で切り替え）
---   "blink" / "cmp" / "native" を実際に試して比較し、気に入った方に決めたら
--- 不要なプラグインをここから削除する。"native" は lua/plugins/lsp.lua の LspAttach で有効化。
+-- 補完: blink.cmp（LSP / パス / バッファ / スニペット、入力中のシグネチャ表示）
 return {
   -- blink.cmp: LSP capabilities を起動時に取得するため遅延読み込みしない
   {
     "saghen/blink.cmp",
     version = "1.*",
     lazy = false,
-    enabled = vim.g.completion_engine == "blink",
     dependencies = { "rafamadriz/friendly-snippets" },
     opts = {
       keymap = {
@@ -36,82 +33,5 @@ return {
       cmdline = { enabled = false },
       fuzzy = { implementation = "prefer_rust_with_warning" },
     },
-  },
-
-  -- nvim-cmp（従来の構成）
-  {
-    "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
-    enabled = vim.g.completion_engine == "cmp",
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "saadparwaiz1/cmp_luasnip",
-      "L3MON4D3/LuaSnip",
-      "rafamadriz/friendly-snippets",
-      "onsails/lspkind.nvim",
-    },
-    config = function()
-      local cmp = require("cmp")
-      local luasnip = require("luasnip")
-      local lspkind = require("lspkind")
-
-      -- friendly-snippetsを読み込む
-      require("luasnip.loaders.from_vscode").lazy_load()
-
-      cmp.setup({
-        snippet = {
-          expand = function(args)
-            luasnip.lsp_expand(args.body)
-          end,
-        },
-        mapping = cmp.mapping.preset.insert({
-          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-f>"] = cmp.mapping.scroll_docs(4),
-          ["<C-Space>"] = cmp.mapping.complete(),
-          ["<C-e>"] = cmp.mapping.abort(),
-          ["<CR>"] = cmp.mapping.confirm({ select = true }),
-          -- Tab: nvim-cmpの補完を選択
-          ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
-              luasnip.expand_or_jump()
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-          ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-              luasnip.jump(-1)
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-        }),
-        sources = cmp.config.sources({
-          { name = "lazydev", group_index = 0 },  -- Lua の require("...") でモジュール名を補完
-          { name = "nvim_lsp" },
-          { name = "luasnip" },
-          { name = "path" },
-        }, {
-          { name = "buffer" },
-        }),
-        formatting = {
-          format = lspkind.cmp_format({
-            mode = "symbol_text",
-            maxwidth = 50,
-            ellipsis_char = "...",
-          })
-        },
-        window = {
-          completion = cmp.config.window.bordered(),
-          documentation = cmp.config.window.bordered(),
-        },
-      })
-    end,
   },
 }
