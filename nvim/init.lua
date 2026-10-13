@@ -1,17 +1,8 @@
--- 基本設定
-require("settings")
+-- 基本設定（リーダーキーと補完エンジンの選択を含むため、プラグインより先に読み込む）
+require("config.options")
 
 -- キーマッピング
-require("keymaps")
+require("config.keymaps")
 
--- プラグイン管理
-require("plugins")
-
--- プラグイン個別設定
-require("plugin-config")
-
--- LSP診断（デバッグ用）
-require("lsp-debug")
-
--- Neovide GUI 専用設定
-require("neovide")
+-- プラグイン管理（lazy.nvim）。各プラグインの設定は lua/plugins/*.lua に置く
+require("config.lazy")

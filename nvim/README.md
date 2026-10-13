@@ -5,16 +5,17 @@
 ## 特徴
 
 ### LSP・補完
-- **Mason**: LSPサーバー、フォーマッター、リンターの統合管理
-- **nvim-lspconfig**: Python (pyright), TypeScript (ts_ls), Go (gopls), Lua (lua_ls)
-- **nvim-cmp**: LSP補完 + LuaSnip統合
-- **LuaSnip**: スニペットエンジン
-- **lsp_signature.nvim**: 関数シグネチャのヘルプ表示
+- **LSP**: Neovim ネイティブの `vim.lsp.config` / `vim.lsp.enable`（nvim-lspconfig はプリセットの供給元として利用）
+  - Python (pyright), TypeScript (ts_ls), Go (gopls), Lua (lua_ls)
+- **Mason**: LSPサーバー、フォーマッター、リンターのインストール管理
+- **lazydev.nvim**: Neovim の Lua 設定を書くときに、`vim.*` やプラグインの型定義を lua_ls に渡す
+- **blink.cmp**: 補完（LSP / パス / バッファ / スニペット、シグネチャ表示）
+  - `lua/config/options.lua` の `vim.g.completion_engine` で `"blink"` / `"cmp"`（nvim-cmp）/ `"native"` を切り替え可能
 
 ### フォーマット・リント
 - **conform.nvim**: 手動フォーマット（`<leader>fm`）
-  - Python: black, isort
-  - TypeScript/JavaScript: prettier
+  - Python: ruff_format
+  - TypeScript/JavaScript/Markdown: prettier
   - Go: gofumpt, goimports
   - Lua: stylua
 - **nvim-lint**: リアルタイムリント
@@ -22,18 +23,19 @@
   - TypeScript/JavaScript: eslint_d
   - Go: golangci-lint
 
-### UI・編集支援
+### UI
+- **nightfox.nvim**: カラースキーム（duskfox）
 - **lualine.nvim**: ステータスライン
-- **nvim-notify**: 通知UI改善
-- **dressing.nvim**: 入力UIの改善（Telescope統合）
-- **indent-blankline.nvim**: インデントガイド
+- **snacks.nvim**: 通知、入力UI（`vim.ui.input`）、選択UI（`vim.ui.select`）、インデントガイド
+- **which-key.nvim**: 押しかけのキーに続く候補をポップアップ表示
 - **nvim-treesitter**: 構文ハイライト・コード解析
-- **gitsigns.nvim**: Git統合（差分表示、ハンクナビゲーション、blame）
 
 ### ファイル管理・検索
+- **oil.nvim**: ディレクトリをバッファとして編集（リネーム・削除・コピーを編集 → `:w` で実行）
 - **neo-tree.nvim**: ファイルツリー
 - **telescope.nvim**: ファジーファインダー
 - **aerial.nvim**: シンボルアウトライン
+- **vim-eunuch**: `:Rename` / `:Move` / `:Delete` などのファイル操作コマンド
 
 ### 編集支援
 - **nvim-autopairs**: 括弧自動補完
@@ -53,93 +55,60 @@
 
 ## 初回セットアップ
 
-### 1. Neovimを起動
-
 ```bash
 nvim
 ```
 
-初回起動時、lazy.nvimが自動的にプラグインをインストールします。
+初回起動時に以下が自動で行われます：
 
-### 2. 必要なツールの自動インストール
-
-初回起動時にMasonが以下のツールを自動インストールします：
-
-**フォーマッター:**
-- black, isort (Python)
-- prettier (TypeScript/JavaScript/Markdown)
-- gofumpt, goimports (Go)
-- stylua (Lua)
-
-**リンター:**
-- ruff (Python)
-- eslint_d (TypeScript/JavaScript)
-- golangci-lint (Go)
-
-### 3. LSPサーバーの自動インストール
-
-以下のLSPサーバーが自動インストールされます：
-- pyright (Python)
-- ts_ls (TypeScript/JavaScript)
-- gopls (Go)
-- lua_ls (Lua)
-
-### 4. TreeSitterのパーサー
-
-以下の言語のパーサーが自動インストールされます：
-- python, typescript, javascript, go, lua, markdown
+1. lazy.nvim がプラグインをインストール
+2. Mason がツールをインストール
+   - フォーマッター: prettier, gofumpt, goimports, stylua
+   - リンター: ruff, eslint_d, golangci-lint
+3. mason-lspconfig が LSP サーバーをインストール: pyright, ts_ls, gopls, lua_ls
+4. TreeSitter のパーサーをインストール: python, typescript, javascript, go, lua, markdown
 
 ## 主要キーマップ
 
-### リーダーキー
-デフォルトは `\` (バックスラッシュ)
+リーダーキーは `<Space>`。キーを押して少し待つと which-key が続きのキーを表示します。
 
-### バッファ操作
-- `<Tab>` / `<S-Tab>`: 次/前のバッファに移動
+### バッファ・タブ
+- `<Tab>` / `<S-Tab>`: 次/前のバッファ
+- `tc`: 新しいタブ / `tx`: タブを閉じる
+- `tn` / `tl`: 次のタブ / `tp` / `th`: 前のタブ
 
 ### ファイル操作
-- `-`: Neo-tree トグル
-- `<leader>ff`: ファイル検索 (Telescope)
-- `<leader>fg`: grep検索 (Telescope)
-- `<leader>fb`: バッファ一覧 (Telescope)
-- `<leader>fr`: 最近使ったファイル (Telescope)
-- `<leader>fc`: コマンド一覧 (Telescope)
+- `-`: oil で現在のファイルのディレクトリを開く（oil 内で `-` を押すとさらに親へ）
+- `<leader>e`: Neo-tree トグル
+- `<leader>ff`: ファイル検索 / `<leader>fg`: grep検索 / `<leader>fb`: バッファ一覧
+- `<leader>fr`: 最近使ったファイル / `<leader>fc`: コマンド一覧 / `<leader>fh`: ヘルプ
+- `<leader>fk`: キーマップ一覧（snacks picker）
 
-**Neo-tree内のキーマップ:**
-- `Enter`: ファイルを新しいタブで開く
-- `l`: ディレクトリを展開/ファイルを開く
-- `o`: 現在のバッファで開く
-- `h`: 親ディレクトリに移動
-- `s`: 垂直分割で開く
-- `S`: 水平分割で開く
-- `t`: 新しいタブで開く
-- `a`: ファイル作成
-- `A`: ディレクトリ作成
-- `d`: 削除
-- `r`: リネーム
-- `q`: 閉じる
+**oil 内のキーマップ:** `<CR>` 開く、`-` 親ディレクトリ、`_` cwd を開く、`g.` 隠しファイル切替、
+`<C-s>` 垂直分割で開く、`<C-t>` タブで開く、`<C-p>` プレビュー、`g?` ヘルプ
 
-### LSP
-- `gd`: 定義へジャンプ
-- `gD`: 宣言へジャンプ
-- `gi`: 実装へジャンプ
-- `gr`: 参照を表示
-- `gt`: 型定義へジャンプ
+**Neo-tree 内のキーマップ:** `Enter` / `l` 新しいタブで開く、`o` 現在のバッファで開く、`h` 親ディレクトリ、
+`s` / `S` 垂直/水平分割、`a` / `A` ファイル/ディレクトリ作成、`d` 削除、`r` リネーム、`q` 閉じる
+
+### LSP（Neovim 標準キー + `gd` / `gD`）
+- `gd`: 定義へジャンプ / `gD`: 宣言へジャンプ（`<C-]>` でも定義へジャンプ）
 - `K`: ホバー情報
-- `gh`: シグネチャヘルプ
-- `<C-k>`: シグネチャヘルプ
-- `<leader>rn`: リネーム
-- `<leader>ca`: コードアクション
-- `<leader>fm`: フォーマット
+- `grn`: リネーム / `gra`: コードアクション / `grr`: 参照一覧
+- `gri`: 実装へジャンプ / `grt`: 型定義へジャンプ / `gO`: シンボル一覧
+- `<C-k>`: シグネチャヘルプ（挿入モードでは blink.cmp が自動表示、`<C-s>` でも表示）
 - `[d` / `]d`: 前/次の診断
-- `<leader>d`: 診断を浮動ウィンドウで表示
-- `<leader>q`: 診断をロケーションリストに追加
+- `<leader>d`: 診断を浮動ウィンドウで表示 / `<leader>q`: 診断をロケーションリストへ
+- `<leader>fm`: フォーマット
+
+### 補完（blink.cmp）
+- `<Tab>` / `<S-Tab>`: 候補の選択、スニペット内の移動
+- `<CR>`: 確定（未選択なら先頭の候補）
+- `<C-Space>`: 補完を表示 / `<C-e>`: 閉じる / `<C-b>` / `<C-f>`: ドキュメントのスクロール
 
 ### 移動（flash.nvim）
 - `s`: Flash検索（検索パターン入力 → ラベルでジャンプ）
 - `S`: Flash Treesitter（構文ツリーベース移動）
-- `f{char}`: 拡張文字検索（該当文字にラベル表示）
-- `t{char}`: 拡張文字検索（該当文字の前にラベル表示）
+- `f{char}` / `t{char}`: 拡張文字検索（該当文字にラベル表示）
 
 ### ヤンク履歴
 - `p` / `P`: ペースト（ヤンク履歴対応）
@@ -148,63 +117,69 @@ nvim
 
 ### Git
 - `]c` / `[c`: 次/前のハンク
-- `<leader>hs`: ハンクをステージ
-- `<leader>hr`: ハンクをリセット
-- `<leader>hu`: ハンクのステージを取り消し
-- `<leader>hp`: ハンクをプレビュー
-- `<leader>hb`: blame表示
-- `<leader>hd`: diff表示
-
-### タブ操作
-- `tc`: 新しいタブを作成
-- `tx`: タブを閉じる
-- `tn` / `tl`: 次のタブ
-- `tp` / `th`: 前のタブ
+- `<leader>hs`: ハンクをステージ（ステージ済みなら取り消し）
+- `<leader>hr`: ハンクをリセット / `<leader>hp`: プレビュー
+- `<leader>hb`: blame表示 / `<leader>hd`: diff表示
+- `:G`: fugitive のステータス画面
 
 ### TODO コメント
-- `<leader>ft`: TODOコメント検索 (Telescope)
-- `<leader>fT`: TODO/FIX/FIXMEを検索
+- `<leader>ft`: TODOコメント検索 / `<leader>fT`: TODO/FIX/FIXMEを検索
 - `]t` / `[t`: 次/前のTODOコメント
 
 ### その他
 - `<leader>a`: Aerial（シンボルアウトライン）トグル
-- `<leader>xx`: Trouble（診断一覧）トグル
-- `<leader>xd`: Trouble（現在のバッファの診断）
-- `<leader>xl`: Trouble（ロケーションリスト）
-- `<leader>xq`: Trouble（クイックフィックス）
+- `<leader>xx` / `<leader>xd`: Trouble（全体 / 現在のバッファの診断）
+- `<leader>xl` / `<leader>xq`: Trouble（ロケーションリスト / クイックフィックス）
 - `<leader>r`: 現在のファイルを実行
+- `<leader>n`: 通知履歴
 - `<C-\>`: ターミナルトグル
-- `gcc`: 行コメントトグル
-- `gc`: ビジュアルモードでコメントトグル
+- `gcc`: 行コメントトグル / `gc`: ビジュアルモードでコメントトグル
 
 ## ファイル構造
 
 ```
 .
-├── init.lua              # エントリーポイント
+├── init.lua                 # エントリーポイント
 ├── lua/
-│   ├── settings.lua      # 基本設定
-│   ├── keymaps.lua       # キーマップ
-│   ├── plugins.lua       # プラグイン定義
-│   ├── plugin-config.lua # プラグイン設定
-│   └── lsp-debug.lua     # LSPデバッグ用
-└── README.md             # このファイル
+│   ├── config/
+│   │   ├── options.lua      # 基本設定（リーダーキー、補完エンジンの選択）
+│   │   ├── keymaps.lua      # キーマップ
+│   │   └── lazy.lua         # lazy.nvim のセットアップ
+│   └── plugins/             # プラグイン定義と設定（lazy.nvim の spec。1 ファイル = 1 分野）
+│       ├── colorscheme.lua
+│       ├── ui.lua           # snacks, lualine, which-key
+│       ├── editor.lua       # autopairs, surround, flash, yanky, Comment, todo-comments
+│       ├── lsp.lua          # mason, LSP, 診断, lazydev
+│       ├── completion.lua   # blink.cmp / nvim-cmp
+│       ├── formatting.lua   # conform, nvim-lint
+│       ├── treesitter.lua
+│       ├── files.lua        # oil, neo-tree, telescope, aerial, vim-eunuch
+│       ├── git.lua          # gitsigns, fugitive
+│       └── tools.lua        # trouble, toggleterm
+└── README.md
 ```
+
+プラグインの設定は lazy.nvim の `opts` / `config` に書いているため、
+`cmd` / `event` / `keys` で指定したタイミングまで読み込まれません（起動の高速化）。
 
 ## トラブルシューティング
 
 ### LSPが動作しない
 1. Masonでサーバーがインストールされているか確認：`:Mason`
-2. LSPクライアントが起動しているか確認：`:LspInfo`
-3. LSP通知を確認（起動時に"LSP attached: ..."と表示される）
+2. LSPの状態を確認：`:checkhealth vim.lsp`
+3. LSP通知を確認（起動時に"LSP attached: ..."と表示される。`<leader>n` で履歴）
 
 ### フォーマッターが動作しない
 1. Masonでフォーマッターがインストールされているか確認：`:Mason`
 2. conform.nvimの設定を確認：`:ConformInfo`
 
 ### 補完が表示されない
-1. nvim-cmpが読み込まれているか確認：`:lua print(vim.inspect(require('cmp')))`
-2. LSPが起動しているか確認：`:LspInfo`
+1. blink.cmp の状態を確認：`:checkhealth blink.cmp`
+2. LSPが起動しているか確認：`:checkhealth vim.lsp`
+
+### キーマップが効かない・衝突している
+- `:checkhealth which-key`: 重複・衝突しているキーマップを表示
+- `:verbose nmap <キー>`: そのキーがどこで定義されたかを表示
 
 ### プラグインの管理
 - `:Lazy`: プラグイン管理画面を開く
@@ -215,18 +190,12 @@ nvim
 ## 必要な外部ツール
 
 - **cmake**: telescope-fzf-native.nvimのビルドに必要
+- **ripgrep**: Telescope の live_grep と todo-comments の検索に必要
 - その他のツール（LSP、フォーマッター、リンター）はMasonで自動インストール
 
 ## カスタマイズ
 
-各ファイルを編集してカスタマイズできます：
-
-- **キーマップ**: `lua/keymaps.lua`
-- **基本設定**: `lua/settings.lua`
-- **プラグイン追加**: `lua/plugins.lua`
-- **プラグイン設定**: `lua/plugin-config.lua`
-
-## カラースキーム
-
-デフォルトは **duskfox**（nightfox.nvimテーマ）を使用しています。
-変更する場合は `lua/plugin-config.lua` の最終行を編集してください。
+- **キーマップ**: `lua/config/keymaps.lua`
+- **基本設定**: `lua/config/options.lua`
+- **プラグイン追加・設定**: `lua/plugins/` 以下の該当ファイル（新しいファイルを置けば自動で読み込まれる）
+- **カラースキーム**: `lua/plugins/colorscheme.lua`
