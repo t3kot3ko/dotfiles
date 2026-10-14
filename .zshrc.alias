@@ -13,9 +13,6 @@ alias l="less"
 alias p="pwd"
 alias xg="xargs grep"
 
-# use 256-colors mode
-alias tmux='tmux -2' 
-
 alias rr="source ~/.zshrc"
 alias reload='clear; exec zsh -l'
 

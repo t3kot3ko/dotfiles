@@ -32,12 +32,12 @@ if [ -d $ANDROID_NDK_HOME ]; then
 fi
 
 ## direnv
-if $(whence direnv > /dev/null); then
+if (( $+commands[direnv] )); then
   eval "$(direnv hook zsh)"
 fi
 
 ## Java
-if $(whence java 2>&1 > /dev/null); then
+if (( $+commands[java] )); then
     # Automatically set JAVA_HOME
     if [[ -e $HOME/.asdf/plugins/java/set-java-home.zsh ]]; then
         . $HOME/.asdf/plugins/java/set-java-home.zsh
@@ -54,14 +54,16 @@ export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 ## homebrew (linux)
-if [[ $(uname) == "Linux" ]]; then
-  if $(whence /home/linuxbrew/.linuxbrew/bin/brew >/dev/null); then
+if [[ $OSTYPE == linux* ]]; then
+  if [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
   fi
 fi
 
 ## GitHub CLI
-if $(whence gh > /dev/null); then
+# Homebrew の gh は補完（_gh）を site-functions に同梱しており compinit で登録済み。
+# 登録されていない環境だけ生成する（gh completion は 1 回 80〜150ms かかる）
+if (( $+commands[gh] && ! $+_comps[gh] )); then
   eval "$(gh completion -s zsh)"
 fi
 

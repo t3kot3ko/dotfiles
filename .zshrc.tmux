@@ -1,29 +1,4 @@
-tmux source ${HOME}/.tmux.blue.conf
-
-# Set T as prefix
-tmux set -g prefix C-t;
-tmux unbind C-t
-tmux bind C-t last-window
-
-if [[ $(uname) == "Darwin" ]]; then
-    if [[ -v SSH_CONNECTION ]]; then
-        tmux source ${HOME}/.tmux.green.conf
-
-        # Set G as prefix
-        tmux set -g prefix C-g;
-        tmux unbind C-t
-        tmux bind C-g last-window
-    fi
-else 
-    if [[ -h ${SSH_TTY} || "${SSH_TTY}" != "" ]]; then
-        tmux source ${HOME}/.tmux.green.conf
-
-        # Set G as prefix
-        tmux set -g prefix C-g;
-        tmux unbind C-t
-        tmux bind C-g last-window
-    fi 
-fi
+# テーマ（青/緑）と prefix（C-t/C-g）の切り替えは .tmux.conf の apply-theme で行う
 
 # Start tmux at the same time when new shell session starts
 

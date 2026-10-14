@@ -1,8 +1,9 @@
 # Alias
 [ -e ~/.zshrc.alias ] && source ~/.zshrc.alias
 
-if type brew &>/dev/null; then
-    FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+# brew --prefix を呼ぶと毎回 40ms ほどかかるため、brew の実体の場所（<prefix>/bin/brew）から求める
+if (( $+commands[brew] )); then
+    FPATH="${commands[brew]:h:h}/share/zsh/site-functions:${FPATH}"
 fi
 
 fpath=(~/.local/share/sheldon/repos/github.com/mollifier/cd-gitroot $fpath)
@@ -11,19 +12,26 @@ autoload -Uz cd-gitroot
 
 # Initialize completion system (optimized for performance)
 # Only regenerate .zcompdump once a day
+#   [[ -n file(#q...) ]] の中ではグロブが展開されず条件が常に真になるため、無名関数の引数で判定する
+#   （24 時間以上前のダンプがあれば $# = 1）。ダンプが無いときは compinit -C でも新規作成される
+#   内容が変わらないと compinit はダンプを書き直さず mtime が古いままになるので、touch で更新する
 autoload -Uz compinit
-if [[ -n ${HOME}/.zcompdump(#qN.mh+24) ]]; then
-  compinit
-else
-  compinit -C
-fi
-
-# zsh-autosuggestions: limit search buffer to avoid lag on large history
-ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
-ZSH_AUTOSUGGEST_USE_ASYNC=true
+() {
+  if (( $# )); then
+    compinit && touch "$1"
+  else
+    compinit -C
+  fi
+} ${ZDOTDIR:-$HOME}/.zcompdump(N.mh+24)  # compinit の既定の保存先と同じ
 
 # Plugins (Sheldon)
 eval "$(sheldon source)"
+
+# atuin（履歴検索, Ctrl-R）
+#   sheldon でリポジトリを clone せず、brew でインストールした本体の初期化スクリプトを使う（本体とバージョンが揃う）
+if (( $+commands[atuin] )); then
+  eval "$(atuin init zsh)"
+fi
 
 # Esc の誤解釈を防ぐため、タイムアウトを短縮（デフォルト 400ms → 50ms）
 KEYTIMEOUT=5
@@ -60,7 +68,7 @@ bindkey -M viins '\e' _zle_vi_escape
 [ -e ~/.zshrc.custom ] && source ~/.zshrc.custom
 
 # fzf custom commands
-if $(whence fzf > /dev/null) && [ -e $HOME/.zshrc.fzf  ]; then
+if (( $+commands[fzf] )) && [ -e $HOME/.zshrc.fzf  ]; then
 	source $HOME/.zshrc.fzf
 fi
 
@@ -76,10 +84,11 @@ fi
 # asdf
 export ASDF_DATA_DIR="${HOME}/.asdf"
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
--
 
 # Prompt (Starship)
 eval "$(starship init zsh)"
+# 右プロンプトはフルパスだけなので starship を使わずに zsh で表示する（プロンプトごとの starship の起動が 1 回で済む）
+RPROMPT='[%~]'
 
 # zoxide (https://github.com/ajeetdsouza/zoxide)
 eval "$(zoxide init zsh --cmd d)"

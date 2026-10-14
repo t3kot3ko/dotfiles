@@ -1,5 +1,5 @@
 # Use Rust command line tools (eza - modern ls replacement)
-if $(whence eza > /dev/null); then
+if (( $+commands[eza] )); then
 	alias ls="eza"
 	alias ll="eza -la --git --icons"
 	alias la="eza -a --icons"
@@ -7,91 +7,47 @@ if $(whence eza > /dev/null); then
 	alias l="eza -l --icons"
 fi
 
-if $(whence fd > /dev/null); then
+if (( $+commands[fd] )); then
 	alias find="fd"
 fi
 
-if $(whence delta > /dev/null); then
+if (( $+commands[delta] )); then
 	alias diff="delta"
 fi
 
-if $(whence rg > /dev/null); then
+if (( $+commands[rg] )); then
 	alias grep="rg"
 fi
 
 
-
-
-# alias ls='ls --color=auto'
-# alias ll='ls -al'
-alias grep="grep --color=auto"
-
-alias cp="cp -i"
-alias mv="mv -i"
-alias rm="rm -i"
-
-alias g="git"
-alias dh="cd .."
-alias dr="cd-gitroot"
-alias l="less"
-alias p="pwd"
-alias xg="xargs grep"
-
-# use 256-colors mode
-alias tmux='tmux -2' 
-
-alias rr="source ~/.zshrc"
-alias reload='clear; exec zsh -l'
-
-alias v="vim"
-
-alias _="sudo"
-alias __="command"
-
-alias be="bundle exec"
-
-# Global alias 
-## Select git branch (global alias)
-### local branches
-alias -g B='`git branch | fzf | sed -e "s/^\*[ ]*//g"`'
-### all branches (including remote branches)
-alias -g BB='`git branch -a | fzf | sed -e "s/^\*[ ]*//g"`'
-### list modified files
-alias -g F='`git status --short | fzf -m | cut -d" " -f3`'
-## adb
-alias -g ADB='`adb devices | grep -v "List of devices" | egrep -v "^\s*$" | fzf --prompt="Device ID>"  | sed "s/device//g"`'
-
-
 # Use xdg-open as "open" for Linux
-if [[ $(uname) == "Linux" ]]; then
-	if $(whence xdg-open >/dev/null); then
+if [[ $OSTYPE == linux* ]]; then
+	if (( $+commands[xdg-open] )); then
 		alias open=xdg-open
 	fi
 fi
 
-if $(whence bat > /dev/null); then
+if (( $+commands[bat] )); then
 	alias b="bat"
-elif $(whence batcat > /dev/null); then
+elif (( $+commands[batcat] )); then
 	alias b="batcat"
 else
 	alias b="cat"
 fi
 
 # jq
-if whence jq > /dev/null 2>/dev/null; then
+if (( $+commands[jq] )); then
 	alias jqd="jq ."
 fi
 
 # extract
-if $(whence extract > /dev/null); then
+if (( $+functions[extract] )); then  # zsh-extract プラグインの関数
 	alias x=extract
 fi
 
 
 # vim/nvim
-if $(whence nvim > /dev/null); then
+if (( $+commands[nvim] )); then
 	alias vim=nvim
 	export EDITOR=nvim
 fi
-	
-
