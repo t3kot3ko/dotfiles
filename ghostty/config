@@ -9,6 +9,7 @@ theme = "Duskfox"
 
 background-opacity = 0.85
 background-blur = 10
+background-opacity-cells = true
 
 font-thicken = true
 font-thicken-strength = 1
