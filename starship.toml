@@ -4,7 +4,7 @@
 # Inserts a blank line between shell prompts
 add_newline = false
 format = '$character$directory$git_branch'
-# 右プロンプト（フルパス）は .zshrc で RPROMPT='[%~]' として zsh 側で表示する
+# 右プロンプト（実行時間・終了コード・ジョブ数・フルパス）は .zshrc の RPROMPT で zsh 側で表示する
 
 # Replace the '❯' symbol in the prompt with '➜'
 [character] # The name of the module we are configuring is 'character'

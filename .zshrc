@@ -87,8 +87,29 @@ export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 # Prompt (Starship)
 eval "$(starship init zsh)"
-# 右プロンプトはフルパスだけなので starship を使わずに zsh で表示する（プロンプトごとの starship の起動が 1 回で済む）
-RPROMPT='[%~]'
+# 右プロンプトは zsh の書式だけで表示する（starship を右用に起動しないので、プロンプトごとの starship の起動が 1 回で済む）
+#   2 秒以上かかったときの実行時間（took 1m5s など）、失敗したときの終了コード（✘127 など）、
+#   バックグラウンドのジョブ数（✦1）、フルパスの順。前の 3 つは該当するときだけ出る
+zmodload zsh/datetime
+autoload -Uz add-zsh-hook
+function _cmd_duration_preexec() { _cmd_start=$EPOCHREALTIME }
+function _cmd_duration_precmd() {
+  _cmd_took=
+  [[ -n $_cmd_start ]] || return
+  local -i s=$(( EPOCHREALTIME - _cmd_start ))
+  _cmd_start=
+  (( s >= 2 )) || return
+  local t
+  (( s >= 3600 )) && t+="$(( s / 3600 ))h"
+  (( s >= 60 )) && t+="$(( s % 3600 / 60 ))m"
+  t+="$(( s % 60 ))s"
+  _cmd_took="%F{yellow}took $t%f "
+}
+add-zsh-hook preexec _cmd_duration_preexec
+add-zsh-hook precmd _cmd_duration_precmd
+RPROMPT='${_cmd_took}%(?..%F{red}✘%?%f )%(1j.%F{yellow}✦%j%f .)[%~]'
+# Enter を押したら、それまでの行の右プロンプトを消す（出力をコピーしたときにパスが混ざらないように）
+setopt transient_rprompt
 
 # zoxide (https://github.com/ajeetdsouza/zoxide)
 eval "$(zoxide init zsh --cmd d)"
