@@ -116,7 +116,9 @@ bindkey '^n' history-beginning-search-forward
 
 function fzf-ls-file() {
     # selected_files=$(echo $source_files | fzf --prompt "Files > ")
-    selected_files=$(ls  | fzf --prompt "Files > ")
+    # $(...) の中のエイリアスは実行時に展開されるため、ls が eza になる。eza は標準入力が端末でないと
+    # そこからパスを読もうとし、ウィジェットの中では何も表示しないので、エイリアスを使わない
+    selected_files=$(command ls | fzf --prompt "Files > ")
 
     # BUFFER="${BUFFER}${echo $selected_files | tr '\n' ' '}"
     BUFFER="${BUFFER}$selected_files"
@@ -184,7 +186,9 @@ function fzf-ctrl-l-dispatch() {
   case "$key" in
     r) zle fzf-src-show; return ;;
     b) zle fzf-git-branch; return ;;
-    B) zle fzf-git-branch-all; return ;;
+    # B はグローバルエイリアス（.zshrc.alias）なので、クォートしないと関数の定義時に
+    # `git branch | fzf ...` に展開され、case の判定のたびに fzf が起動してしまう
+    'B') zle fzf-git-branch-all; return ;;
     s) zle fzf-ls-file; return ;;
     c) zle fzf-select-docker-container; return ;;
     h) zle fzf-cdr; return ;;
